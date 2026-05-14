@@ -4,88 +4,15 @@
 [![npm version](https://img.shields.io/npm/v/@openephemeris/mcp-server)](https://www.npmjs.com/package/@openephemeris/mcp-server)
 [![System Status](https://img.shields.io/badge/Status-Operational-brightgreen)](https://status.openephemeris.com/)
 
-**The deterministic math co-pilot for AI agents.** 52 typed astrology tools powered by the NASA JPL DE440 ephemeris — zero hallucination on planetary positions, dates, and degrees, spanning 1,100 years of astronomical data.
+Model Context Protocol server for OpenEphemeris — 52 typed astrology tools powered by the NASA JPL DE440 ephemeris. Zero hallucination on planetary positions, dates, and degrees. Covers 1,100 years of astronomical data.
 
-> **Hosted endpoint:** `https://mcp.openephemeris.com/mcp` (Streamable HTTP, MCP 2025-11-25 spec)
+**Hosted endpoint:** `https://mcp.openephemeris.com/mcp` (Streamable HTTP, MCP 2025-11-25 spec)
 
----
+## Quick Start
 
-## 🛑 The Problem: LLMs Hallucinate Math
+### Install via Smithery (recommended)
 
-Standard LLMs (Claude, GPT-4, Gemini) are incredible at text, but they are inherently unreliable at spatial math, orbital mechanics, and temporal geometry. Ask an LLM to calculate a planetary transit, a natal chart, or an exact eclipse time, and it will confidently guess — hallucinating degrees, dates, and coordinates.
-
-## 🟢 The Solution: Deterministic Ephemeris
-
-By connecting the OpenEphemeris MCP to your AI agent, you offload the complex calculations to a deterministic, high-precision API powered by NASA JPL data. Your agent stops guessing and starts fetching millisecond-accurate placements.
-
-![Claude Desktop — OpenEphemeris tool call in progress](./assets/claude-demo-thinking.png)
-
-![Claude Desktop — live Moon data via OpenEphemeris MCP](./assets/claude-demo-moon.png)
-
-*Claude calling the OpenEphemeris MCP tool in real-time to return exact lunar RA, declination, phase, and illumination — live from the NASA JPL ephemeris.*
-
----
-
-## ⚡ Quick Start (Zero Installation)
-
-Add one block to your AI client config to give your agent instant astronomical capabilities. No Python environment. No local install.
-
-### Claude Desktop / Cursor / Windsurf
-
-Add to your `claude_desktop_config.json` (or equivalent MCP config):
-
-```json
-{
-  "mcpServers": {
-    "openephemeris": {
-      "command": "npx",
-      "args": ["-y", "@openephemeris/mcp-server"],
-      "env": {
-        "OPENEPHEMERIS_PROFILE": "dev",
-        "OPENEPHEMERIS_BACKEND_URL": "https://api.openephemeris.com",
-        "OPENEPHEMERIS_API_KEY": "YOUR_API_KEY_HERE"
-      }
-    }
-  }
-}
-```
-
-Get your free API key at **[openephemeris.com/dashboard](https://openephemeris.com/dashboard)**.
-
-**Config file locations:**
-
-| Client | Config location |
-|---|---|
-| Claude Desktop (macOS) | `~/Library/Application Support/Claude/claude_desktop_config.json` |
-| Claude Desktop (Windows) | `%APPDATA%\Claude\claude_desktop_config.json` |
-| Cursor | `~/.cursor/mcp.json` |
-| Windsurf | `~/.codeium/windsurf/mcp_config.json` |
-
-### One-click install (Cursor)
-
-<!-- GENERATED:CURSOR_INSTALL:BEGIN -->
-[![Install in Cursor](https://img.shields.io/badge/Install%20in-Cursor-1f6feb)](cursor://anysphere.cursor-deeplink/mcp/install?name=openephemeris&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBvcGVuZXBoZW1lcmlzL21jcC1zZXJ2ZXIiXSwiZW52Ijp7Ik9QRU5FUEhFTUVSSVNfUFJPRklMRSI6ImRldiIsIk9QRU5FUEhFTUVSSVNfQkFDS0VORF9VUkwiOiJodHRwczovL2FwaS5vcGVuZXBoZW1lcmlzLmNvbSIsIk9QRU5FUEhFTUVSSVNfQVBJX0tFWSI6IllPVVJfQVBJX0tFWV9IRVJFIn19)
-
-> Replace `YOUR_API_KEY_HERE` in Cursor MCP settings with your API key from https://openephemeris.com/dashboard.
-
-Cursor deeplink payload:
-```json
-{
-  "command": "npx",
-  "args": [
-    "-y",
-    "@openephemeris/mcp-server"
-  ],
-  "env": {
-    "OPENEPHEMERIS_PROFILE": "dev",
-    "OPENEPHEMERIS_BACKEND_URL": "https://api.openephemeris.com",
-    "OPENEPHEMERIS_API_KEY": "YOUR_API_KEY_HERE"
-  }
-}
-```
-<!-- GENERATED:CURSOR_INSTALL:END -->
-
-### Install via Smithery
+The fastest way to connect any MCP-compatible client:
 
 ```bash
 npx -y @smithery/cli install @open-ephemeris/openephemeris --client claude
@@ -93,113 +20,9 @@ npx -y @smithery/cli install @open-ephemeris/openephemeris --client claude
 
 Or browse the listing and copy connection snippets: **[smithery.ai/servers/open-ephemeris/openephemeris](https://smithery.ai/servers/open-ephemeris/openephemeris)**
 
-### Remote clients (Claude Web, ChatGPT, etc.)
-
-The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable HTTP support. Remote-only clients can connect directly — no bridge or proxy required:
-
-- **Claude Web**: Add `https://mcp.openephemeris.com/mcp` as a remote MCP server with `X-API-Key: your-key` header
-- **Via Smithery**: Use the [Smithery listing](https://smithery.ai/servers/open-ephemeris/openephemeris) for managed connections
-- **Legacy SSE**: `https://mcp.openephemeris.com/sse` remains available for SSE-only clients
-
-> **Detailed setup walkthroughs** for each platform are in [SETUP.md](./SETUP.md).
-
 ---
 
-## 🪄 Magic Prompts — Test Your Agent Instantly
-
-Once installed, paste any of these directly into Claude, Cursor, or Windsurf to see the MCP in action:
-
-**🌙 Basic Data Test**
-> *"What is the exact right ascension, declination, and illumination percentage of the Moon right now?"*
-
-**🪐 Complex Analysis Test**
-> *"Calculate the exact planetary placements for someone born in New York City on May 15, 1990 at 8:00 AM UTC. Format the output as a neat JSON object."*
-
-**🗺️ Astrocartography Test**
-> *"Show me my Venus and Jupiter astrocartography lines. Which cities in Europe are within 3° of my Venus line?"*
-
-**⚡ Electional Test**
-> *"Find the best window in the next 30 days to sign a contract — no void-of-course Moon, no Mercury retrograde, ideally with Jupiter well-placed."*
-
-**🚀 App Generation Test**
-> *"Fetch today's moon phase and illumination percentage. Then write a single-file React component using Tailwind CSS that displays this data in a beautiful dark-mode card."*
-
----
-
-## What You Can Ask
-
-```
-"Calculate a natal chart for 1990-04-15 at 2:30 PM in Chicago."
-"Find all Saturn transits to my natal Sun in the next 6 months."
-"Get the current moon phase and void-of-course status."
-"Find the next solar eclipse visible from Tokyo."
-"Find the best time to sign a contract in March — electional window."
-"Generate a Human Design chart for my birth data."
-"What is my Vedic (sidereal) chart?"
-"Calculate my Chinese BaZi (Four Pillars) chart."
-"Show me my Astrocartography power lines — where is my Venus line on the map?"
-"Find all ACG lines within 3° of Paris for my chart."
-"Calculate a synastry chart between two people."
-"Find the next Venus Star Point and my relationship to it."
-"What are the active planetary stations in the next 3 months?"
-"Calculate primary directions for the next 5 years."
-"Find my Firdaria time lord period."
-"What is the sidereal time and delta-T right now?"
-```
-
----
-
-## 🏗️ Coming Soon: The Example Gallery
-
-We are building a suite of open-source apps demonstrating what AI agents can create with this MCP in under 60 seconds.
-
-- [ ] 🌑 **Zero-to-Live Moon Phase Tracker** (React + Tailwind)
-- [ ] ✨ **AI Astrologer / Natal Chart Generator** (Next.js + SVG)
-- [ ] 🪐 **Astrocartography Explorer** (Leaflet + MapLibre)
-- [ ] 📐 **Command-Line Ephemeris Calculator** (Python)
-
-**⭐ [Star this repo](https://github.com/openephemeris/openephemeris-MCP) to get notified when the source code drops.**
-
----
-
-## Tools at a Glance
-
-| Category | Tool | Tier |
-|---|---|---|
-| Natal chart | `ephemeris_natal_chart` | Explorer |
-| Transit forecast | `ephemeris_transits` | Explorer |
-| Transit chart snapshot | `ephemeris_natal_transits` | Explorer |
-| Moon phase / VOC | `ephemeris_moon_phase` | Explorer |
-| Eclipse next visible | `ephemeris_next_eclipse` | Explorer |
-| Electional window | `ephemeris_electional` | Developer |
-| Moment analysis | `electional_moment_analysis` | Developer |
-| Station tracker | `electional_station_tracker` | Developer |
-| Aspect search | `electional_aspect_search` | Developer |
-| Human Design chart | `human_design_chart` | Explorer |
-| HD composite | `human_design_composite` | Explorer |
-| HD penta | `human_design_penta` | Explorer |
-| HD return / opposition | `hd_planetary_return`, `hd_opposition` | Explorer |
-| Vedic chart | `vedic_chart` | Explorer |
-| BaZi (Chinese) | `chinese_bazi` | Explorer |
-| Synastry | `ephemeris_synastry` | Developer |
-| Composite chart | `ephemeris_composite` | Developer |
-| Relocation chart | `ephemeris_relocation` | Developer |
-| Progressed chart | `ephemeris_progressed_chart` | Explorer |
-| Solar return | `ephemeris_solar_return` | Developer |
-| Lunar return | `ephemeris_lunar_return` | Developer |
-| Planetary return | `ephemeris_planetary_return` | Developer |
-| Astrocartography lines | `acg_power_lines` | Developer |
-| ACG hits at location | `acg_hits` | Scale |
-| Venus Star Points | `venus_star_points` + 4 more | Explorer |
-| Chart wheel image | `ephemeris_chart_wheel` | Developer |
-| Bi-wheel image | `ephemeris_bi_wheel` | Developer |
-| Dignities / Midpoints / Fixed stars | `ephemeris_dignities`, `ephemeris_midpoints`, `ephemeris_fixed_stars` | Explorer |
-
----
-
-## Connect via Code
-
-### Vercel AI SDK
+### Connect via AI SDK (Vercel AI SDK)
 
 ```typescript
 import Smithery from "@smithery/api"
@@ -235,7 +58,7 @@ const { text } = await generateText({
 await mcpClient.close()
 ```
 
-### MCP SDK (TypeScript)
+### Connect via MCP SDK (TypeScript)
 
 ```typescript
 import Smithery from "@smithery/api"
@@ -270,7 +93,7 @@ const result = await mcpClient.callTool({
 })
 ```
 
-### Streamable HTTP (direct, no Smithery)
+### Connect directly (Streamable HTTP, no Smithery)
 
 ```typescript
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js"
@@ -287,27 +110,143 @@ await client.connect(transport)
 
 ---
 
-## Pricing
+### One-click install (Cursor)
 
-OpenEphemeris uses a Pay-As-You-Go credit system:
-- $5 for 150 credits
-- $10 for 350 credits
-- $20 for 900 credits
+<!-- GENERATED:CURSOR_INSTALL:BEGIN -->
+[![Install in Cursor](https://img.shields.io/badge/Install%20in-Cursor-1f6feb)](cursor://anysphere.cursor-deeplink/mcp/install?name=openephemeris&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBvcGVuZXBoZW1lcmlzL21jcC1zZXJ2ZXIiXSwiZW52Ijp7Ik9QRU5FUEhFTUVSSVNfUFJPRklMRSI6ImRldiIsIk9QRU5FUEhFTUVSSVNfQkFDS0VORF9VUkwiOiJodHRwczovL2FwaS5vcGVuZXBoZW1lcmlzLmNvbSIsIk9QRU5FUEhFTUVSSVNfQVBJX0tFWSI6IllPVVJfQVBJX0tFWV9IRVJFIn19)
 
-**Free Explorer Tier:** All accounts include a free tier with a daily limit of 50 requests/day.
+> Replace `YOUR_API_KEY_HERE` in Cursor MCP settings with your API key from https://openephemeris.com/dashboard.
 
----
+Cursor deeplink payload:
+```json
+{
+  "command": "npx",
+  "args": [
+    "-y",
+    "@openephemeris/mcp-server"
+  ],
+  "env": {
+    "OPENEPHEMERIS_PROFILE": "dev",
+    "OPENEPHEMERIS_BACKEND_URL": "https://api.openephemeris.com",
+    "OPENEPHEMERIS_API_KEY": "YOUR_API_KEY_HERE"
+  }
+}
+```
+<!-- GENERATED:CURSOR_INSTALL:END -->
 
-## Auth and Error Behavior
+### Manual install (stdio MCP clients)
 
-| Status | Behavior |
-|---|---|
-| `401` Missing/invalid key | Tool call returns signup/sign-in link → `openephemeris.com/login` |
-| `403` Tier-gated endpoint | Tool call returns upgrade link → `openephemeris.com/pay` |
-| `402` Quota exhausted | Tool call returns usage guidance and upgrade link |
-| `429` Rate limited | Tool call returns retry guidance and dashboard link |
+```json
+{
+  "mcpServers": {
+    "openephemeris": {
+      "command": "npx",
+      "args": ["-y", "@openephemeris/mcp-server"],
+      "env": {
+        "OPENEPHEMERIS_PROFILE": "dev",
+        "OPENEPHEMERIS_BACKEND_URL": "https://api.openephemeris.com",
+        "OPENEPHEMERIS_API_KEY": "YOUR_API_KEY_HERE"
+      }
+    }
+  }
+}
+```
 
----
+### Platform guide
+
+> **Detailed setup walkthroughs** for each platform are in [SETUP.md](./SETUP.md).
+
+| Client | Install mode | Config location |
+|---|---|---|
+| Smithery | One-click | [smithery.ai](https://smithery.ai/servers/open-ephemeris/openephemeris) |
+| Cursor | One-click deeplink or manual | `~/.cursor/mcp.json` |
+| Claude Desktop (macOS) | Manual | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Claude Desktop (Windows) | Manual | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Windsurf | Manual | `~/.codeium/windsurf/mcp_config.json` (or legacy `~/.codeium/mcp_config.json`) |
+| Claude Web / ChatGPT / remote clients | Hosted URL | `https://mcp.openephemeris.com/mcp` |
+
+### Client install walkthroughs
+
+1. Cursor
+   - Click the "Install in Cursor" button above, then replace `YOUR_API_KEY_HERE` in Cursor MCP settings.
+   - If you prefer manual setup, paste the `mcpServers.openephemeris` block from "Manual install" into `~/.cursor/mcp.json`.
+2. Claude Desktop (macOS/Windows)
+   - Open the platform config file from the table above.
+   - Add the same `mcpServers.openephemeris` block from "Manual install".
+   - Restart Claude Desktop.
+3. Windsurf
+   - Open `~/.codeium/windsurf/mcp_config.json` (or the legacy `~/.codeium/mcp_config.json` path).
+   - Add the `mcpServers.openephemeris` block from "Manual install".
+   - Restart Windsurf.
+
+### Remote-only clients (Claude Web, ChatGPT, etc.)
+
+The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable HTTP support (MCP 2025-11-25 spec). Remote-only clients can connect directly — no bridge/proxy required:
+
+- **Claude Web**: Add `https://mcp.openephemeris.com/mcp` as a remote MCP server with `X-API-Key: your-key` header
+- **Via Smithery**: Use the [Smithery listing](https://smithery.ai/servers/open-ephemeris/openephemeris) for managed connections with any client
+- **Legacy SSE**: `https://mcp.openephemeris.com/sse` remains available for SSE-only clients
+
+### Auth and upgrade behavior in MCP clients
+
+- Missing/invalid credentials (`401`): tool call fails with a message that points users to sign up/sign in at `https://openephemeris.com/login?signup=true&redirect=%2Fdashboard%3Ftab%3Daccount`, then create/manage keys in `https://openephemeris.com/dashboard?tab=account`.
+- Tier-gated endpoint (`403`): tool call returns an upgrade-required message with `https://openephemeris.com/pay` and dashboard billing/key management link.
+- Monthly quota exhausted (`402`): tool call returns usage quota guidance with both dashboard (`/dashboard?tab=account`) and upgrade (`/pay`) links.
+- Burst/rate limit (`429`): tool call returns retry guidance and links to dashboard usage monitoring.
+
+## What You Can Ask
+
+```
+"Calculate a natal chart for 1990-04-15 at 2:30 PM in Chicago."
+"Find all Saturn transits to my natal Sun in the next 6 months."
+"Get the current moon phase and void-of-course status."
+"Find the next solar eclipse visible from Tokyo."
+"Find the best time to sign a contract in March — electional window."
+"Generate a Human Design chart for my birth data."
+"What is my Vedic (sidereal) chart?"
+"Calculate my Chinese BaZi (Four Pillars) chart."
+"Show me my Astrocartography power lines — where is my Venus line on the map?"
+"Find all ACG lines within 3° of Paris for my chart."
+"Calculate a synastry chart between two people."
+"Find the next Venus Star Point and my relationship to it."
+"What are the active planetary stations in the next 3 months?"
+"Calculate primary directions for the next 5 years."
+"Find my Firdaria time lord period."
+"What is the sidereal time and delta-T right now?"
+```
+
+## Tools at a Glance
+
+| Category | Tool | Tier |
+|---|---|---|
+| Natal chart | `ephemeris_natal_chart` | Explorer |
+| Transit forecast | `ephemeris_transits` | Explorer |
+| Transit chart snapshot | `ephemeris_natal_transits` | Explorer |
+| Moon phase / VOC | `ephemeris_moon_phase` | Explorer |
+| Eclipse next visible | `ephemeris_next_eclipse` | Explorer |
+| Electional window | `ephemeris_electional` | Developer |
+| Moment analysis | `electional_moment_analysis` | Developer |
+| Station tracker | `electional_station_tracker` | Developer |
+| Aspect search | `electional_aspect_search` | Developer |
+| Human Design chart | `human_design_chart` | Explorer |
+| HD composite | `human_design_composite` | Explorer |
+| HD penta | `human_design_penta` | Explorer |
+| HD return / opposition | `hd_planetary_return`, `hd_opposition` | Explorer |
+| Vedic chart | `vedic_chart` | Explorer |
+| BaZi (Chinese) | `chinese_bazi` | Explorer |
+| Synastry | `ephemeris_synastry` | Developer |
+| Composite chart | `ephemeris_composite` | Developer |
+| Relocation chart | `ephemeris_relocation` | Developer |
+| Progressed chart | `ephemeris_progressed_chart` | Explorer |
+| Solar return | `ephemeris_solar_return` | Developer |
+| Lunar return | `ephemeris_lunar_return` | Developer |
+| Planetary return | `ephemeris_planetary_return` | Developer |
+| Astrocartography lines | `acg_power_lines` | Developer |
+| ACG hits at location | `acg_hits` | Scale |
+| Venus Star Points | `venus_star_points` + 4 more | Explorer |
+| Chart wheel image | `ephemeris_chart_wheel` | Developer |
+| Bi-wheel image | `ephemeris_bi_wheel` | Developer |
+| Dignities / Midpoints / Fixed stars | `ephemeris_dignities`, `ephemeris_midpoints`, `ephemeris_fixed_stars` | Explorer |
 
 ## Tooling Model
 
@@ -328,8 +267,6 @@ OpenEphemeris uses a Pay-As-You-Go credit system:
 | `format` | `json\|llm\|llm_v2` | No | Convenience mapping to `query.format` (`llm_v2` normalizes to `llm`) |
 | `output_mode` | `full\|simple\|llm\|llm_v2` | No | Legacy compatibility field |
 
----
-
 ## Environment Variables
 
 | Variable | Required | Description |
@@ -345,7 +282,39 @@ OpenEphemeris uses a Pay-As-You-Go credit system:
 
 Legacy aliases (`ASTROMCP_*`, `MERIDIAN_*`) remain supported.
 
----
+## Legal
+
+This package is licensed under the [MIT License](./LICENSE). However, use of this package to access the OpenEphemeris API constitutes use of the Service and is governed by the [OpenEphemeris Terms of Service](https://openephemeris.com/terms). By using this package, you agree to those terms. See also the [Privacy Policy](https://openephemeris.com/privacy) and [Acceptable Use Policy](https://openephemeris.com/acceptable-use).
+
+## Development
+
+```bash
+npm install
+npm run dev
+npm run typecheck
+npm test
+npm run regen:dev-allowlist
+npm run check:dev-allowlist
+npm run sync:readme
+npm run check:readme
+npm run verify:release
+```
+
+### Deploying the SSE Server to Fly.io
+
+When you update the MCP server logic (handlers, bug fixes, hardening), you should deploy it so clients connecting via the remote `https://mcp.openephemeris.com/mcp` endpoint get the updates immediately.
+
+1. Navigate to `apps/api/mcp-server`
+2. Run `fly deploy --remote-only`
+
+*Note on NPM:* Deploying to Fly.io instantly updates the web-accessible SSE tool. However, users installing your tool locally in Cursor/Desktop via `npx @openephemeris/mcp-server` will *only* receive the updates once a new version is published to NPM. If your changes are critical, you should bump the version in `package.json` and run `npm publish` (or your CI release pipeline) *after* deploying to Fly.
+
+`npm run verify:release` is the release gate. It checks:
+- allowlist freshness against OpenAPI
+- schema pack freshness
+- README synchronization
+- type safety + tests
+- publish tarball contents (`npm pack --dry-run --json`)
 
 ## Architecture
 
@@ -379,7 +348,29 @@ Legacy aliases (`ASTROMCP_*`, `MERIDIAN_*`) remain supported.
               └────────────────────────┘
 ```
 
----
+<!-- GENERATED:RUNTIME_SNAPSHOT:BEGIN -->
+## Runtime Snapshot (Generated)
+
+Generated by `npm run sync:readme` from `config/dev-allowlist.json` and the live tool registry.
+
+- Allowlisted operations: **28**
+- Methods: `GET=4`, `POST=24`, `PUT=0`, `PATCH=0`, `DELETE=0`
+- Registered tools (`OPENEPHEMERIS_PROFILE=dev`): **82**
+- Typed tools: `acg_hits`, `acg_power_lines`, `auth_login`, `auth_logout`, `auth_status`, `bazi_annual_pillar`, `bazi_chart`, `bazi_compatibility`, `bazi_element_balance`, `bazi_luck_pillars`, `bazi_ten_gods`, `bi_wheel_on_cross_aspect_click`, `bi_wheel_on_house_click`, `bi_wheel_on_planet_click`, `bi_wheel_recalculate`, `bi_wheel_synopsis`, `bodygraph_recalculate`, `chart_wheel_on_aspect_click`, `chart_wheel_on_house_click`, `chart_wheel_on_planet_click`, `chart_wheel_recalculate`, `chinese_bazi`, `dev_call`, `dev_list_allowed`, `electional_aspect_search`, `electional_moment_analysis`, `electional_station_tracker`, `ephemeris_angles_points`, `ephemeris_aspect_check`, `ephemeris_bi_wheel`, `ephemeris_chart_wheel`, `ephemeris_composite`, `ephemeris_composite_midpoint`, `ephemeris_dignities`, `ephemeris_electional`, `ephemeris_fixed_stars`, `ephemeris_hermetic_lots`, `ephemeris_house_cusps`, `ephemeris_lunar_return`, `ephemeris_midpoints`, `ephemeris_moon_phase`, `ephemeris_natal_batch`, `ephemeris_natal_chart`, `ephemeris_natal_transits`, `ephemeris_next_eclipse`, `ephemeris_next_lunar_phase`, `ephemeris_overlay`, `ephemeris_planet_position`, `ephemeris_planetary_return`, `ephemeris_progressed_chart`, `ephemeris_relocation`, `ephemeris_retrograde_status`, `ephemeris_solar_return`, `ephemeris_synastry`, `ephemeris_transits`, `explore_bazi_chart`, `explore_bi_wheel`, `explore_human_design`, `explore_moon_phase`, `explore_natal_chart`, `explore_transit_timeline`, `explore_vedic_chart`, `hd_on_center_click`, `hd_on_channel_click`, `hd_on_gate_click`, `hd_on_planet_click`, `hd_on_variable_click`, `hd_opposition`, `hd_planetary_return`, `human_design_bodygraph`, `human_design_chart`, `human_design_composite`, `human_design_penta`, `location_search`, `timezone_resolve`, `vedic_chart`, `venus_eight_year_star`, `venus_elongations`, `venus_phase`, `venus_star_points`, `venus_star_points_conjunctions`, `venus_stations`
+- Generic tools: 
+
+### Allowlist Families
+
+| Family | Operations | Example |
+|---|---:|---|
+| `acg` | 4 | `POST /acg/ccg`, `POST /acg/hits` |
+| `chinese` | 5 | `POST /chinese/bazi/compatibility`, `POST /chinese/bazi/element-balance` |
+| `comparative` | 5 | `POST /comparative/composite`, `POST /comparative/composite/midpoint` |
+| `electional` | 4 | `GET /electional/aspect-search`, `GET /electional/find-window` |
+| `ephemeris` | 1 | `POST /ephemeris/relocation` |
+| `predictive` | 6 | `POST /predictive/returns`, `POST /predictive/returns/lunar` |
+| `visualization` | 3 | `POST /visualization/bi-wheel`, `POST /visualization/bodygraph` |
+<!-- GENERATED:RUNTIME_SNAPSHOT:END -->
 
 ## Why OpenEphemeris for AI Agents?
 
@@ -389,9 +380,3 @@ By pairing LLMs with the OpenEphemeris MCP server, your agents can instantly acc
 - **Zero-hallucination coordinates**: Direct, sub-arcsecond NASA JPL DE440 calculations spanning 1,100 years of astronomical data.
 - **LLM-optimized tokens (`format=llm`)**: We compress standard 25,000 token JSON chart responses into minimal text blocks, cutting your inference costs by 50%.
 - **Ready-to-use astrology layers**: Built-in support for Astrocartography geoJSON lines, Hermetic Lots, Fixed Stars, and complex Human Design matrix generation.
-
----
-
-## Legal
-
-This package is licensed under the [MIT License](./LICENSE). However, use of this package to access the OpenEphemeris API constitutes use of the Service and is governed by the [OpenEphemeris Terms of Service](https://openephemeris.com/terms). By using this package, you agree to those terms. See also the [Privacy Policy](https://openephemeris.com/privacy) and [Acceptable Use Policy](https://openephemeris.com/acceptable-use).

@@ -7,6 +7,18 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [3.10.4] — 2026-04-24
+
+### Changed
+- `ephemeris_transits` tool description updated with compute surcharge and search range limit documentation
+- `dev_call` credit cost reference now includes compute surcharge information
+- Tier-based compute timeouts: Explorer 30s, Developer 120s, Startup 5m, Scale 10m for compute-heavy endpoints
+- Search range caps: `/predictive/transits/search` limited to 1y (Explorer), 5y (Developer), 10y (Startup)
+- Compute surcharges: requests exceeding 30s incur 1 additional credit per 30s of wall-clock compute
+- Daily credit caps now persistent across server restarts (PostgreSQL-backed)
+
+---
+
 ## [3.10.0] — 2026-04-23
 
 ### Added
@@ -154,7 +166,7 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 - SSE server chart wheel responses now correctly deliver native MCP image blocks instead of raw base64 JSON
 
 ### Changed
-- Explorer tier daily cap set to 50 requests/day (resets midnight UTC)
+- Explorer tier daily cap set to 50 credits/day (resets midnight UTC)
 - Catalog and metadata endpoints (`/acg/meta`, `/acg/datasets`, `/catalogs/*`) moved to free tier (0 credits)
 
 ---
