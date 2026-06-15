@@ -7,6 +7,59 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [3.15.0] — 2026-06-15
+
+### Changed
+- **`dev_call` split into `dev_read_api` (GET) and `dev_write_api` (POST/PUT/PATCH/DELETE).** Read and write now live in separate tools so a safe read surface never shares a tool with state-changing calls — required for MCP connector-directory compliance. `dev_read_api` carries `readOnlyHint: true`; `dev_write_api` carries `readOnlyHint: false`. Both name their target API explicitly.
+
+### Fixed
+- **Brand-gold WCAG AA contrast pass** across the chart-wheel, bi-wheel, and bodygraph iframes — gold accents darkened to clear AA against their backgrounds; all three apps are axe-clean.
+- **Moon-phase color cue** now encodes speed/proximity, and aspect-label contrast corrected.
+
+### Added
+- **Collapsible glyph legend** in the interactive chart iframes — keeps the wheel uncluttered while remaining one tap from a full symbol key.
+
+---
+
+## [3.14.0] — 2026-05-24
+
+### Added
+- **Fullscreen bottom-bar layout** for bodygraph, bi-wheel, and chart-wheel iframes — chart fills the viewport, controls dock to the bottom for a cleaner read on small windows.
+- **Debug highlight click handler** in the bodygraph (`?debugHighlight`) — click any gate to surface its center/channel data via iframe postMessage.
+- **Highlight visualization** — highlighted gates render with CSS glow while non-highlighted gates dim, making activation patterns visually obvious.
+- **Click payload metadata** — bodygraph gate groups now emit `data-center` for richer iframe click events.
+- **OAuth refresh-token persistence** to Supabase, with in-memory expiry enforcement and a 90-day TTL (up from 30 days).
+- **OAuth discovery test suite** with 401-compliance coverage.
+
+### Fixed
+- Auth check now runs before `isInitializeRequest` — resolves the Claude Web `ofid_` initialization error.
+- Light-mode ring tokens wired correctly in bi-wheel (were missing token references).
+- Fullscreen bottom-bar layout polish — edge cases and styling fixes after initial rollout.
+
+### Changed
+- **Server-side SVG is now the only bodygraph render path** — the legacy client-side renderer has been retired. Reduces bundle size and removes a source of cross-environment rendering drift.
+- Claude Web connector docs updated to reflect OAuth (not API key) as the connection method.
+
+### Underlying API improvements (delivered transparently)
+- **LLM-format projection now covers all 7 benchmarked endpoints** (was 4): `/ephemeris/natal-chart`, `/comparative/synastry`, `/comparative/natal-transits`, `/human-design/chart`, `/vedic/chart`, `/chinese/bazi`, `/acg/hits`. Weighted average reduction: 61% (GPT-4o), 60% (Claude). Range: 13%–98% per endpoint.
+- `/acg/hits` newly supports `format=llm` — proximity hits as compact rows. Other `/acg/*` endpoints continue to return precision GeoJSON for map rendering.
+
+---
+
+## [3.13.11] — 2026-05-15
+
+### Added
+- **Bi-Wheel UI Parity** — Unified the Bi-Wheel and Natal Chart Wheel architectures with matching feature sets.
+- **Tally & Dignity Panels** — Integrated element/modality tallies and planetary dignity badges into the Bi-Wheel UI.
+- **House System Controls** — Added dynamic house system selection to the Bi-Wheel aspect panel, triggering live recalculations.
+- **Enhanced Rendering** — Exported dignity/tally logic from core renderer for consistent client-side UI generation.
+
+### Fixed
+- Widened `BiWheelMode` type definitions to prevent TypeScript compilation errors during mode-specific panel rendering.
+- Standardized CSS design tokens and layout containers between natal and comparative chart wheels.
+
+---
+
 ## [3.10.4] — 2026-04-24
 
 ### Changed
