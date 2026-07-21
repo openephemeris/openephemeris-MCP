@@ -1,0 +1,41 @@
+name: Feature request
+description: Suggest a new tool, skill, technique, or client integration
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the reading, calculation, or workflow you can't do today.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of addition is this?
+      options:
+        - A new tool / calculation
+        - A new agent skill (reading style or technique)
+        - Support for another MCP client
+        - An integration example
+        - Documentation
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would it look like?
+      description: >
+        If it's a calculation, name the technique and — where it matters — the
+        convention you'd expect (house system, ayanamsa, node type, orb policy).
+        Astrology has a lot of mutually incompatible traditions; naming yours
+        saves a round trip.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What have you tried?
+      description: Existing tools you've composed, or other software that does this well.

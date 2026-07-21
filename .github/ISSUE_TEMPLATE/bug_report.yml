@@ -1,0 +1,77 @@
+name: Bug report
+description: A tool returns a wrong result, errors, or doesn't behave as documented
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. For **security** issues, please don't file here — see [SECURITY.md](https://github.com/openephemeris/openephemeris-MCP/blob/main/SECURITY.md).
+
+  - type: input
+    id: tool
+    attributes:
+      label: Tool or endpoint
+      description: Which MCP tool (or API path) is misbehaving?
+      placeholder: ephemeris_natal_chart
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you get, and what did you expect instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Inputs to reproduce
+      description: >
+        The prompt or tool arguments that trigger it. Please redact your API key
+        and any birth data you'd rather not make public — an equivalent
+        placeholder date/place is fine if it still reproduces.
+      render: json
+    validations:
+      required: true
+
+  - type: dropdown
+    id: client
+    attributes:
+      label: MCP client
+      options:
+        - Claude Desktop
+        - Claude Web / claude.ai
+        - Claude Code
+        - Cursor
+        - ChatGPT
+        - Other / custom
+    validations:
+      required: true
+
+  - type: dropdown
+    id: connection
+    attributes:
+      label: Connection method
+      options:
+        - Hosted endpoint (mcp.openephemeris.com)
+        - Local npx (@openephemeris/mcp-server)
+        - Smithery
+        - Claude plugin
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Server version
+      description: "From your client's MCP settings, or: npx -y @openephemeris/mcp-server --version"
+      placeholder: "3.23.1"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output
+      description: Any error text or client logs. Redact your API key.
+      render: shell

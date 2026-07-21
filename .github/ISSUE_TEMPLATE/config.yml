@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Setup help
+    url: https://github.com/openephemeris/openephemeris-MCP/blob/main/SETUP.md
+    about: Client-by-client connection instructions for Claude, Cursor, ChatGPT and others.
+  - name: API documentation
+    url: https://openephemeris.com/docs
+    about: Full REST API reference for the endpoints behind these tools.
+  - name: Service status
+    url: https://status.openephemeris.com
+    about: Check here first if tools are timing out or returning 5xx.
+  - name: Report a security vulnerability
+    url: https://github.com/openephemeris/openephemeris-MCP/security/advisories/new
+    about: Please report privately rather than opening a public issue.
