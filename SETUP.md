@@ -98,7 +98,7 @@ X-API-Key: YOUR_API_KEY
 Get a key from [openephemeris.com/dashboard](https://openephemeris.com/dashboard) → API Keys tab.
 
 > 💡 This is the MCP 2025-11-25 Streamable HTTP spec — supported by Claude Web, Smithery, and modern agents.
-> The legacy SSE endpoint (`/sse?apiKey=YOUR_KEY`) remains available for clients that don't yet support Streamable HTTP.
+> The legacy SSE endpoint was retired in 3.20.0 — all clients should use Streamable HTTP at `/mcp`.
 
 ---
 

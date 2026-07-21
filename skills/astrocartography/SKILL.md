@@ -9,7 +9,7 @@ updated: 2026-05-23
 
 Use this skill when someone asks where on Earth they're "luckiest" for love, career, growth, or healing — or what changes if they move. ACG maps the four angular positions (rising, culminating, setting, anti-culminating) of every planet at the moment of birth across the globe, producing planetary lines. Living near a line activates that planet's energy in the corresponding angular theme.
 
-> **Tier requirement:** Several ACG endpoints (aspects, midpoints, crossings, declinations) require the **Scale** tier ($199/mo). Power-lines, hits, and parans are available on Developer tier. The combined `/acg/features` endpoint is service-tier (Ela Map only).
+> **Tier requirement:** Several ACG endpoints (aspects, midpoints, crossings, declinations) require the **Scale** tier ($199/mo). Power-lines, hits, and parans are available on Pro tier. The combined `/acg/features` endpoint is service-tier (Ela Map only).
 
 ## Required Information
 

@@ -7,6 +7,167 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [3.23.0] — 2026-07-19
+
+Coverage build-out (4 → 7 live iframe apps), tool-data bug fixes from live probing, and Human Design trademark hygiene. Registered tool count: 84 → 90.
+
+### Added
+- **Three revived iframe apps** (all following current conventions — structuredContent, shared error/first-run/fullscreen chrome, theme reconciliation, harness + visual-check gated):
+  - **`explore_transit_timeline`** — vertical timeline of upcoming transit hits grouped by month, with retrograde markers and clickable events.
+  - **`explore_vedic_chart`** + `vedic_chart_recalculate` (app-only) — interactive Vedic (Jyotish) chart as a South Indian fixed-sign Rashi grid; Go renders the SVG server-side (`handler_vedic_visual.go`, now emitting `data-sign`/`data-lagna`/`data-planets` groups), iframe binds interactivity.
+  - **`explore_bazi_chart`** + `bazi_recalculate` (app-only) — BaZi Four Pillars grid from the Go visual renderer, with element coloring, Wu Xing balance bar, and click-to-explain pillars.
+- **Moon-phase app grew up**: date control (`moon_phase_recalculate`, app-only), fullscreen toggle, and first-run coaching — it is no longer frozen on "now".
+- **Copy-positions button** on the chart-wheel planet table (Markdown to clipboard, graceful fallback when the host denies clipboard access).
+- **Credit-cost hints** on the iframe Recalculate controls, and per-theme SVG caching in the bodygraph so light↔dark host toggles no longer re-bill on every flip.
+- **Go: Pholus rides a real kernel** — `pholus.bsp` fetched at build time (mirrors the Chiron pattern), boot self-test vs JPL Horizons truth, `BootFatal` in prod on mismatch. No body is served from silent Keplerian fallback.
+
+### Fixed
+- **`ephemeris_natal_chart` now returns its promised aspect grid** (the tool omitted the endpoint's opt-in `include_aspects`).
+- **`format=llm` `summary_lines` house annotations repaired** — a union-type formatting bug printed raw JSON bytes (`H{[56]}`) instead of the house number (`H8`).
+- **`electional_moment_analysis` `format=llm`** top-level fields (aspects, day ruler, dignity, VOC, lunar phase) are now populated instead of `null`-with-values-hidden-under-`score_detail`.
+- **Bi-wheel provenance dates render in the chart's timezone**, not the viewer's browser timezone.
+- Cross-references added between every `explore_*` tool and its raw data sibling; credit-cost disclosure normalized to one consistent line per metered tool.
+
+### Changed
+- **Human Design trademark hygiene**: affiliation disclaimers ("not affiliated with Jovian Archive") added to the HD marketing pages, the bodygraph iframe footer (with the AUP informational/entertainment line), and the `explore_human_design*` tool descriptions; the one "Rave I Ching" usage replaced with generic phrasing.
+
+## [3.22.0] — 2026-07-19
+
+Mobile/dark QA sweep across the four live iframe apps (chart-wheel, bi-wheel, bodygraph, moon-phase), plus a design-parity pass bringing the wheels' colors in line with the web app's #239 engine redesign.
+
+### Added
+- **Pinch-to-zoom + reliable touch pan** on chart-wheel, bi-wheel, and bodygraph — `touch-action: none` on the chart SVG stops mobile browsers from claiming drags for page scroll and pinches for page zoom; two-finger pinch zooms anchored at the gesture midpoint with simultaneous pan.
+- **Midpoint aspect-type glyphs** on the natal chart wheel — every aspect line now shows its symbol (☌ ☍ △ □ ⚹) on a backing disc, matching the bi-wheel app and the Go engine's design.
+- **Theme-aware HD transit/connection overlays** — `explore_human_design_transit` and `explore_human_design_connection` now pass `visual_config.theme` (previously always defaulted to light server-side) and re-fetch in the host's detected theme via the embedded app.
+
+### Fixed
+- **HD transit/connection overlays no longer error-card** in MCP Apps hosts — both tools' payloads nest the chart under `natal` / `composite_chart` (with a `centers` map shape the app didn't handle), which the bodygraph app's validity gate rejected outright.
+- **Chart-wheel and bi-wheel color palette** now matches the web app's #239 wheel redesign (element remap, vibrant dark-mode zodiac tints, warm/cool aspect semantics) — the iframe wheels had never received that pass and read muddy by comparison.
+- Zodiac sign glyphs no longer occasionally render as the wrong emoji-presentation glyph (missing `U+FE0E` variation selector).
+- Light-host theme detection no longer misreads as dark in some hosts (background-luminance probe used the wrong color space).
+- **ASC/DSC angle labels** no longer clip at the edge of the wheel on full-bleed mobile hosts (a `viewBox` overflow needing container padding that phones don't provide) — coordinates are now clamped inside the frame.
+- Mobile pan/zoom controls shrink to 32px with a translucent, blurred background and an icon-only Reset button, so the control stack stops covering the chart at phone widths.
+
+## [3.21.1] — 2026-07-12
+
+### Changed
+- **"Developer tier" renamed to "Pro tier"** in all user-facing copy, matching the site-wide rename (the internal plan id `developer` and `/pricing?plan=developer` URLs are unchanged). Updated the `explore_human_design_transit` / `explore_human_design_connection` tool descriptions, the `transit_search` range-limit note, and the astrocartography / API-reference / setup skill docs. Historical changelog entries below retain the old name as a record of what shipped.
+
+---
+
+## [3.21.0] — 2026-07-09
+
+Launch-readiness wave from the three-perspective master review (directory vetting, first-run UX, revenue red-team).
+
+### Security (directory-listing conditions)
+- **`auth_*` device tools removed from the HTTP transport.** They mutate process-global state (shared credential file, env inspection) — on the multi-tenant remote server one user's `auth_logout` cleared shared credentials and `auth_status` could report the process service-key config to any tenant. Now `stdioOnly` and hidden/blocked on `/mcp`; unchanged for local stdio installs.
+- **Rate limiters no longer trust `X-Forwarded-For`** (leftmost value is attacker-controlled and let callers rotate fake IPs past every throttle). Client IP now comes from Fly's trusted `Fly-Client-IP` hop, with a spoof-resistance test.
+- **DCR redirect hardening:** `redirect_uris` must be https or http loopback (RFC 8252) — non-conforming registrations are rejected.
+
+### Conversion & instrumentation
+- **PostHog events from the MCP server** (`src/analytics.ts`, fire-and-forget, no-ops without `POSTHOG_API_KEY`): `mcp_session_init` (auth type), `mcp_tool_call` (tool, duration), `mcp_tool_error` (tool, HTTP status — makes 402 paywall hits and 429s countable). Identity is a SHA-256 prefix of the credential, never the raw key; all events tagged `source: mcp`.
+- **402 paywall fixed:** paid tiers are no longer told to "enable overages" (overage billing is switched off) — they get the next tier with exact price and a `/pricing?plan=…` deep link; free-tier 402s deep-link to the wallet top-up and `/pricing?plan=developer`.
+- **Credit costs disclosed** on the five app tools that lacked them (verified against `usage_meter.go`); `ephemeris_natal_batch` now states its Startup-tier gating and warns that N subjects = N credits.
+- **Return hooks:** `current_sky_snapshot` and `transit_forecast` prompts now end with when to check back (next Moon sign change / next exact transit).
+
+### First-run UX
+- **Routing:** `explore_natal_chart` is now explicitly the PRIMARY tool for chart requests; `ephemeris_natal_chart` marks itself raw-JSON and defers to it; the `natal_chart_reading` prompt and the astrology-mcp landing page now point at the interactive explorers.
+- **Welcome rewritten** from a 12-bullet brochure to a two-option hook (instant no-birth-data sky snapshot, or an interactive birth chart); server `instructions` now steer the model to `explore_*` tools for anything visual.
+- **Loader copy de-jargoned** ("Computing ephemeris…" → "Mapping the sky at your birth moment…" etc.); every terminal iframe error now offers "Tap to try again" wired to a real retry; `auth_login` leads with "free tier, no credit card needed"; expired-OAuth copy tells users exactly where to reconnect.
+
+### Fixed
+- **Local visual harness (`npm run harness`) was broken** by an orphaned vite process squatting port 5180: `visual-check.mjs` now kills the full process tree on Windows (`taskkill /T`), and the harness uses `strictPort` so a squatted port fails loudly instead of silently drifting. Harness index/fixtures cleaned of the deleted dormant apps; the dead bodygraph fixture was rebuilt with the real Go-SVG contract — which exposed and fixed two genuine a11y bugs (`role="img"` on an SVG containing buttons; hardcoded low-contrast gold on action buttons).
+
+---
+
+## [3.20.0] — 2026-07-09
+
+Second wave of the transport/iframe review: legacy transport retirement, resumability, and remaining hardening/quality items.
+
+### Removed
+- **Legacy SSE transport retired.** `GET /sse` + `POST /message` (pre-2025 spec, SDK-deprecated, no cross-machine replay, zero live sessions) now return `410 Gone` pointing at `/mcp`. `scripts/test-sse-client.ts` and the `test:sse` script removed; docs updated.
+
+### Added
+- **`Last-Event-ID` resumability.** Bounded in-memory `EventStore` (200 events/stream, 2h TTL) on the Streamable HTTP transport — a reconnecting SSE stream replays missed events instead of losing them. Per-process is safe because sessions are machine-pinned via fly-replay.
+- **Server-computed natal aspects.** `explore_natal_chart` was discarding the `aspects` array the natal endpoint already returns (with true ephemeris-derived `is_applying`) and re-deriving aspects client-side with an approximate heuristic — `computeAspects` deleted, server aspects mapped through. Bi-wheel cross-aspects stay client-side (two charts, no single endpoint) but the applying/separating heuristic now uses real longitude speeds instead of defaulted guesses.
+- **CSP + keyboard accessibility** on the four iframe apps: inline-only `Content-Security-Policy` meta on each shell; interactive SVG elements (planets, houses, aspects, centers/gates/channels) get `tabindex`/`role`/`aria-label`, Enter/Space activation, and visible focus indicators.
+- **Real-handler test coverage.** `createSseApp()` is now exported and `test/server-sse-real-app.test.ts` drives the actual Express app: 401/WWW-Authenticate contract, expired-JWT refresh signal, session issuance with machine prefix, cross-machine `fly-replay` 307 + loop-guard 404, resume-auth requirement, Host allowlist, and the 410 legacy responses.
+- **`check:plugin` release gate** (`scripts/plugin-audit.ts`): plugin.json version must match the package (it had rotted at 3.1.0) and `openephemeris-plugin.zip` must match the plugin tree by content; `regen:plugin` rebuilds both. Wired into `verify:release`.
+- **CI:** `validate:visual` (Playwright + axe over the app harness) added to the validate workflow; the live canary now sends a **Telegram alert on failure** (needs `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` secrets; no-ops without them).
+
+### Changed
+- Resume-path auth now runs **before** the session lookup so an unauthenticated probe cannot learn whether a session id exists.
+
+---
+
+## [3.19.0] — 2026-07-09
+
+Transport hardening + E2E release verification, from a full review of the streaming HTTP transport and iframe app capability.
+
+### Fixed
+- **stdio missing the MCP Apps capability flag.** The stdio entry (`src/index.ts`) never advertised `experimental["io.modelcontextprotocol/ui"]` (the SSE server did), so hosts gating iframe rendering on that capability would not render apps from a local install. Now declared on both transports.
+- **Rotted integration scripts.** `scripts/test-client.ts` and `scripts/smoke-dev-profile.ts` still asserted pre-rename dotted tool names (`auth.login`, `dev.call`) and could never pass. Fixed and wired into CI so they can't rot silently again.
+
+### Added
+- **SSE keepalive.** Long-lived streams (`GET /mcp` leg and legacy `/sse`) now emit an SSE comment frame every 25s and disable the per-socket idle timeout, preventing silent drops through Fly's proxy on idle sessions.
+- **Idle session reaper.** In-memory HTTP sessions abandoned without a DELETE are reaped after 2h idle (they previously leaked until process restart); a reaped session 404s and the client re-initializes per spec.
+- **Tool-call timeout** (120s) so a hung backend request can't pin a session forever.
+- **Resume-path auth.** A session id alone is no longer sufficient to resume a Streamable HTTP session — every request must still carry a valid API key / non-expired JWT (expired JWTs get the standard 401 `invalid_token` refresh signal).
+- **Host-header allowlist** on `/mcp`, `/sse`, `/message` as DNS-rebinding defense (Origin was already validated; Host was not). Extend via `MCP_ALLOWED_HOSTS`.
+- **Fly HTTP health check** on `/health` (previously TCP-only, so a hung process stayed in rotation).
+- **E2E release verification:** `test:published` installs the packed/published tarball into a clean dir and drives `dist/index.js` over stdio (initialize → tools/list → UI resource read → tool call); `test:mcp-http` drives the live Streamable HTTP endpoint end to end including an MCP Apps `resources/read`. Wired into the validate workflow, as a post-publish gate in the npm workflow, and as a 6-hourly production canary.
+- **Tool-count regression test** (84) keeping the marketing SSOT honest.
+
+### Removed
+- **Dormant UI apps deleted** (transit-timeline, bazi, vedic-chart): never imported/registered, two never functional; their trees, tool files, per-app lockfiles, and `build:ui` steps are gone. BaZi/Vedic data still ships via the typed `bazi_*`/`vedic_chart` tools.
+- Leftover one-off codemods (`fix.cjs`, `fix.mjs`, `fix2.mjs`) and the empty `dev_card.json`.
+- 7 byte-identical copies of `singlefile-plugin.ts` (now shared from `src/ui/shared/`); debug `console.log` noise stripped from the chart-wheel bundle.
+
+### Changed
+- Runtime Docker image now prunes dev dependencies before the final stage.
+
+---
+
+## [3.18.0] — 2026-07-06
+
+Launch-reliability hardening for the remote SSE/HTTP server (`oe-mcp-live`).
+
+### Fixed
+- **Stale-JWT dead session.** Self-signed Supabase JWTs expire after 1h. A session's `BackendClient` captured the JWT once at init and the resume path never re-read it, so after the host refreshed the token every tool call kept sending the frozen expired JWT and 401'd forever (users were told to disconnect/reconnect). `BackendClient.setJwt()` now lets the resume branch push the freshly-rotated Bearer token into the session client. Additionally, the `/mcp` auth gate now decodes the JWT `exp` claim (no signature verification — the Go API is the trust boundary) and returns `401 invalid_token` + `WWW-Authenticate` for an already-expired token, triggering the host's OAuth refresh instead of a confusing downstream tool error.
+- **POST retry double-charge.** The axios retry loop retried every method — including POST — on transient failures, and every expensive compute endpoint is POST (e.g. `acg_hits` = 15 credits) metered at reservation time, so one dropped response could be billed up to 4×. Only idempotent GETs are auto-retried now; POST/PUT/PATCH/DELETE are never retried. `429` is no longer retried at all — the rate-limit message surfaces immediately instead of hammering the limiter.
+- **`isError` correctness.** Both CallTool handlers previously set `isError: !isRetryable`, so 429/5xx/network/auth failures arrived as `isError: false` "successes." All failures now report `isError: true` so hosts recover (retry / OAuth refresh), with the one exception of the stdio device-auth-pending case (whose message carries a verification link the model must relay). Extracted into a shared, unit-tested `formatToolError` helper.
+- **Cross-machine session 404s.** `min_machines_running = 2` but the session store is a per-process Map, so a resume request landing on the other machine 404'd. Streamable-HTTP session IDs now embed `FLY_MACHINE_ID`; a request whose session ID targets a different machine is re-routed via the `fly-replay` header (with a `fly-replay-src` loop guard that falls through to 404 so the client re-initializes). No-op locally when `FLY_MACHINE_ID` is unset.
+- **API-key validation no longer costs a credit.** Session-init key validation probed `/ephemeris/moon/phase`, which meters at 1 credit — so merely connecting charged the user. Switched to `/catalogs/bodies` (auth-gated but metered at 0 credits).
+- **ACG / progressed datetime descriptions** now require a UTC offset (e.g. `1990-05-15T14:30:00-05:00`); a naive datetime was silently interpreted as UTC and mislocated ACG lines / shifted progressions.
+- **`dev_read_api` reference text** corrected: `/location/autocomplete` takes `query=`, not `q=`.
+
+### Changed
+- Added a `process.on('unhandledRejection')` log-and-continue handler so a single rejected request can't take down every live session.
+- 402 credit-exhausted message annotated with a pointer to the pricing SSOT (`apps/web/config/billing-plans.ts`).
+- `fly.toml` VM memory raised 512MB → 1024MB for the launch window.
+
+---
+
+## [3.17.0] — 2026-07-06
+
+Docs-only release (this is the version live on npm while 3.18.0 awaited publish).
+
+### Changed
+- README: embedded the hero demo GIF and refreshed the quick-start copy for the launch window (PR #258). No runtime changes.
+
+---
+
+## [3.16.0] — 2026-07-05
+
+### Added
+- **`explore_human_design_transit`** — personalized Human Design transit overlay. Overlays a transiting moment on a person's natal bodygraph and highlights the channels the transit temporarily completes plus any newly-defined centers. Premium (Developer tier); renders an interactive overlay bodygraph in MCP Apps hosts.
+- **`explore_human_design_connection`** — two-person Human Design connection (synastry) overlay. Classifies every connected channel as electromagnetic / companionship / dominance / compromise and renders a two-person overlay bodygraph. Premium (Developer tier).
+
+### Changed
+- **`human_design_composite` is now Developer-tier** (was Explorer) and returns real connection-channel scoring — the previously-stubbed relationship endpoint (`/human-design/composite`) is now live end-to-end.
+
+---
+
 ## [3.15.0] — 2026-06-15
 
 ### Changed

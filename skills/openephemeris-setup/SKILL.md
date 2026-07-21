@@ -73,7 +73,7 @@ For everything else (110+ endpoints), use `dev.call` with `method` + `path`:
 | Tier | Price | Access |
 |------|-------|--------|
 | Explorer | Free | Core ephemeris, moon, transits, geocoding |
-| Developer | $29/mo | Predictive, comparative, visualization, electional, chart rendering |
+| Pro | $29/mo | Predictive, comparative, visualization, electional, chart rendering |
 | Startup | $79/mo | Batch computation |
 | Scale | $199/mo | Astrocartography (ACG aspects, midpoints, crossings, declinations) |
 | Enterprise | Custom | SLAs, dedicated support |

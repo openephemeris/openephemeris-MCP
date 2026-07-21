@@ -253,7 +253,7 @@ Most endpoints cost 1–5 credits. Heavy compounds (full natal with all options,
 | Tier | Access |
 |------|--------|
 | **Explorer** (free) | Core ephemeris, moon, transits, geocoding |
-| **Developer** ($29) | Predictive, comparative, visualization, electional, charts |
+| **Pro** ($29) | Predictive, comparative, visualization, electional, charts |
 | **Startup** ($79) | Batch computation |
 | **Scale** ($199) | ACG aspects/midpoints/crossings/declinations, relational ACG |
 | **Enterprise** | Custom |

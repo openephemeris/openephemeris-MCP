@@ -19,17 +19,20 @@ homepage: https://openephemeris.com
 # JSON Schema for the configuration form rendered in Smithery's UI
 configSchema:
   type: object
+  title: Open Ephemeris Configuration
   required:
     - apiKey
   properties:
     apiKey:
       type: string
+      title: API Key
       description: >
         Your Open Ephemeris API key. Get a free Explorer key at
         https://openephemeris.com/dashboard — no credit card required.
       default: ""
     format:
       type: string
+      title: Output Format
       enum:
         - json
         - llm
@@ -38,6 +41,14 @@ configSchema:
         token-optimized output (~50% smaller). 'json' returns full verbose JSON.
         Individual tool calls can override this setting.
       default: json
+    baseUrl:
+      type: string
+      title: API Base URL
+      description: >
+        Override the Open Ephemeris API base URL. Leave blank to use the
+        default production endpoint (https://api.openephemeris.com). Useful
+        for self-hosted or staging deployments.
+      default: ""
 
 # How to start the server locally (stdio transport for Claude Desktop / Cursor)
 startCommand:
@@ -46,5 +57,9 @@ startCommand:
     (config) => ({
       command: "npx",
       args: ["-y", "@openephemeris/mcp-server@latest"],
-      env: { OPENEPHEMERIS_API_KEY: config.apiKey }
+      env: {
+        OPENEPHEMERIS_API_KEY: config.apiKey,
+        ...(config.format && config.format !== "json" ? { OPENEPHEMERIS_FORMAT: config.format } : {}),
+        ...(config.baseUrl ? { OPENEPHEMERIS_BACKEND_URL: config.baseUrl } : {}),
+      }
     })
