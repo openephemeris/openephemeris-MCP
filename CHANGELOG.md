@@ -7,6 +7,17 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [3.25.0] — 2026-07-22
+
+New account-usage tool plus text-encoding and telemetry fixes. Registered tool count: 90 → 91.
+
+### Added
+- **`account_usage`** — a free (0-credit) tool that answers "how many credits do I have left?" directly in chat: plan tier, billing period, credits used / included / remaining, percent of quota used, total API calls, and subscription status with renewal date, plus the right next step (wallet top-up or plan upgrade) for the user's tier. Accepts an optional `month` (YYYY-MM) to review past periods.
+
+### Fixed
+- **Bodygraph gate/center text encoding repaired** — the Human Design bodygraph click-handler tools contained double-encoded UTF-8 (mojibake) in em-dashes, ranges, and status emoji across all 64 gate hexagram names and the center descriptions; they now render correctly.
+- **Tool-error telemetry now records HTTP status** — the remote server's error events always reported "unknown" instead of the actual status (402 paywall / 429 rate-limit), making those uncountable in analytics.
+
 ## [3.24.0] — 2026-07-21
 
 Mandala layout for the bodygraph iframe app — an in-iframe toggle between the classic graph and the concentric-rings mandala view, plus a metered house-ring opt-in.

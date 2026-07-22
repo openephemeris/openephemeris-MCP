@@ -1,6 +1,6 @@
 {
   "name": "openephemeris",
-  "version": "3.24.0",
+  "version": "3.25.0",
   "description": "High-precision astronomical and astrological computation tools. Calculate natal charts, transits, eclipses, moon phases, synastry, Human Design, Chinese/Vedic astrology, and more using NASA JPL DE440 data with sub-arcsecond accuracy.",
   "author": {
     "name": "Spirit River Inc",
