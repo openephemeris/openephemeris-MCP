@@ -7,6 +7,14 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [3.24.0] — 2026-07-21
+
+Mandala layout for the bodygraph iframe app — an in-iframe toggle between the classic graph and the concentric-rings mandala view, plus a metered house-ring opt-in.
+
+### Added
+- **Mandala layout toggle** in the Human Design Bodygraph Explorer — a power-user view alongside the default graph layout, reusing the existing theme-recalculate round-trip. The render cache now keys on layout × theme × houses, so toggling any axis back and forth never re-bills within a session. Requests an explicit hexagram-free ring set (the decorative hexagram ring cells no longer carry `data-gate` at all, fixing a hover mislabel and roughly halving the keyboard tab-stop count).
+- **House rings — a distinct, explicitly metered opt-in** — a location-gated "Add house rings (+1 credit)" checkbox, off by default even when the mandala is on, disabled without a birth location or outside the mandala layout.
+
 ## [3.23.0] — 2026-07-19
 
 Coverage build-out (4 → 7 live iframe apps), tool-data bug fixes from live probing, and Human Design trademark hygiene. Registered tool count: 84 → 90.
