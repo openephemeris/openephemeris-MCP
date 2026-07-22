@@ -9,14 +9,20 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [3.25.0] — 2026-07-22
 
-New account-usage tool plus text-encoding and telemetry fixes. Registered tool count: 90 → 91.
+New account-usage tool, remote-transport session-security hardening, plus text-encoding and telemetry fixes. Registered tool count: 90 → 91.
 
 ### Added
 - **`account_usage`** — a free (0-credit) tool that answers "how many credits do I have left?" directly in chat: plan tier, billing period, credits used / included / remaining, percent of quota used, total API calls, and subscription status with renewal date, plus the right next step (wallet top-up or plan upgrade) for the user's tier. Accepts an optional `month` (YYYY-MM) to review past periods.
 
+### Security
+- **Sessions are now bound to the credential that created them.** Previously the resume path (`POST /mcp` with an `mcp-session-id`) accepted *any* syntactically valid API key or unexpired Bearer token — it never checked that the presented credential matched the one that initialized the session. A leaked or guessed session id combined with a *different* valid credential could attach to another user's session. Each session now stores a SHA-256 hash of a stable binding token (the raw API key, or the JWT `sub`/subject for OAuth so legitimate ~hourly token refresh still matches) and every resume must present a credential whose hash matches, compared in constant time. Mismatches get a `403 application/problem+json`.
+- **The SSE stream leg (`GET /mcp`) now requires authentication.** It previously checked only the `mcp-session-id` header with no credential at all, so a leaked session id alone let an attacker attach to another user's server→client event stream. It now requires a credential (401 without one) and the same credential-binding match as resume (403 on mismatch).
+
 ### Fixed
 - **Bodygraph gate/center text encoding repaired** — the Human Design bodygraph click-handler tools contained double-encoded UTF-8 (mojibake) in em-dashes, ranges, and status emoji across all 64 gate hexagram names and the center descriptions; they now render correctly.
 - **Tool-error telemetry now records HTTP status** — the remote server's error events always reported "unknown" instead of the actual status (402 paywall / 429 rate-limit), making those uncountable in analytics.
+- **`autoStartDeviceAuth` race (stdio device-auth):** concurrent first requests could each launch a device-auth flow (two codes, two poll loops) because the in-flight guard was only assigned after the async start resolved. The guard promise is now assigned synchronously before the first await.
+- **Corrected a stale code comment** claiming HTTP 429 responses are retried — they are deliberately not (retrying a metered POST would double-charge; only idempotent GETs over 502/503/504 + transient transport codes retry).
 
 ## [3.24.0] — 2026-07-21
 
