@@ -33,7 +33,7 @@ This plugin sends computation requests to `api.openephemeris.com`. Birth dates, 
 
 ## Links
 
-- [Documentation](https://openephemeris.com/docs) · [Dashboard](https://openephemeris.com/dashboard) · [npm](https://www.npmjs.com/package/@openephemeris/mcp-server) · [GitHub](https://github.com/openephemeris/openephemeris)
+- [Documentation](https://openephemeris.com/docs) · [Dashboard](https://openephemeris.com/dashboard) · [npm](https://www.npmjs.com/package/@openephemeris/mcp-server) · [GitHub](https://github.com/openephemeris/openephemeris-MCP)
 
 ## License
 
