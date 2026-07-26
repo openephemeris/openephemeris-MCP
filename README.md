@@ -281,12 +281,33 @@ The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable
 | `ASTROMCP_API_KEY` | No | Legacy alias for `OPENEPHEMERIS_API_KEY` (checked as fallback) |
 | `OPENEPHEMERIS_BACKEND_URL` | No | Defaults to `https://api.openephemeris.com` |
 | `OPENEPHEMERIS_PROFILE` | No | `dev` by default |
+| `OPENEPHEMERIS_TOOLS` | No | `core` (default) advertises a focused everyday tool set; `full` advertises every tool. See [Tool surface](#tool-surface) |
 | `OPENEPHEMERIS_SERVICE_KEY` | No | Internal service auth |
 | `OPENEPHEMERIS_JWT` | No | Bearer token auth |
 | `OPENEPHEMERIS_DEV_ALLOWLIST_PATH` | No | Override allowlist file path |
 | `MCP_USER_ID` | No | Per-instance user identifier |
 
 Legacy aliases (`ASTROMCP_*`, `MERIDIAN_*`) remain supported.
+
+## Tool surface
+
+By default the server advertises a **focused core set** of everyday tools rather than the entire catalog. Large tool lists cost context and make model tool-selection worse, so the default is tuned for real conversations: one interactive app per tradition, the primary data tool per domain, geocoding, and the allowlist-gated generic proxy.
+
+**Nothing is removed.** The surface is a filter on `tools/list` only — every tool stays registered and stays callable by name. If you know the tool you want, call it and it works, listed or not.
+
+To advertise the full catalog:
+
+```bash
+OPENEPHEMERIS_TOOLS=full npx -y @openephemeris/mcp-server
+```
+
+On the remote HTTP server, append `?profile=full` to the connector URL (or send `X-OE-Tool-Surface: full`):
+
+```
+https://mcp.openephemeris.com/mcp?profile=full
+```
+
+The surface is fixed when the session initializes — this server does not advertise `tools.listChanged`, so switching requires reconnecting. `dev_list_allowed` enumerates every operation reachable through the generic proxy regardless of surface.
 
 ## Contributing & Support
 

@@ -59,14 +59,15 @@ Ask Claude to use the `ephemeris.moon_phase` tool with `datetime` set to right n
 
 ### Generic Proxy
 
-For everything else (110+ endpoints), use `dev.call` with `method` + `path`:
+For everything else (118 endpoints), use the generic proxy tools with `method` + `path`:
 
 | Tool | Purpose |
 |------|---------|
-| `dev.call` | Call any allowlisted endpoint (~28 currently on the public proxy) |
-| `dev.list_allowed` | List every endpoint reachable via `dev.call` |
+| `dev_read_api` | GET any allowlisted endpoint (28 currently on the public proxy) |
+| `dev_write_api` | POST/PUT/PATCH/DELETE any allowlisted endpoint |
+| `dev_list_allowed` | List every operation reachable via the two tools above |
 
-> Newer endpoints (astrocartography, predictive returns, Vedic, Chinese BaZi) may not be on the dev.call allowlist yet — call them via direct REST with header `X-Meridian-API-Key: oe_...` if `dev.list_allowed` doesn't show them.
+> Newer endpoints (astrocartography, predictive returns, Vedic, Chinese BaZi) may not be on the allowlist yet — call them via direct REST with header `X-Meridian-API-Key: oe_...` if `dev_list_allowed` doesn't show them.
 
 ## Tiers
 

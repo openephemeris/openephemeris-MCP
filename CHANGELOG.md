@@ -7,6 +7,44 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [3.26.0] — 2026-07-25
+
+A leaner default tool list, and a sweep of documentation and billing corrections found while auditing it.
+
+The server has grown to 91 registered tools, 69 of which were advertised to the model on every single connection. That is roughly 28,000 tokens of tool definitions consumed before the user has said anything, and a 69-item menu to choose from on questions that almost always want one of about a dozen tools. This release changes what gets *advertised* without changing what exists.
+
+### Added
+
+- **Tool surfaces — a focused default, with the full catalog one flag away.** `tools/list` now returns a curated core set (32 tools over HTTP, 35 over stdio) instead of everything: one interactive app per tradition, the primary data tool per domain, geocoding, account usage, and the allowlist-gated generic proxy. Measured tool-definition payload drops from ~27,800 to ~15,100 tokens.
+
+  **No capability was removed.** This is a filter on `tools/list` alone — every tool remains registered and remains callable by name. If a client knows the tool it wants, it works whether or not it was listed. There is a regression test asserting exactly this, because a surface filter that quietly became a capability cut would be a very easy mistake to ship.
+
+  Opt into the full catalog with `OPENEPHEMERIS_TOOLS=full` (stdio) or `?profile=full` / `X-OE-Tool-Surface: full` (remote HTTP). The surface is fixed at session initialize — this server does not advertise `tools.listChanged`, so switching means reconnecting. The public server card at `/.well-known/mcp/server-card.json` deliberately still lists everything: it is a registry catalog, not model context.
+
+- **`location_search` and `timezone_resolve` are now visible to the model.** Both existed but were marked app-only, so the model could not call them — which is why prompts had to geocode through `dev_read_api /location/autocomplete` instead. Turning a birth city into coordinates and an IANA timezone is now a first-class two-step.
+
+### Fixed
+
+- **`ephemeris_planet_position` documented the wrong body for `planet_id=11`.** The description advertised `10=North Node, 11=South Node`. The API actually returns `10` = North Node (Mean) and `11` = North Node (**True**) — there is no South Node id at all. A request for a South Node returned the North Node with no error and no warning: a silently wrong answer, roughly 180° off. The description now documents the real ids and explains that the South Node is the North Node opposed (add 180°, mod 360).
+
+- **Ten tools misstated their credit cost.** Costs are metered server-side on the URL path, so billing was always correct — but the descriptions the model reads were not, which meant plans and cost estimates built on them were wrong. Corrected: the BaZi analytical tools (`bazi_ten_gods`, `bazi_element_balance`, `bazi_luck_pillars`, `bazi_annual_pillar` — 1 → 3; `bazi_compatibility` — 2 → 3), the electional tools (`electional_moment_analysis` and `electional_aspect_search` — 2 → 5; `electional_station_tracker` — 3 → 5), and the Venus tools, which were **overstated** at 2 and actually cost 1. `ephemeris_retrograde_status` now discloses that its all-planets sweep fans out to ten backend calls and costs 10 credits, not 1.
+
+- **`/chinese/bazi/chart` charged 4 credits while documenting 3.** The handler reserved base + visual render, but the route is mounted behind the usage-tracking middleware, which had already debited the base credit — so every BaZi chart render double-charged its base credit. The handler now reserves only the visual surcharge, matching the pattern already used by the `include_visual` wrapper. Actual cost is now 3, as documented.
+
+- **Progressed chart recalculation in the chart-wheel app posted to `/predictive/progressed`, which does not exist.** The real path is `/ephemeris/progressed`; every progressed recalculate from the iframe was 404ing.
+
+- **`ephemeris_lunar_return` and `ephemeris_planetary_return` declared an output schema promising an image** they can never return — neither tool sends `include_visual`. Both now declare the JSON-only schema they actually produce.
+
+- **Tool-error telemetry could not distinguish a backend outage from a client-side argument error.** Errors thrown locally carry no HTTP status, so they were all recorded as `status: "unknown"` alongside genuine backend failures. Error events now carry `error_kind` (`backend` / `local`) and the error code.
+
+- **Stale references in the skill packs and plugin docs.** The setup and API-reference skills still described `dev.call` / `dev.list_allowed`, names retired in 3.15.0 (the tools are `dev_read_api`, `dev_write_api`, `dev_list_allowed`). The plugin skill listed `electional_ingress_calendar`, which is not a tool this server has ever registered. Endpoint counts corrected to 118.
+
+### Notes
+
+Registered tool count is unchanged at 91 — this release changes what is advertised, not what exists.
+
+---
+
 ## [3.25.0] — 2026-07-22
 
 New account-usage tool, remote-transport session-security hardening, plus text-encoding and telemetry fixes. Registered tool count: 90 → 91.

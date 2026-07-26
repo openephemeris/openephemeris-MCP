@@ -7,9 +7,9 @@ updated: 2026-05-23
 
 # OpenEphemeris API Reference
 
-Quick reference for all 121 endpoints across 19 groups. Every endpoint works via:
+Quick reference for all 118 endpoints across 19 groups. Every endpoint works via:
 
-- **MCP `dev.call`** with `method` + `path` (for allowlisted endpoints — see `dev.list_allowed`)
+- **MCP `dev_read_api` / `dev_write_api`** with `method` + `path` (for allowlisted endpoints — see `dev_list_allowed`)
 - **Direct REST** to `https://api.openephemeris.com` with header `X-Meridian-API-Key: oe_...`
 
 Always pass `format=llm` (query param or body field) unless raw JSON is requested — reduces tokens ~73%.

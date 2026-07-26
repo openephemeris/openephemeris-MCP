@@ -95,21 +95,20 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 | Tool | What It Does | Credits |
 |------|-------------|---------|
 | `ephemeris_electional` | Scan a date range for optimal timing windows | 5 |
-| `electional_moment_analysis` | Analyze quality of a specific moment (score 0-100) | 2 |
-| `electional_station_tracker` | Upcoming retrograde/direct stations | 3 |
-| `electional_ingress_calendar` | When planets change signs | 3 |
-| `electional_aspect_search` | All active aspects at a given moment | 2 |
+| `electional_moment_analysis` | Analyze quality of a specific moment (score 0-100) | 5 |
+| `electional_station_tracker` | Upcoming retrograde/direct stations | 5 |
+| `electional_aspect_search` | All active aspects at a given moment | 5 |
 
 ### Venus Star Points
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `venus_star_points` | Sun-Venus conjunction events nearest to a birth date | 2 |
-| `venus_star_points_conjunctions` | Sun-Venus conjunctions in a date range | 2 |
-| `venus_eight_year_star` | 8-year Venus pentagram cycle (5 vertices) | 2 |
+| `venus_star_points` | Sun-Venus conjunction events nearest to a birth date | 1 |
+| `venus_star_points_conjunctions` | Sun-Venus conjunctions in a date range | 1 |
+| `venus_eight_year_star` | 8-year Venus pentagram cycle (5 vertices) | 1 |
 | `venus_phase` | Venus morning/evening star status, elongation, cazimi | 1 |
-| `venus_elongations` | Greatest elongation events in a date range | 2 |
-| `venus_stations` | Venus retrograde and direct stations | 2 |
+| `venus_elongations` | Greatest elongation events in a date range | 1 |
+| `venus_stations` | Venus retrograde and direct stations | 1 |
 
 ### Ephemeris Building Blocks
 
@@ -118,7 +117,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 | `ephemeris_planet_position` | Raw planet position at a Julian Day | 1 |
 | `ephemeris_house_cusps` | House cusp degrees for a location/time | 1 |
 | `ephemeris_dignities` | Essential dignities for all planets | 1 |
-| `ephemeris_retrograde_status` | Retrograde flags and speeds for all planets | 1 |
+| `ephemeris_retrograde_status` | Retrograde flags and speeds for all planets | 10 (1 if planet_id given) |
 | `ephemeris_midpoints` | Midpoints between all planet pairs | 1 |
 | `ephemeris_fixed_stars` | Fixed star positions and conjunctions | 1 |
 | `ephemeris_hermetic_lots` | Arabic Parts / Hermetic Lots | 1 |
