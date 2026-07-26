@@ -21,6 +21,10 @@ The server has grown to 91 registered tools, 69 of which were advertised to the 
 
   Opt into the full catalog with `OPENEPHEMERIS_TOOLS=full` (stdio) or `?profile=full` / `X-OE-Tool-Surface: full` (remote HTTP). The surface is fixed at session initialize — this server does not advertise `tools.listChanged`, so switching means reconnecting. The public server card at `/.well-known/mcp/server-card.json` deliberately still lists everything: it is a registry catalog, not model context.
 
+- **Usage reporting now covers the stdio transport, and identifies the connecting client.** Telemetry previously existed only on the remote HTTP server, so the entire npm install base — every Claude Desktop, Cursor and Windsurf user — was invisible. Both transports now emit the same three events with the same properties (`transport`, `surface`, `client_name`, `client_version`, `server_version`), so a single query can compare them. `client_name` comes from the MCP initialize handshake and is the only way to know which hosts this package actually runs in.
+
+  **This is disclosed and opt-out-able**, because it runs on your machine: see [Telemetry](README.md#telemetry). Tool name, duration, error status, client name and a one-way hash of your API key are sent. Your key, birth data, coordinates, tool arguments and tool results never are. Disable with `OPENEPHEMERIS_TELEMETRY=0` or the cross-tool standard `DO_NOT_TRACK=1`; both are checked before anything is sent, and are covered by tests.
+
 - **`location_search` and `timezone_resolve` are now visible to the model.** Both existed but were marked app-only, so the model could not call them — which is why prompts had to geocode through `dev_read_api /location/autocomplete` instead. Turning a birth city into coordinates and an IANA timezone is now a first-class two-step.
 
 ### Fixed

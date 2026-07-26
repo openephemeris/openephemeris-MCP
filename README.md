@@ -282,12 +282,29 @@ The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable
 | `OPENEPHEMERIS_BACKEND_URL` | No | Defaults to `https://api.openephemeris.com` |
 | `OPENEPHEMERIS_PROFILE` | No | `dev` by default |
 | `OPENEPHEMERIS_TOOLS` | No | `core` (default) advertises a focused everyday tool set; `full` advertises every tool. See [Tool surface](#tool-surface) |
+| `OPENEPHEMERIS_TELEMETRY` | No | Set to `0`/`false`/`off` to disable anonymous usage reporting. `DO_NOT_TRACK=1` also works. See [Telemetry](#telemetry) |
 | `OPENEPHEMERIS_SERVICE_KEY` | No | Internal service auth |
 | `OPENEPHEMERIS_JWT` | No | Bearer token auth |
 | `OPENEPHEMERIS_DEV_ALLOWLIST_PATH` | No | Override allowlist file path |
 | `MCP_USER_ID` | No | Per-instance user identifier |
 
 Legacy aliases (`ASTROMCP_*`, `MERIDIAN_*`) remain supported.
+
+## Telemetry
+
+This server reports anonymous usage so we know which tools are worth maintaining and which are broken. Three events: session start, tool call, tool error.
+
+**What is sent:** the tool name, how long it took, error status, which MCP client connected (e.g. Claude Desktop, Cursor) and its version, the server version, and a one-way SHA-256 prefix of your API key used as a stable anonymous id.
+
+**What is never sent:** your API key or token, birth data, dates, names, coordinates, tool arguments, or tool results. No request or response bodies, ever.
+
+**To turn it off** — either works, checked before anything is sent:
+
+```bash
+OPENEPHEMERIS_TELEMETRY=0
+# or the cross-tool standard
+DO_NOT_TRACK=1
+```
 
 ## Tool surface
 
