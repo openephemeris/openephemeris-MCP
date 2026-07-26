@@ -41,6 +41,10 @@ The server has grown to 91 registered tools, 69 of which were advertised to the 
 
 - **Tool-error telemetry could not distinguish a backend outage from a client-side argument error.** Errors thrown locally carry no HTTP status, so they were all recorded as `status: "unknown"` alongside genuine backend failures. Error events now carry `error_kind` (`backend` / `local`) and the error code.
 
+- **WCAG AA contrast restored in the dark widget palette.** The 3.24.0 theme unification left five of the seven embedded apps — bodygraph, moon-phase, transit-timeline, vedic-chart and bazi — with muted and secondary text below the minimum contrast ratio. Those bundles ship inside this package (`dist/ui`), so anyone rendering the iframe apps saw it. The visual gate that should have caught it now audits **both** palettes per app and state; previously it only ever rendered one, which is how a whole-palette regression stayed green.
+
+- **A release could not pass its own gate.** `npm publish` runs `verify:release` → `check:public`, which byte-compares the files mirrored to the public repo. Neither side pinned line endings, so a Windows checkout rewrote them to CRLF and the check reported permanent drift on files nobody had edited. Both repos now pin LF.
+
 - **Stale references in the skill packs and plugin docs.** The setup and API-reference skills still described `dev.call` / `dev.list_allowed`, names retired in 3.15.0 (the tools are `dev_read_api`, `dev_write_api`, `dev_list_allowed`). The plugin skill listed `electional_ingress_calendar`, which is not a tool this server has ever registered. Endpoint counts corrected to 118.
 
 ### Notes
