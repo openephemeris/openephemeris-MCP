@@ -7,6 +7,40 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.0.0] — 2026-07-26
+
+**Breaking.** A datetime that states a clock time without a zone is now rejected instead of silently assumed to be UTC. Callers who relied on the old behaviour were receiving charts computed for the wrong instant, so the break is the fix — but it is a break, and it is why this is a major version.
+
+This release also carries everything from 3.26.0, which was written up but never published to npm (`latest` was 3.24.0). Nothing is lost; the 3.26.0 entry below is part of what ships here.
+
+### Fixed
+
+- **A birth time without a timezone was silently read as UTC, producing the wrong houses and angles.** This is the headline fix, and it is a correctness bug rather than a cosmetic one.
+
+  Given `datetime='1987-07-15T09:01:00'` with Dallas coordinates — 9:01 AM local, which is 14:01 UTC in July — the API computed the chart for 09:01 **UTC**: five hours early. Every planet keeps its sign at that error scale, so the output passed casual inspection, while the Ascendant landed in Gemini instead of Leo (77.97° vs 143.12°), the Midheaven moved nearly three signs, and every house placement was wrong. In Human Design the same input returned profile 2/4 instead of 2/5 and a Design Sun on gate 42 line 4 instead of line 5.
+
+  A datetime that states a clock time but not the zone that clock is in does not name a moment, so the server no longer guesses. It is now a `400` with an RFC 7807 `ambiguous_datetime` problem that names **both** fixes — put a `Z`/`±HH:MM` offset on the value, or pass the local time together with a `timezone`. Rejecting is the right default for a chart-correctness product: a loud failure costs one retry, a silent five-hour shift costs the whole reading.
+
+  A date with no clock time (`'1987-07-15'`) is unaffected and still resolves to 12:00 UTC — there is nothing ambiguous about it, and every search-window parameter in the API depends on it.
+
+- **Every tool that takes a datetime now takes a `timezone`.** Previously only four did (`ephemeris_natal_chart`, `ephemeris_chart_wheel`, `ephemeris_bi_wheel`, and the `explore_*` apps), which left callers of `ephemeris_synastry`, `ephemeris_relocation`, the return tools, the ACG tools, `ephemeris_angles_points`, `ephemeris_house_cusps` and the rest with **no correct way to express a local birth time at all**. There is now a test that fails if a tool gains a datetime parameter without one.
+
+- **The Human Design tools documented `"Must include 'Z' or timezone offset"` and then silently appended a `Z` themselves.** Four separate copies of an `ensureTimezone` helper turned any zone-less value into a UTC assertion the caller never made — which is precisely what made the error invisible. `human_design_composite` and `human_design_penta` skipped even that and passed the naive string straight through. All of them now take a `timezone`, resolve it properly (including historical DST — 1987 Chicago is UTC-5, not UTC-6), and refuse to invent a zone.
+
+- **The documentation taught the bug.** `ephemeris_natal_chart`'s example was `datetime='1990-04-15T14:30:00'` with Chicago coordinates, no offset and no timezone — copied verbatim by models reading it. `acg_power_lines`, `acg_hits` and `ephemeris_progressed_chart` each carried a naive example that directly contradicted their own parameter description warning against naive input. Every ISO example across the tool surface now states its zone, and a repo test fails the build if a new one appears.
+
+- **BaZi charts depended on the server's own timezone.** `parseBaziArgs` did `new Date('1987-07-15T14:00:00')`, which JavaScript resolves in the *host process's* zone, then read `.getUTCHours()`. On any server not running in UTC this shifted the hour pillar, and near midnight the day pillar. Components are now read from the string itself. (BaZi pillars are built from local wall-clock time by definition, so a zone-less datetime is correct there — it was the reading that was wrong, not the input.)
+
+- **`ephemeris_natal_transits` declared a `transit_timezone` parameter that the handler never read.** It is now applied.
+
+- **`vedic_chart_recalculate` dropped the `timezone` that `explore_vedic_chart` accepts**, so re-rendering the same chart from the iframe interpreted the birth time as UTC and produced a different chart than the one on screen.
+
+### Changed
+
+- Responses now echo the instant they were actually computed for: `resolved_utc`, plus `datetime_zone_source` (`offset` / `timezone` / `date_only`) and the zone itself. When a chart looks wrong, the first question is which moment it was cast for, and the answer is now in the response.
+
+---
+
 ## [3.26.0] — 2026-07-25
 
 A leaner default tool list, and a sweep of documentation and billing corrections found while auditing it.
