@@ -1,0 +1,22 @@
+# This repo is a docs mirror of the openephemeris monorepo. `check:public` in
+# the monorepo compares these files BYTE-for-byte against their source copies,
+# which are stored and checked out with LF.
+#
+# Without this file, a Windows checkout with core.autocrlf=true rewrites every
+# text file to CRLF, so check:public reports permanent drift on files nobody
+# edited (LICENSE, README.md, CHANGELOG.md) and `npm run verify:release` — and
+# therefore `npm publish` — fails until someone re-syncs by hand.
+#
+# Pin everything to LF so a checkout here matches the monorepo exactly.
+* text=auto eol=lf
+
+# Binary assets must never be line-ending converted.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.mp4 binary
+*.woff binary
+*.woff2 binary
