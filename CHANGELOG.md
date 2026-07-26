@@ -7,6 +7,82 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.1.0] — 2026-07-26
+
+Follow-up to 4.0.0. The new `400` was telling REST callers to do something that, on
+most endpoints, was impossible. It now isn't — the remedy it names is real everywhere.
+
+### Added
+
+- **`date_time.timezone` — every datetime in the API now accepts its own zone.** 4.0.0's
+  rejection message offered two fixes: put an offset on the value, or "keep the local
+  wall-clock time and pass the zone alongside it". The second one only worked on requests
+  built around a `subject`, because the zone lived on `subject.birth_location.timezone`.
+  Endpoints that take a bare `date_time` — `/ephemeris/angles-points`, `/ephemeris/house-cusps`,
+  `/ephemeris/planet-position`, `/ephemeris/dignities`, `/ephemeris/midpoints`,
+  `/ephemeris/retrograde-status`, `/ephemeris/fixed-stars`, `/ephemeris/hermetic-lots`
+  and `/ephemeris/lunar-phase` — had nowhere to put a zone, so a caller following the
+  error's own advice got the same `400` back. Nine endpoints, one impossible instruction.
+
+  The zone now belongs to the datetime rather than to the request, so this works
+  everywhere a datetime is accepted:
+
+  ```json
+  { "date_time": { "iso": "1987-07-15T09:01:00",
+                   "timezone": { "iana_name": "America/Chicago" } } }
+  ```
+
+  Purely additive — an omitted `timezone` behaves exactly as before, and where a request
+  already carries a zone (a subject's birth location) that remains the fallback. A zone
+  already written on the string always wins, so a stray `timezone` can never move an
+  instant that the caller had already pinned.
+
+- **`docs/datetime-contract.md`** — one authoritative statement of the rule: when a zone
+  is required, the date-only and `*_utc` carve-outs, how to pass a zone on each request
+  shape, and what the response echoes. The reason four endpoint families drifted to four
+  different readings of "ISO 8601 date-time" is that no such document existed.
+
+### Fixed
+
+- **The `400` no longer advertises a remedy the endpoint doesn't have.** Fields that are
+  a bare datetime *string* rather than an object — the ACG `epoch` family, the Venus date
+  ranges, the `datetime` query parameter on the `GET /ephemeris/moon/*` endpoints — have
+  no `timezone` companion and cannot grow one. Their rejection message now names only the
+  fix that exists: put the zone on the value. Being told to do something impossible is
+  worse than a terse error.
+
+- **The OpenAPI spec now states the contract where callers actually read it.** The
+  `date_time` fields said "ISO 8601 date-time" and nothing more, so the only place the
+  rule appeared was in the error you got for breaking it. The `iso`, `components` and
+  `timezone` fields, the `epoch`/date-range string fields, and the spec's own
+  "Supported Formats" section now all state it. That section had been listing a zone-less
+  `"2000-01-01T12:00:00"` as an accepted input — the exact value the API rejects.
+
+- **`/timezone/offset` documented behaviour it has never had.** Its `datetime_utc` field
+  claimed a naive value was "interpreted as UTC". The field is a strict RFC 3339 instant,
+  so a zone-less value was never interpreted at all — it failed to parse. Now documented
+  as what it is.
+
+- **The spec's front-page example used field names that do not exist** (`iso_string`,
+  a `timezone.name`, and latitude/longitude directly under `subject`). Replaced with the
+  real request shape.
+
+- **Four tool modules were still teaching the pre-4.0.0 contract.** `chart_wheel` told the
+  model to "include timezone offset **if known**"; `ephemeris_composite`,
+  `ephemeris_composite_midpoint`, `ephemeris_overlay`, `ephemeris_natal_transits`, the
+  electional search tools and `explore_bi_wheel` described their datetimes as plain
+  "(ISO 8601)" with no zone requirement. 4.0.0 migrated the rest of the surface and missed
+  these. They now use the same canonical description as every other tool, and the composite
+  tools reject a zone-less datetime locally instead of spending a credit to learn it.
+
+### Changed
+
+- The tool-surface token ceilings are **unchanged** (core 20,000 / full 36,500). The
+  descriptions above cost ~0.4k core / ~1.0k full and fit inside the existing budget;
+  measured after the change, core is 18.7k and full is 34.8k.
+
+---
+
 ## [4.0.0] — 2026-07-26
 
 **Breaking.** A datetime that states a clock time without a zone is now rejected instead of silently assumed to be UTC. Callers who relied on the old behaviour were receiving charts computed for the wrong instant, so the break is the fix — but it is a break, and it is why this is a major version.

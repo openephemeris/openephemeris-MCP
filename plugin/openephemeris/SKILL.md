@@ -49,7 +49,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 1. **Never Assume AM/PM**: If a user says "8:00", explicitly ask if it is AM or PM before generating anything.
 2. **Local Time vs Timezone**: Clarify if the time provided is local to the birth/event location. (e.g., "Was 8:00 PM the local time in Paris?").
 3. **Timezone Offset**: When computing the chart or using tools, ensure you understand the Daylight Saving Time (DST) or timezone rules for that specific year and location. 
-4. **Format properly**: When using tools, pass the local time at the location without an offset if the system resolves it, or provide the complete ISO 8601 string including the correct GMT offset if known (e.g., `1990-04-15T14:30:00-05:00`).
+4. **Always state the zone**: A datetime that names a clock time but not its zone is rejected — it is never assumed to be UTC. Either pass the local wall-clock time together with the `timezone` argument (`datetime='1990-04-15T14:30:00'`, `timezone='America/Chicago'` — preferred, since the IANA zone resolves that year's DST for you), or put the offset on the value itself (`1990-04-15T14:30:00-05:00`, or `...T19:30:00Z` for UTC). A date with no clock time (`1990-04-15`) is fine and resolves to noon UTC.
 
 **Never guess or hallucinate the time** if the user gave an ambiguous input. Instant trust is broken if a user sees a wrong chart based on a sloppy time assumption. Hold their hand and ask clarifying questions first.
 

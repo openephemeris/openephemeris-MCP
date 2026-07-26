@@ -93,7 +93,15 @@ await mcpClient.connect(transport)
 const { tools } = await mcpClient.listTools()
 const result = await mcpClient.callTool({
   name: "ephemeris_natal_chart",
-  arguments: { datetime: "1990-04-15T14:30:00", latitude: 41.8781, longitude: -87.6298, format: "llm" },
+  // A datetime that states a clock time must state its zone: either pass
+  // `timezone` alongside the local time, or put a Z/±HH:MM offset on the value.
+  arguments: {
+    datetime: "1990-04-15T14:30:00",
+    timezone: "America/Chicago",
+    latitude: 41.8781,
+    longitude: -87.6298,
+    format: "llm",
+  },
 })
 ```
 
