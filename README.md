@@ -227,6 +227,32 @@ The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable
 "What is the sidereal time and delta-T right now?"
 ```
 
+## Interactive Charts
+
+Nine of the tools don't answer with JSON. They open a chart in the conversation — a real one, drawn from the same calculation, that you can click around in.
+
+This matters more than it sounds. A natal chart returned as JSON is a list of numbers you have to already understand to read. The same chart rendered as a wheel is something you can point at. Click a planet and you get that placement explained; click a house and you get what's in it. The chart stays on screen while you keep talking, and it doesn't cost another credit to keep looking at it.
+
+These need a host that supports MCP Apps — Claude Desktop is the main one today. In a client without app support the same tools still work; you get the underlying data instead of the picture, so nothing breaks, you just don't get the wheel.
+
+| Tool | What opens | What you can click | Credits |
+|---|---|---|---|
+| `explore_natal_chart` | Natal wheel — planets, houses, aspects, angles | Planets, houses, aspect lines; recalculate with new settings | 1 |
+| `explore_bi_wheel` | Two charts on one wheel: transits, synastry, progressions | Either wheel's planets, houses, and the aspects between them | 2 |
+| `explore_human_design` | Human Design bodygraph, with a mandala view toggle | Centers, gates, channels, planets, variables | 2 |
+| `explore_human_design_transit` | Today's planets laid over a natal bodygraph | Transit-activated channels | 3 |
+| `explore_human_design_connection` | Two bodygraphs combined, every shared channel classified | Connection channels by type | 3 |
+| `explore_vedic_chart` | South Indian Rashi grid — sidereal placements and Lagna | Each rashi, for its placements and nakshatras | 3 |
+| `explore_bazi_chart` | Four Pillars (四柱命盘) — Year, Month, Day, Hour | Each pillar | 3 |
+| `explore_transit_timeline` | Upcoming transit hits in date order | Individual hits | 6 |
+| `explore_moon_phase` | Moon dial — illumination, phase, sign, void-of-course | Recalculate for another moment | 3 |
+
+Ask for these the way you'd ask a person: *"show me my chart"*, *"put today's transits over my Human Design"*, *"what's the moon doing right now"*. The model picks the app.
+
+Two things worth knowing. The chart wheel and bi-wheel accept a click on an aspect line, not just on the two planets it joins — so "why does this line matter" is one click rather than a paragraph of setup. And the bodygraph's mandala toggle rearranges the whole chart into concentric rings without another API call, so switching views is free.
+
+Screenshots of each are on the way.
+
 ## Tools at a Glance
 
 | Category | Tool | Tier |
