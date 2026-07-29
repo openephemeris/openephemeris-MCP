@@ -7,6 +7,40 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Unreleased]
+
+### Fixed
+
+- **`ephemeris_next_lunar_phase` returned zero results for every query.** "When is the
+  next full moon?" answered `result_count: 0` with the note *"No matching phase found in
+  window"* — an empty result that reads like a real one, so the answer came back as
+  "there is no full moon in the next month". Four faults stacked up:
+
+  - the tool sent `start_date`/`end_date`, but the calendar endpoint takes a single
+    `date`, so the search window was silently ignored;
+  - it looked for the phase array at `phases`/`data`/`events`, while the response nests
+    it at `data.events`, so the list was always empty;
+  - it matched phase names as `"full moon"` against the engine's `"full_moon"`, so
+    nothing would have matched even once the list was found;
+  - `last_quarter` had no match at all, because the engine names it `third_quarter`.
+
+  The search now walks the calendar forward one lunation at a time, so `count` above 1
+  works. An empty result is no longer reported as an answer: since every principal phase
+  recurs about every 29.5 days, zero results is a fault and the tool now says so instead
+  of handing back a plausible non-answer.
+
+### Changed
+
+- **`ephemeris_retrograde_status` now leads with the single-planet path.** The
+  description opened on the all-planets sweep and mentioned `planet_id` last, so "is
+  Mercury retrograde?" tended to take the 10-credit route instead of the 1-credit one.
+  `planet_id` now carries the planet-id table and both costs are stated up front.
+- **`ephemeris_next_lunar_phase` no longer claims to return the zodiac sign and degree.**
+  It never did — it returns exact UTC datetimes. It now points at `ephemeris_moon_phase`
+  for the sign, and states that cost scales with `count`.
+
+---
+
 ## [4.1.0] — 2026-07-26
 
 Follow-up to 4.0.0. The new `400` was telling REST callers to do something that, on
