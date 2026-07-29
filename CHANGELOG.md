@@ -7,6 +7,38 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Unreleased]
+
+### Fixed
+
+- **`ephemeris_house_cusps` (and ten other DateTimeInput tools) lied about how the
+  caller supplied the zone.** Calling with `datetime="1987-07-15T09:01:00"` +
+  `timezone="America/Chicago"` came back with `datetime_zone: "UTC"` and
+  `datetime_zone_source: "offset"` — because the tool converted the value to a
+  Z-suffixed UTC string on the client before sending it, and the server (correctly)
+  described what it received. `ephemeris_natal_chart` reported the same input as
+  `America/Chicago` / `timezone`, so the two tools disagreed about the same fact,
+  and the mislabelled `"UTC"` was the exact wrong value the naive-datetime contract
+  was written to catch — a false alarm on a correct call.
+
+  The 11 tools that take a `DateTimeInput` body field (`ephemeris_house_cusps`,
+  `ephemeris_planet_position`, `ephemeris_dignities`, `ephemeris_retrograde_status`,
+  `ephemeris_midpoints`, `ephemeris_fixed_stars`, `ephemeris_hermetic_lots`,
+  `ephemeris_angles_points`, `ephemeris_solar_return`, `ephemeris_lunar_return`,
+  `ephemeris_natal_transits`) now pass a naive datetime + IANA zone through as
+  `{ iso, timezone: { iana_name } }` — the shape the Go handler already resolves
+  correctly and stamps as `datetime_zone_source: "timezone"`. Endpoints whose body
+  field is named `*_utc` (`vedic_chart`, Human Design, the ACG `epoch`) still
+  pre-convert client-side, because their Go types are strict RFC 3339 `time.Time`
+  and cannot accept a companion zone.
+
+  Contract test asserts, for every fixed tool, that the wire body carries the naive
+  datetime and the IANA name — not a synthesized Z-suffixed value — and the Go
+  handler test proves all three input forms (`Z`, `±HH:MM`, naive + IANA) resolve
+  to the same instant and each self-describes its provenance correctly.
+
+---
+
 ## [4.2.0] — 2026-07-29
 
 `ephemeris_next_lunar_phase` could not answer the question it exists to answer. The
