@@ -7,7 +7,10 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Unreleased]
+## [4.2.0] — 2026-07-29
+
+`ephemeris_next_lunar_phase` could not answer the question it exists to answer. The
+tool's response shape changes with this fix, hence a minor rather than a patch.
 
 ### Fixed
 
