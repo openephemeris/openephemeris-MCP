@@ -7,7 +7,11 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Unreleased]
+## [4.3.0] — 2026-07-29
+
+The bodygraph iframes get the same view toggle across every mode (natal, transit,
+connection), the datetime contract stops being repeated on every datetime tool,
+and eleven tools stop lying about which zone the caller named.
 
 ### Added
 
