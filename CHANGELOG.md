@@ -9,6 +9,25 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- **Bodygraph mandala layout works on transit and connection overlay iframes.**
+  The natal bodygraph iframe has had a graph ↔ mandala toggle since 3.19.0;
+  the transit and connection overlays did not, because the overlay render path
+  dropped `layout` on the floor. The mandala scene builder already delegates
+  channel and center rendering to the same overlay-aware helpers the graph
+  layout uses, so this was purely a matter of wiring: openapi
+  `VisualRenderConfig` gains an optional `layout` (`graph` | `mandala`),
+  `visualConfigFromRender` copies it through, `RenderBodygraphOverlayEmbed`
+  applies the same mandala scaling the natal path already had, and both
+  `explore_human_design_transit` and `explore_human_design_connection` accept
+  a `layout` argument that forwards to `visual_config.layout`. The iframe's
+  existing view-toggle button renders on overlay payloads too now, and
+  reroutes via the `_refetch` metadata so the model never sees the switch.
+  Overlay attributes (`data-connection-type`, `data-transit-new`, the overlay
+  legend) survive the mandala switch — the mandala inherits the overlay-aware
+  channel builder unchanged.
+
 ### Changed
 
 - **The datetime contract paragraph moved off every tool description and into the
