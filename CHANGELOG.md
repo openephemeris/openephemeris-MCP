@@ -9,6 +9,19 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- **The datetime contract paragraph moved off every tool description and into the
+  server `instructions` field.** The 130-token contract text used to be sent on
+  every datetime-accepting tool and re-sent on every model pass — ~40 sites'
+  worth of pure repetition. It's now stated once, up front, in `instructions`
+  (both stdio and HTTP transports), with each parameter description carrying a
+  one-sentence rule + a pointer back. The 400 rejection still rewrites the
+  caller's own value into each remedy, so a host that fails to propagate
+  `instructions` learns the rule from the first violation. Core surface dropped
+  from ~18.7k to ~17.2k tokens (−1.5k, 8%); full surface dropped from ~35.1k to
+  ~29.9k (−5.2k, 15%). NEW-4 from the Phase-0 v4.1 audit.
+
 ### Fixed
 
 - **`ephemeris_house_cusps` (and ten other DateTimeInput tools) lied about how the
