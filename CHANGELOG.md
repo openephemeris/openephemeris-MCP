@@ -7,6 +7,39 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.3.1] — 2026-07-29
+
+Two rendering fixes surfaced by the Phase-0 v4.3 audit, plus a companion
+server-side fix that unblocks the tool this release advertised.
+
+### Fixed
+
+- **`account_usage` no longer tells unlimited-plan customers they have "0 remaining".**
+  A service-tier row reports `included_units = -1` (the sentinel for unlimited);
+  the tool rendered it literally as *"Credits: 993 used of -1 included — 0 remaining
+  (0% used)"* — three mutually contradictory statements about the same quota, and
+  the "0 remaining" reading a paid customer as cut off. Unlimited plans now render
+  as *"Credits: 993 used · unlimited plan"* with no synthesized percentage.
+  NEW-11 from the audit.
+- **Companion:** `ephemeris_house_cusps` accepts the `timezone` companion the
+  4.3.0 schema advertised. The Go server rejected the field at the JSON decode
+  layer with *"unknown field provided in DateTimeInput"*, so an agent following
+  OE's own naive-datetime error message hit a second error. Fixed server-side
+  in [`openephemeris/openephemeris#466`](https://github.com/openephemeris/openephemeris/pull/466)
+  (no MCP change) — the schema, generated struct, and handler were all correct;
+  only the bespoke JSON decoder's allowlist was out of sync. NEW-10 from the
+  audit.
+
+### Added
+
+- **`account_usage` now prints a `Server version` line.** External audits and
+  eval runs could not previously attribute a score to a specific published
+  build — the version is set in `serverInfo.version` on `initialize` but was
+  not surfaced anywhere a human-readable tool response could echo. NEW-9 from
+  the audit.
+
+---
+
 ## [4.3.0] — 2026-07-29
 
 The bodygraph iframes get the same view toggle across every mode (natal, transit,
