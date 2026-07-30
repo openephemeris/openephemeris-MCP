@@ -7,6 +7,45 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.4.0] — 2026-07-30
+
+Puts the location resolver on the natural path for the four `explore_*`
+chart tools, and corrects two parameter descriptions that had drifted from
+the code.
+
+### Added
+
+- **`location` on `explore_natal_chart`, `explore_human_design`,
+  `explore_vedic_chart`, and `explore_bi_wheel` now resolves internally.**
+  Supply a plain place name — `location: "Portland, ME"` — and the tool
+  fills in the coordinates and (unless overridden) the timezone via the
+  same `/location/autocomplete` lookup `location_search` uses. Supplied
+  `latitude`/`longitude` always win. Ambiguous names (e.g. bare
+  `"portland"`) throw with a disambiguation hint rather than silently
+  picking the top hit — the same behaviour `location_search` reports as
+  `ambiguous: true`.
+  A prior smoke run measured `location_search` adoption at **1 in 8** when
+  it was documented but off the natural path; every request supplied
+  coordinates from model memory instead. Wiring `location` into the chart
+  tools themselves makes the resolver the minimum-effort call.
+
+### Fixed
+
+- **`explore_human_design` no longer silently computes at 0°N 0°E.**
+  When neither `latitude`/`longitude` nor a resolvable `location` is
+  supplied, the call is now rejected with a clear message. Previously a
+  bare `datetime` produced a plausible-looking bodygraph anchored on the
+  Gulf of Guinea — a location-sensitive system silently defaulting to a
+  wrong location is the failure class the Phase-0 audits keep catching.
+- **`include_fixed_stars` and `include_arabic_parts` descriptions on
+  `ephemeris_natal_chart` no longer say "Reserved for future use".** Both
+  parameters have always been wired to their respective configuration
+  keys (`configuration.fixed_star_options.include: true` and
+  `options.include_hermetic_lots: true`); only the descriptions were
+  stale.
+
+---
+
 ## [4.3.1] — 2026-07-29
 
 Two rendering fixes surfaced by the Phase-0 v4.3 audit, plus a companion
