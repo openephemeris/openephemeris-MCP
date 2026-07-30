@@ -7,6 +7,35 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.5.0] — 2026-07-30
+
+Adds a tool for the question the astrocartography tools could not answer:
+*when* a planet reaches an angle at a place, rather than what is angular
+there at a fixed moment.
+
+### Added
+
+- **`electional_angle_crossings` — find when a body crosses the Ascendant,
+  Descendant, Midheaven, or Imum Coeli at a location.** The time-inverse of
+  astrocartography. `acg_hits` answers "which lines pass near Warsaw at this
+  moment"; this answers "at what moment does Mercury cross the Descendant
+  over Warsaw". Give it a latitude/longitude and a date range and it returns
+  the crossing moments chronologically, with each body's position and a
+  daylight hint at that instant.
+
+  Crossing times are solved on the same in-mundo (equatorial RA/Dec) geometry
+  the astrocartography line engine draws, so casting a map at a returned
+  moment puts that line through the query point — the search and the map
+  cannot disagree.
+
+  Defaults to the classical seven bodies and all four angles over the current
+  UTC day. Circumpolar cases — a body that never rises or never sets at that
+  latitude — simply return no event rather than an error. Ranges up to 366
+  days; an over-long range is rejected rather than quietly shortened.
+
+  Advertised in the default tool surface. 5 credits per call, Developer plan
+  and above.
+
 ## [4.4.0] — 2026-07-30
 
 Puts the location resolver on the natural path for the four `explore_*`
