@@ -7,6 +7,61 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.6.0] — 2026-07-30
+
+Fixes the tool that could not answer the question it is named for, and closes
+the last two places a chart was silently computed at 0°N 0°E. All four items
+come from a 75-run behavioural eval (25 prompts × 3, fresh context each) run
+against 4.4.0.
+
+### Fixed
+
+- **`ephemeris_next_eclipse` can now find the next eclipse.** Without a
+  location it routed to `/eclipse/solar/global` or `/eclipse/lunar/global`,
+  which classify whatever eclipse is occurring *at* a given instant rather
+  than searching forward from one. The consequences compounded: `after_date`
+  was documented as optional and defaulting to today, but the backend
+  rejected the call without it; an ordinary date returned *"no solar eclipse
+  occurs at the requested date"*; and `eclipse_type: 'any'` was accepted and
+  ignored. Asking *"when is the next solar eclipse"* was unanswerable.
+
+  It now calls a new `/eclipse/next` endpoint that genuinely searches forward
+  from `after_date` (defaulting to now), honours `any` by returning whichever
+  of solar/lunar comes first, and needs no arguments beyond the type. Server
+  side in [`openephemeris#473`](https://github.com/openephemeris/openephemeris/pull/473).
+
+  Worth stating plainly, because it is the reason this is the lede: a broken
+  tool did not surface an error to the end user. Across three runs of the
+  same prompt the model answered from its own memory twice — once correctly,
+  once naming an eclipse in the wrong year — and disagreed with itself. Only
+  one run in three reported that the tool had failed.
+
+- **`explore_human_design_transit` and `explore_human_design_connection` no
+  longer silently compute at 0°N 0°E.** 4.4.0 fixed this for
+  `explore_human_design` and wired `location` into four chart tools; these
+  two were missed. `explore_human_design_transit` accepted a `location` that
+  was display-only — its own description conceded the chart would be cast on
+  the Gulf of Guinea — and `explore_human_design_connection` had no location
+  field at all for either person. Both now resolve a place name through the
+  same lookup `location_search` uses, and reject the call outright when
+  neither coordinates nor a resolvable location is supplied.
+
+### Changed
+
+- **Two server-side fixes change what these tools return** (no MCP change
+  required, listed because the output differs):
+  `ephemeris_natal_chart` with `format: 'llm'` now distinguishes the mean and
+  true lunar nodes — both previously carried the id `north_node`, so a
+  consumer keying by id silently dropped one and the `aspects` indices
+  inherited the ambiguity ([`#475`](https://github.com/openephemeris/openephemeris/pull/475)).
+  And `server_version` in calculation metadata is now derived from the
+  deployed image reference rather than Fly's per-machine version counter, so
+  every instance serving a given release reports the same value; a separate
+  `instance_id` carries per-machine attribution
+  ([`#474`](https://github.com/openephemeris/openephemeris/pull/474)).
+
+---
+
 ## [4.5.0] — 2026-07-30
 
 Adds a tool for the question the astrocartography tools could not answer:
