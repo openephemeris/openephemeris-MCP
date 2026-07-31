@@ -9,10 +9,11 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [4.6.0] — 2026-07-30
 
-Fixes the tool that could not answer the question it is named for, and closes
-the last two places a chart was silently computed at 0°N 0°E. All four items
-come from a 75-run behavioural eval (25 prompts × 3, fresh context each) run
-against 4.4.0.
+Fixes the tool that could not answer the question it is named for, closes the
+last two places a chart was silently computed at 0°N 0°E, and stops two tools
+discarding a timezone the caller supplied. The first three come from a 75-run
+behavioural eval (25 prompts × 3, fresh context each) run against 4.4.0; the
+last from the directory-submission readiness review.
 
 ### Fixed
 
@@ -45,6 +46,16 @@ against 4.4.0.
   field at all for either person. Both now resolve a place name through the
   same lookup `location_search` uses, and reject the call outright when
   neither coordinates nor a resolvable location is supplied.
+
+- **`ephemeris_natal_batch` and `explore_transit_timeline` no longer discard a
+  supplied timezone.** Both declared a timezone parameter and then built the
+  request body without it, so a naive local birth time plus an IANA zone — the
+  remedy the server's own error message recommends — was rejected by the
+  datetime contract. `ephemeris_natal_batch` failed this way for *every*
+  subject in a batch, and its documented example was the failing shape;
+  `explore_transit_timeline` never read `natal_timezone` at all. Both now route
+  the value through the same canonical helper the rest of the surface uses, so
+  the zone reaches the wire.
 
 ### Changed
 
