@@ -98,7 +98,7 @@ For Human Design, type/strategy/authority/profile depend on precise time — fla
 
 ## Compute
 
-The HD cycle endpoints take `birth_datetime_utc` directly. Convert local birth time to UTC yourself using the IANA timezone from Standard Procedure Step 2.
+The HD cycle endpoints take `birth_datetime_utc` directly. Do **not** convert local→UTC by hand — resolve the instant with `POST /timezone/offset` (`datetime_local` + IANA `timezone` + birth `lat`/`lon` → `resolved_utc`, historically correct even pre-1970) and use that as `birth_datetime_utc`. The MCP cycle tools do this resolution automatically when given a local datetime + timezone + coordinates.
 
 ### Planetary Return (Saturn, Jupiter, Chiron, etc.)
 

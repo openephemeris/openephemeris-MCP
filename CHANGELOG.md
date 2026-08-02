@@ -7,6 +7,44 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.7.0] — 2026-08-02
+
+Historically correct birth-time conversion. IANA timezone databases — including
+the one inside every JavaScript runtime — are only authoritative from 1970.
+Before the US Uniform Time Act took effect in 1967, daylight saving was state
+and municipal law, and a zone like `America/Chicago` models Chicago alone. A
+1961 Minnesota birth converted with standard timezone math lands an hour off,
+which flips the Ascendant sign and the Human Design design-Moon gate.
+
+### Added
+
+- **Pre-1970 births now resolve through the API's historical correction
+  overlay.** Any tool given a naive local birth time with a timezone and
+  coordinates — natal, Human Design (chart, composite, penta, cycles, groups),
+  Vedic, BaZi apps, ACG, moon tools, and the embedded chart apps — routes the
+  local→UTC conversion through the API's `/timezone/offset` `datetime_local`
+  mode, which applies primary-source-cited state and local law (with a
+  `tz_confidence` grade and rule citation) instead of assuming the reference
+  city's rules. Post-1970 conversions stay on the local, zero-latency path,
+  which is exactly as authoritative as the server. If the server is
+  unreachable, tools fall back to the previous local conversion rather than
+  failing the chart call.
+- **`timezone_resolve`** consults the same historical path for pre-1970 dates
+  and reports `tzConfidence`, `tzRuleSource`, and `datetimeStatus` (ambiguous
+  DST-fold and nonexistent-gap times are called out explicitly).
+- **`location_search`** tags each suggestion's historical offset with a
+  confidence grade and a note when a pre-1970 date may be affected by
+  state/local law divergence.
+
+### Fixed
+
+- Three skills and one prompt still instructed the model to convert local
+  birth times to UTC itself with generic timezone math — the exact manual
+  conversion the historical overlay exists to prevent. They now direct all
+  conversion through the API.
+
+---
+
 ## [4.6.0] — 2026-07-30
 
 Fixes the tool that could not answer the question it is named for, closes the

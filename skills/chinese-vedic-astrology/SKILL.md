@@ -198,7 +198,7 @@ Body:
 }
 ```
 
-> Vedic chart uses `datetime_utc` directly — convert local birth time → UTC using the IANA timezone from the Standard Procedure.
+> Vedic chart uses `datetime_utc` directly. Don't convert local→UTC by hand — resolve it with `POST /timezone/offset` (`datetime_local` + IANA `timezone` + `lat`/`lon` → `resolved_utc`, historically correct even pre-1970) and pass that. The MCP `vedic_chart` tool does this resolution automatically from a local datetime + timezone + coordinates.
 
 ### How to Read a Vedic Chart
 

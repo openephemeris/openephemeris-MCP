@@ -89,7 +89,7 @@ For Human Design, type/strategy/authority/profile depend on precise time — fla
 
 ## Compute
 
-The Human Design endpoint takes `birth_datetime_utc` directly — you must convert the local birth time to UTC *yourself* using the timezone you looked up in Step 2:
+The Human Design endpoint takes `birth_datetime_utc` directly. Do **not** convert local→UTC by hand or with generic timezone math — before 1970, US DST was state and local law and standard timezone databases are silently wrong for many places. Resolve the instant with the API: `POST /timezone/offset` with `datetime_local`, the IANA `timezone`, and the birth `lat`/`lon` returns `resolved_utc` (historically correct, with a `tz_confidence` grade) — use that as `birth_datetime_utc`. (The MCP `human_design_chart` tool does this resolution automatically when you pass a local datetime + timezone + coordinates.)
 
 ```
 POST /human-design/chart
