@@ -358,6 +358,38 @@ On the remote HTTP server, append `?profile=full` to the connector URL (or send 
 https://mcp.openephemeris.com/mcp?profile=full
 ```
 
+### Toolsets by tradition
+
+If you work in one tradition, ask for it by name instead of taking the general-purpose default. You get that tradition in full — including the long-tail tools the core set leaves out — for a fraction of the context.
+
+```bash
+OPENEPHEMERIS_TOOLS=hd npx -y @openephemeris/mcp-server        # Human Design
+OPENEPHEMERIS_TOOLS=astrology,moon npx -y @openephemeris/mcp-server
+```
+
+```
+https://mcp.openephemeris.com/mcp?profile=hd,bazi
+```
+
+| Toolset | What it covers | Tools | Approx. tokens |
+|---|---|---:|---:|
+| `astrology` | Natal, transits, synastry, progressions, returns, relocation, dignities, midpoints, lots, fixed stars, composites | 32 | 15,800 |
+| `hd` | Human Design charts, transits, connection charts, penta, bodygraph | 14 | 7,800 |
+| `bazi` | Four Pillars, Ten Gods, element balance, luck pillars, compatibility | 13 | 7,200 |
+| `electional` | Timing windows, angle crossings, stations, moment analysis | 10 | 4,600 |
+| `moon` | Phases, void-of-course, eclipses | 9 | 4,100 |
+| `venus` | Star points, phases, elongations, stations | 11 | 3,700 |
+| `acg` | Astrocartography lines and hits | 7 | 3,700 |
+| `vedic` | Jyotish Rashi chart | 7 | 3,400 |
+| — | *core (default)* | 36 | 19,100 |
+| — | *full* | 70 | 34,600 |
+
+Every selection also includes geocoding (`location_search`, `timezone_resolve`), `account_usage`, and the allowlist-gated proxy — so a birthplace is always resolvable and nothing is stranded.
+
+Combine with commas; unknown names are ignored rather than rejected, so a typo degrades to a smaller surface instead of a dead connector. As with `core`/`full`, this only filters `tools/list` — every tool remains callable by name.
+
+Why it matters: tool definitions are re-sent to the model on **every** pass. `astrology,moon` advertises the same number of tools as the default but costs ~1,700 fewer tokens per message and covers more of the tradition.
+
 The surface is fixed when the session initializes — this server does not advertise `tools.listChanged`, so switching requires reconnecting. `dev_list_allowed` enumerates every operation reachable through the generic proxy regardless of surface.
 
 ## Contributing & Support
