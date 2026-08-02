@@ -466,5 +466,5 @@ Most LLMs (like Claude and ChatGPT) struggle heavily with astronomical calculati
 
 By pairing LLMs with the OpenEphemeris MCP server, your agents can instantly access:
 - **Zero-hallucination coordinates**: Direct, sub-arcsecond NASA JPL DE440 calculations spanning 1,100 years of astronomical data.
-- **LLM-optimized tokens (`format=llm`)**: We compress standard 25,000 token JSON chart responses into minimal text blocks, cutting your inference costs by 50%.
+- **LLM-optimized tokens (`format=llm`)**: We compress standard 25,000 token JSON chart responses into minimal text blocks, cutting your inference costs by 50–73% depending on endpoint.
 - **Ready-to-use astrology layers**: Built-in support for Astrocartography geoJSON lines, Hermetic Lots, Fixed Stars, and complex Human Design matrix generation.

@@ -12,7 +12,7 @@ description: >
   lines, Venus Star Points, electional timing windows, synastry, composite charts, Vedic
   charts, Chinese BaZi, and more — powered by JPL DE440 ephemerides for sub-arcsecond
   zero-hallucination accuracy. Includes an LLM-optimized output format
-  (format=llm) that compresses chart responses by ~50%. Free Explorer tier available.
+  (format=llm) that compresses chart responses by 50–73%. Free Explorer tier available.
 iconUrl: https://mcp.openephemeris.com/icon.png
 homepage: https://openephemeris.com
 
@@ -38,7 +38,7 @@ configSchema:
         - llm
       description: >
         Default output format for all tools. 'llm' returns compact,
-        token-optimized output (~50% smaller). 'json' returns full verbose JSON.
+        token-optimized output (50–73% smaller). 'json' returns full verbose JSON.
         Individual tool calls can override this setting.
       default: json
     baseUrl:

@@ -15,7 +15,7 @@ Astronomical computation tools for natal charts, transits, eclipses, moon phases
 - **A focused default surface.** Tool definitions are re-sent on every model pass, so the server advertises a curated set rather than the whole catalog — large tool lists cost context and make tool selection worse. The rest are one flag away (`OPENEPHEMERIS_TOOLS=full`) and every tool stays callable by name.
 - **`dev_read_api`** — a generic proxy over 31 allowlisted public compute endpoints, for anything without a typed tool
 - **NASA JPL DE440** ephemeris data — sub-arcsecond accuracy across 1,100 years
-- **`format=llm`** support for 73% token reduction
+- **`format=llm`** support — cuts chart response tokens by 50–73% depending on endpoint
 
 ## Structure
 
