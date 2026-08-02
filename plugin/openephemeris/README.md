@@ -11,8 +11,9 @@ Astronomical computation tools for natal charts, transits, eclipses, moon phases
 
 ## What's Included
 
-- **10 MCP tools** — 8 typed (natal, transits, moon, eclipse, synastry, relocation, electional, Human Design) + generic proxy to 97 endpoints
-- **97 allowlisted API endpoints** covering 25+ domain groups
+- **36 tools** spanning natal charts, transits, synastry, Human Design, BaZi, Vedic, astrocartography, electional timing, and eclipses — plus interactive chart wheels, bi-wheels, and bodygraphs that render inline
+- **A focused default surface.** Tool definitions are re-sent on every model pass, so the server advertises a curated set rather than the whole catalog — large tool lists cost context and make tool selection worse. The rest are one flag away (`OPENEPHEMERIS_TOOLS=full`) and every tool stays callable by name.
+- **`dev_read_api`** — a generic proxy over 31 allowlisted public compute endpoints, for anything without a typed tool
 - **NASA JPL DE440** ephemeris data — sub-arcsecond accuracy across 1,100 years
 - **`format=llm`** support for 73% token reduction
 
