@@ -49,6 +49,16 @@ configSchema:
         default production endpoint (https://api.openephemeris.com). Useful
         for self-hosted or staging deployments.
       default: ""
+    toolSurface:
+      type: string
+      title: Tool Surface
+      description: >
+        Which tools to advertise. Leave blank for the curated default set,
+        'full' for the whole catalog, or a comma list of traditions —
+        astrology, moon, hd, bazi, vedic, acg, electional, venus — to pay
+        context only for the work you do (e.g. 'hd,bazi'). Every tool stays
+        callable by name regardless of surface.
+      default: ""
 
 # How to start the server locally (stdio transport for Claude Desktop / Cursor)
 startCommand:
@@ -61,5 +71,6 @@ startCommand:
         OPENEPHEMERIS_API_KEY: config.apiKey,
         ...(config.format && config.format !== "json" ? { OPENEPHEMERIS_FORMAT: config.format } : {}),
         ...(config.baseUrl ? { OPENEPHEMERIS_BACKEND_URL: config.baseUrl } : {}),
+        ...(config.toolSurface ? { OPENEPHEMERIS_TOOLS: config.toolSurface } : {}),
       }
     })

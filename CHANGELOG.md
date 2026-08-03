@@ -7,6 +7,37 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Unreleased]
+
+### Added
+- **Toolsets by tradition.** Tool definitions are re-sent to the model on every
+  message, so callers who work in one tradition can now advertise just that
+  tradition instead of the general-purpose default: `OPENEPHEMERIS_TOOLS=hd`
+  (stdio) or `?profile=hd,bazi` (hosted). Eight toolsets — `astrology`, `moon`,
+  `hd`, `bazi`, `vedic`, `acg`, `electional`, `venus` — each including
+  geocoding, account usage, and the API escape hatch. A Human Design session
+  drops from ~19,100 to ~7,800 advertised tokens (−59%); Vedic to ~3,400
+  (−82%). `astrology,moon` matches the default's tool count at ~1,700 fewer
+  tokens while covering the long tail (dignities, midpoints, hermetic lots,
+  fixed stars, composites) the curated set omits. As with `core`/`full`, this
+  filters `tools/list` only — every tool stays callable by name. Also exposed
+  as the `toolSurface` option in the Smithery config.
+
+### Fixed
+- `explore_human_design` now states its real credit cost: 4 where the bodygraph
+  renders (2 chart + 2 visual), 2 in text-only hosts — it previously claimed a
+  flat 2. `ephemeris_moon_phase` (2, not 1) and `ephemeris_next_lunar_phase`
+  (1–2 per occurrence) corrected the same way.
+- `explore_bi_wheel` in synastry mode now requires Person 2's coordinates (or a
+  resolvable `person2_location`) instead of silently casting Person 2's chart
+  for 0°N 0°E.
+- Chart-wheel widget escapes birth parameters before rendering them into the
+  info chips.
+- OAuth token endpoint binds authorization codes to their `redirect_uri` and
+  `client_id`; both checks were previously skippable by omitting the parameter.
+
+---
+
 ## [4.7.0] — 2026-08-02
 
 Historically correct birth-time conversion. IANA timezone databases — including

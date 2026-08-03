@@ -208,6 +208,28 @@ For CI/CD pipelines, server-to-server integrations, or ChatGPT Custom GPTs, you 
 
 ---
 
+## Advanced: Choose Your Tool Surface
+
+Tool definitions are re-sent to the model on every message, so the server advertises a curated default set rather than the whole catalog. If you work in one tradition, ask for it by name and pay a fraction of the context:
+
+```json
+{
+  "mcpServers": {
+    "openephemeris": {
+      "command": "npx",
+      "args": ["-y", "@openephemeris/mcp-server"],
+      "env": { "OPENEPHEMERIS_TOOLS": "hd" }
+    }
+  }
+}
+```
+
+On the hosted endpoint, append `?profile=` to the URL instead: `https://mcp.openephemeris.com/mcp?profile=hd,bazi`
+
+Available toolsets: `astrology`, `moon`, `hd` (Human Design), `bazi`, `vedic`, `acg` (astrocartography), `electional`, `venus` — combine with commas. `full` advertises everything; unset gives the curated default. Geocoding, account usage, and the API escape hatch are always included, and every tool stays callable by name regardless of surface.
+
+---
+
 ## Auth Tools
 
 The MCP server includes three authentication tools that AI assistants can use:
