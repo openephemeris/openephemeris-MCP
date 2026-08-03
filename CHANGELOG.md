@@ -7,7 +7,7 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Unreleased]
+## [4.8.0] — 2026-08-02
 
 ### Added
 - **Toolsets by tradition.** Tool definitions are re-sent to the model on every
