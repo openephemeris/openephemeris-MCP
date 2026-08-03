@@ -7,6 +7,34 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.9.0] — 2026-08-03
+
+### Fixed
+- **`location_search` gave pre-1970 birthplaces the wrong UTC offset.** With a
+  `date` before 1970 it answered from local tzdata alone — and tzdata models
+  only a zone's *reference city* before 1970, which is exactly the error the
+  API's historical correction overlay exists to remove. Dallas on 1952-07-15
+  came back `-05:00` (Chicago observed daylight time that summer; Texas did
+  not) instead of the correct `-06:00`. Because this tool is the documented
+  one-call alternative to `timezone_resolve`, an agent that took the top match
+  and built a zone-suffixed datetime from it produced a chart an hour off with
+  nothing downstream able to detect it. The top match is now corrected through
+  the API (1 extra credit, pre-1970 only); remaining matches keep their tzdata
+  estimate and stay labelled `historical_estimate`. Post-1970 is unchanged and
+  still free.
+
+### Added
+- **Historical-correction provenance now reaches MCP consumers.**
+  `timezone_resolve` and `location_search` forwarded only `tzRuleSource` out of
+  the five fields the API publishes. They now also return `tzOverlayVersion`,
+  `tzOverlayHash`, `tzRuleCitation` and `serverVersion`. The first two are the
+  change signal — without them a consumer cannot tell that the correction
+  dataset moved underneath charts it already computed. `tzRuleCitation` carries
+  the actual primary source behind a correction (a statute reference, an agency
+  order, a dated almanac page), so a corrected time can show its work instead of
+  asking to be trusted. Keys are omitted rather than emitted as nulls when the
+  API sends none.
+
 ## [4.8.1] — 2026-08-02
 
 ### Fixed
