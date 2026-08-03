@@ -7,6 +7,18 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.8.1] — 2026-08-02
+
+### Fixed
+- Every tool now declares all four MCP annotation hints explicitly
+  (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`).
+  Notably `dev_write_api` is `destructiveHint: false` — every allowlisted
+  write is stateless chart computation — so strict clients no longer gate it
+  behind a confirmation, and `openWorldHint` is uniformly `false` (the server
+  reaches only the fixed OpenEphemeris API).
+- `account_usage` reports a real authentication failure as a tool error
+  (`isError: true`) instead of a success-shaped message.
+
 ## [4.8.0] — 2026-08-02
 
 ### Added
