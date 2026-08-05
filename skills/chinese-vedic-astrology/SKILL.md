@@ -129,11 +129,18 @@ Body:
   "year": 1990,
   "month": 4,
   "day": 15,
-  "hour": 14
+  "hour": 14,
+  "minute": 0,
+  "timezone": "Asia/Shanghai"
 }
 ```
 
-> BaZi uses **solar terms**, not the standard Gregorian calendar. The calculation handles this automatically. The hour is the **local solar hour** at the birth location — pass the local clock hour, the engine corrects.
+> BaZi uses **solar terms** (Li Chun, the 24 Jié), not the standard Gregorian calendar, to roll the year and month pillars. `year`/`month`/`day`/`hour`/`minute` are read as the **civil local clock** at the birth place — pass `timezone` (or `latitude`+`longitude`) so the year/month solar-term boundary is compared at the true birth instant instead of naive local clock; near a boundary this can change the pillar. The day and hour pillars are always civil-clock and are never reframed by the zone.
+>
+> Optional convention fields, echoed back in the response so the caller knows which produced the answer:
+> - `year_boundary`: `"lichun"` (default, the Li Chun solar term, ~Feb 4) or `"cny"` (Chinese New Year)
+> - `day_boundary`: `"zi_hour"` (default, rolls the day at 23:00) or `"midnight"` (00:00)
+> - `true_solar_time`: `true` to correct the clock for longitude + equation of time before deriving pillars (day pillar, hour branch). Requires `latitude`/`longitude`.
 
 ### How to Read BaZi
 

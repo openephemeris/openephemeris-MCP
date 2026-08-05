@@ -7,6 +7,29 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.10.0] — 2026-08-05
+
+### Fixed
+- **BaZi tools never forwarded `timezone` to the API.** `parseBaziArgs` used it
+  only to read a zoned `datetime` back into local calendar components, then
+  dropped it — every BaZi request from MCP (`chinese_bazi`, `bazi_ten_gods`,
+  `bazi_element_balance`, `bazi_luck_pillars`, `bazi_chart`,
+  `explore_bazi_chart`, `bazi_compatibility`) landed on the API with no zone,
+  which resolves the year/month solar-term boundary (Li Chun, the Jié) against
+  the naive local clock instead of the true birth instant — exactly the defect
+  [#532](https://github.com/openephemeris/openephemeris/pull/532) fixes at the
+  API. A birth within roughly the birthplace's UTC offset of a boundary could
+  land on the wrong side and get the wrong year or month pillar. `timezone` is
+  now forwarded on every BaZi tool.
+
+### Added
+- **BaZi convention parameters.** `minute`, `year_boundary`
+  (`lichun`/`cny`), `day_boundary` (`zi_hour`/`midnight`), `true_solar_time`,
+  and `latitude`/`longitude` are now request parameters on every BaZi tool
+  that accepts them at the API — `bazi_compatibility` takes them per chart
+  (`chart_a_*`/`chart_b_*`), since partners are often born under different
+  conventions or in different timezones.
+
 ## [4.9.0] — 2026-08-03
 
 ### Fixed
