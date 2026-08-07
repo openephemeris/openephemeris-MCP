@@ -7,6 +7,33 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.11.0] — 2026-08-07
+
+### Fixed
+- **`explore_natal_chart` never drew aspect lines.** `buildNatalBody()` didn't
+  set `options.include_aspects`, so the API returned an empty aspects array
+  for the single-wheel chart (the bi-wheel was unaffected — it computes
+  cross-aspects client-side).
+- **HD synastry connection panel showed only one person's data, unlabeled.**
+  `explore_human_design_connection` computed both people's type/profile/
+  authority/definition/incarnation-cross but only used Person B's to feed the
+  connection-channel classifier, then discarded it. The bodygraph panel now
+  shows both, labeled "Person A"/"Person B" to match the overlay legend.
+- **Inconsistent planet/sign glyph weight** (Sun/Moon bold, Venus/Mars thin)
+  in the natal and bi-wheel apps. A bare `font-family: "serif"` resolves
+  per-glyph on Windows — Times New Roman covers ☉/☽ but not ♀/♂, so those
+  silently fell back to a different, thinner font. Pinned an explicit
+  astrological symbol-font stack everywhere these glyphs render.
+
+### Changed
+- **Welcome popup → on-demand info button.** All 7 MCP apps (chart-wheel,
+  bi-wheel, bodygraph, moon-phase, transit-timeline, vedic-chart, bazi) no
+  longer auto-pop a modal on every load/reload — a small "i" button opens the
+  same guide on demand.
+- **House ring now reads with visible depth.** The band between the zodiac
+  ring and the center previously matched the background exactly; it now uses
+  a step-up `--surface` shade on both the natal and bi-wheel apps.
+
 ## [4.10.0] — 2026-08-05
 
 ### Fixed
