@@ -7,6 +7,29 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.11.1] — 2026-08-12
+
+### Fixed
+- **Location resolver didn't recognize US state abbreviations.**
+  `location: "San Francisco, CA"` was rejected as ambiguous while the
+  equivalent `"San Francisco, California"` resolved fine — the API returns
+  the full state name in `region`, and the ambiguity qualifier only matched
+  full-name substrings or ISO country-code tokens. Added a USPS abbreviation
+  lookup (50 states + DC + territories) so `"City, ST"` qualifies the same
+  as `"City, State Name"`.
+- **`bazi_recalculate` double-charged for theme-only re-renders.** Its only
+  caller is the BaZi app's automatic host-theme reconciliation — never a
+  birth-data change — but it billed the full 3 credits as if it were a fresh
+  chart, on top of the identical charge already paid via `explore_bazi_chart`
+  moments earlier. Theme-only reconcile now skips the 2-credit visual-render
+  reservation.
+- **Datetime tool descriptions could invite a silent 1-hour-off chart.**
+  Extended the shared datetime contract instructions to explicitly tell
+  callers to pass local wall-clock time + IANA `timezone` rather than
+  converting to UTC themselves — a calling model's own conversion mistake
+  (e.g. treating July San Francisco as PST instead of PDT) previously sailed
+  through with zero server-side errors and a confidently wrong chart.
+
 ## [4.11.0] — 2026-08-07
 
 ### Fixed
