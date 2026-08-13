@@ -7,6 +7,32 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.11.2] — 2026-08-13
+
+### Fixed
+- **Location resolver rejected `"City, Country"` as ambiguous.** The
+  ambiguity qualifier matched a region name, a US state abbreviation, or a
+  two-letter ISO country *code* — but never a country *name*. So
+  `location: "Paris, France"` lost the qualification check against its US
+  namesakes and threw, while the far rarer `"Paris, fr"` resolved fine.
+  Live, `"Paris, France"` matches 8 same-named places and `"London, UK"`
+  matches 6, so the most natural phrasing for a foreign birthplace failed
+  outright. Country names now qualify via `Intl.DisplayNames` (the runtime's
+  own code→name table, so there is no list to maintain), plus colloquial
+  aliases Intl doesn't emit (`uk` → GB). Completes the class of fix started
+  for US state abbreviations in 4.11.1.
+
+### Changed
+- **Location resolver errors now carry a stable `code`.** `mcp_tool_error`
+  telemetry records no message and no stack, so every resolver rejection
+  arrived as `code: "none"` / `error_kind: "local"` — indistinguishable from
+  a genuine server-side crash. Throws now carry `location_ambiguous`,
+  `location_not_found`, `location_missing_coordinates`, `location_empty`, or
+  `coords_partial` on the property the event already ships. The codes are
+  constants; no user input is added to telemetry.
+
+---
+
 ## [4.11.1] — 2026-08-12
 
 ### Fixed
