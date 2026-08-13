@@ -7,6 +7,34 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.12.0] — 2026-08-13
+
+### Fixed
+- **Server `instructions` told the model a tool needed no arguments when it
+  did.** The zero-data-entry-point line named `ephemeris_retrograde_status` as
+  needing no arguments; its schema has `required: ["datetime"]`. An agent
+  that took the line literally made a zero-argument call and got a validation
+  error as its first experience of the server. Now names
+  `explore_moon_phase` and `electional_moment_analysis` — both genuinely
+  zero-argument — and both are asserted against the real tool schemas in CI
+  so this cannot silently drift again.
+
+### Added
+- **Connector first-run activation telemetry.** `mcp_tools_listed` (both
+  transports, once per session) and `mcp_session_silent` (HTTP, on teardown
+  when tools were listed but never called) close the gap where "connected but
+  never used it" was only an absence of events — indistinguishable from a
+  session that died mid-handshake. Funnel: `mcp_session_init` →
+  `mcp_tools_listed` → `first_tool_call`.
+
+### Changed
+- **Server `instructions` deduplicated** into `src/instructions.ts`, shared by
+  both transports. They were previously copy-pasted verbatim into each
+  transport file, which is how the argument-count claim above drifted from
+  the schemas undetected.
+
+---
+
 ## [4.11.2] — 2026-08-13
 
 ### Fixed
