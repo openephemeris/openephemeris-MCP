@@ -59,7 +59,7 @@ Ask Claude to use the `ephemeris.moon_phase` tool with `datetime` set to right n
 
 ### Generic Proxy
 
-For everything else (119 endpoints), use the generic proxy tools with `method` + `path`:
+For everything else (120 endpoints), use the generic proxy tools with `method` + `path`:
 
 | Tool | Purpose |
 |------|---------|
