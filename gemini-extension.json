@@ -1,0 +1,13 @@
+{
+  "name": "openephemeris",
+  "version": "4.12.0",
+  "description": "Sub-arcsecond ephemeris and astrology on NASA JPL DE440: natal, transits, eclipses, Human Design.",
+  "mcpServers": {
+    "openephemeris": {
+      "httpUrl": "https://mcp.openephemeris.com/mcp",
+      "headers": {
+        "X-API-Key": "$OPENEPHEMERIS_API_KEY"
+      }
+    }
+  }
+}
