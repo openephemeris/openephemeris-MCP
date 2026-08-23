@@ -9,7 +9,7 @@ This skill turns Claude into a professional astrologer backed by NASA-grade ephe
 
 Every calculation uses the JPL DE440 planetary ephemeris (covering 1,100 years of astronomical data) and our high-precision mathematical engine. These are not horoscope generators — they are astronomically accurate planetary positions, house cusps, and aspect geometry that Claude interprets for you in plain language.
 
-**House systems:** Placidus by default — Whole Sign, Equal, Koch, Campanus, Regiomontanus, Porphyry, Alcabitius, and Morinus also available. Just ask.
+**House systems:** Placidus by default — Whole Sign, Equal, Koch, Campanus, Regiomontanus, and Porphyry also available. Just ask.
 
 ## Setup
 
@@ -157,7 +157,7 @@ These aren't simplified consumer calculations. The engine includes features most
 - **Fixed star conjunctions** — Regulus, Algol, Spica, Fomalhaut, and the full traditional catalog. Set `include_fixed_stars=true`.
 - **Essential dignities** — Domicile, exaltation, detriment, fall, triplicity, term, and face — calculated for every planet automatically.
 - **Retrograde & station tracking** — Every planet's retrograde status is included in natal and transit results.
-- **9 house systems** — Placidus, Whole Sign, Equal, Koch, Campanus, Regiomontanus, Porphyry, Alcabitius, Morinus. Just tell Claude which you prefer.
+- **7 house systems** — Placidus, Whole Sign, Equal, Koch, Campanus, Regiomontanus, Porphyry. Just tell Claude which you prefer.
 - **Arc-second precision** — Planetary longitudes accurate to fractions of an arc-second, powered by the same JPL DE440 data NASA uses for spacecraft navigation.
 
 ## Try Asking

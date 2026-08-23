@@ -375,6 +375,27 @@ the code.
   `options.include_hermetic_lots: true`); only the descriptions were
   stale.
 
+  > **Correction (2026-08-23).** Half of the entry above is wrong, and it is
+  > left standing rather than deleted so the record shows what was claimed.
+  >
+  > `include_arabic_parts` is accurate: the natal endpoint reads
+  > `include_hermetic_lots` at the top level, under `options`, and under
+  > `enhanced_options`, and has done so all along.
+  >
+  > `include_fixed_stars` was **not** wired and still is not. The natal
+  > endpoint reads no fixed-star configuration at any of the three keys —
+  > not `configuration.fixed_star_options`, not
+  > `enhanced_options.include_fixed_stars`, not
+  > `options.include_fixed_stars` — so setting the flag changes nothing in
+  > the response and never has. What made it look wired is that the
+  > identical `configuration.fixed_star_options` block genuinely does work
+  > on the chart-wheel and bi-wheel renderers, which share the request
+  > shape but not the code path.
+  >
+  > Until the natal endpoint honours it, `POST /ephemeris/fixed-stars` is
+  > the way to get fixed-star positions; it accepts the same star names,
+  > groups, and magnitude limits and returns conjunctions to the angles.
+
 ---
 
 ## [4.3.1] — 2026-07-29
