@@ -10,6 +10,8 @@
 
 Model Context Protocol server for OpenEphemeris — typed astrology tools powered by the NASA JPL DE440 ephemeris. Zero hallucination on planetary positions, dates, and degrees. Covers 1,100 years of astronomical data.
 
+![The catalog: 90 bodies and 124 fixed stars — asteroids, trans-Neptunians, Uranian points, computed in one engine](https://raw.githubusercontent.com/openephemeris/openephemeris-MCP/main/assets/catalog-90-bodies.png)
+
 **Hosted endpoint:** `https://mcp.openephemeris.com/mcp` (Streamable HTTP, MCP 2025-11-25 spec)
 
 ## Quick Start
