@@ -7,6 +7,74 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.13.0] — 2026-08-27
+
+### Added
+- **Sidereal charts on `ephemeris_natal_chart`.** New `zodiac_type`
+  (`tropical` | `sidereal`) and `ayanamsa` (Lahiri, Fagan-Bradley,
+  Krishnamurti, Raman, Yukteshwar). Sidereal subtracts the ayanamsa from every
+  longitude, so signs, dignities and element balance all move by roughly a
+  whole sign; aspects and house numbers do not change, because a uniform
+  offset preserves angular separation and which side of a cusp a body falls
+  on. The response names the zodiac and the ayanamsa that produced it. Naming
+  an ayanamsa without asking for sidereal is now an error rather than a
+  quietly tropical chart.
+
+  The API had accepted `zodiac_type` for as long as the natal contract has
+  existed and read it nowhere, so a request for a sidereal chart came back
+  tropical — not imprecise, a different chart — with nothing in the payload
+  saying which zodiac you had been given. That is fixed on the server, which
+  is the only reason the parameter is exposed here.
+
+- **Whole-chart analytics on `ephemeris_natal_chart`.** `analytics` accepts any
+  of `element_balance`, `hemisphere_emphasis`, `aspect_patterns` and
+  `harmonics`. No extra credits. The endpoint has always computed these on
+  request and this server never asked for them, so they were unreachable from
+  MCP no matter what a caller wanted.
+
+- **`include_minor_aspects` on `ephemeris_natal_chart`.** Adds quincunx,
+  semisextile, semisquare, sesquiquadrate, quintile and biquintile to the
+  aspect grid. Minors use their own orbs, so this widens the grid without
+  changing any major aspect.
+
+- **`latitude` / `longitude` on `electional_moment_analysis`.** Both optional —
+  the tool is documented as taking no arguments at all and still does — but
+  without them sect falls back to diurnal, so a night moment is scored with
+  the day triplicity rulers. Pass both whenever the place is known.
+
+### Removed
+- **`include_fixed_stars` on `ephemeris_natal_chart`.** It never did anything.
+  The natal endpoint reads no fixed-star configuration on any of the keys this
+  flag was routed to, so the response was identical either way. Tool
+  definitions are re-sent on every model pass, which means a parameter that
+  does nothing is still paid for by every user on every request. Fixed stars
+  come from `ephemeris_fixed_stars`, which also reports which chart points sit
+  conjunct them. Unknown arguments are not rejected, so a caller still sending
+  the old flag is ignored exactly as it was before.
+
+- **The `alcabitius` and `morinus` house systems.** Advertised on three tools
+  and broken on all of them: the codes sent for them are accepted by no code
+  path, so every call naming one came back a validation error. The seven
+  systems that remain are the whole set the engine implements.
+
+### Fixed
+- **`dev_read_api` advertised fifteen POST endpoints it rejects.** It is
+  GET-only, and it shared one reference block with the write proxy, so most of
+  its description documented calls it cannot make. It is on the default tool
+  surface, so every client paid for that text on every model pass. Each proxy
+  now lists only the calls it accepts.
+
+- **The compact `llm` output could not express a minor aspect.** Its aspect
+  dictionary declared five entries while the engine can now emit eleven, so a
+  minor aspect had no valid code to travel under. All eleven are declared.
+
+### Changed
+- **Endpoint count corrected to 120** across the bundled skills, and the
+  plugin skill's fixed-star guidance now points at `ephemeris_fixed_stars`
+  rather than a flag that never worked.
+
+---
+
 ## [4.12.0] — 2026-08-13
 
 ### Fixed

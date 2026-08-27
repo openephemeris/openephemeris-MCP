@@ -154,7 +154,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 These aren't simplified consumer calculations. The engine includes features most astrology apps skip entirely:
 
 - **Hermetic Lots (Arabic Parts)** — Part of Fortune, Part of Spirit, and the classical lot collection. Ask Claude to include them or set `include_arabic_parts=true`.
-- **Fixed star conjunctions** — Regulus, Algol, Spica, Fomalhaut, and the full traditional catalog. Set `include_fixed_stars=true`.
+- **Fixed star conjunctions** — Regulus, Algol, Spica, Fomalhaut, and the full traditional catalog, plus which chart points sit conjunct them. Ask for `ephemeris_fixed_stars`. It sits outside the default surface but stays callable by name, or set `OPENEPHEMERIS_TOOLS=full` to list it. Give it a latitude and longitude too if you want the angles scanned — ASC/MC depend on place, not just time.
 - **Essential dignities** — Domicile, exaltation, detriment, fall, triplicity, term, and face — calculated for every planet automatically.
 - **Retrograde & station tracking** — Every planet's retrograde status is included in natal and transit results.
 - **7 house systems** — Placidus, Whole Sign, Equal, Koch, Campanus, Regiomontanus, Porphyry. Just tell Claude which you prefer.
