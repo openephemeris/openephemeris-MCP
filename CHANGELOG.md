@@ -7,6 +7,36 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.14.0] — 2026-08-27
+
+### Added
+- **Fixed stars on `ephemeris_natal_chart` — for real this time.** The
+  `include_fixed_stars` flag removed in 4.13.0 returns, honest now: the API
+  wires it as of the 2026-08-27 release, so asking adds a `fixed_stars` block
+  with star positions and conjunctions against the chart's bodies and angles,
+  computed in the same zodiac frame as the chart (a sidereal chart's star hits
+  equal the tropical chart's, by construction and by test). 4.13.0 removed the
+  flag because it did nothing; 4.14.0 restores it because it does something.
+
+- **`declinations` on `ephemeris_natal_chart`.** One flag adds each body's
+  declination and out-of-bounds status, plus parallel and contraparallel
+  aspects at a 1.5° orb.
+
+- **`solar_relationships` on `ephemeris_natal_chart`.** Combustion, cazimi
+  and under-beams classification for Moon through Saturn; outer bodies get
+  the geometry without a verdict.
+
+### Changed
+- The REST API these tools call also gained, in the same server release:
+  birthplace names echoed back (`birth_location.location_name`), hermetic-lot
+  suite selection, and provenance metadata on every response
+  (`ephemeris_version`, `delta_t_source`, `delta_t_seconds`,
+  `coordinate_reference_frame`, `time_scale`). These need no new tool
+  parameters — the metadata simply appears in responses, and lot selection is
+  reachable through the request-body pass-through paths.
+
+---
+
 ## [4.13.0] — 2026-08-27
 
 ### Added
