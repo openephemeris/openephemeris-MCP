@@ -30,7 +30,11 @@ openephemeris/
 
 ## Privacy Policy
 
-This plugin sends computation requests to `api.openephemeris.com`. Birth dates, times, and coordinates are used only for computation and are not stored. No data is sold or shared. Full policy: [openephemeris.com/privacy](https://openephemeris.com/privacy)
+This plugin sends computation requests to `api.openephemeris.com`. Birth dates, times, and coordinates are used only for computation and are not stored. No data is sold or shared.
+
+**Telemetry:** the underlying `@openephemeris/mcp-server` package sends anonymous usage events (tool name, duration, error status, client name — never birth data, coordinates, or tool arguments) to `us.i.posthog.com` on each tool call, so we can see what's used. Opt out with `OPENEPHEMERIS_TELEMETRY=false` or `DO_NOT_TRACK=1`.
+
+Full policy: [openephemeris.com/privacy](https://openephemeris.com/privacy)
 
 ## Links
 

@@ -26,11 +26,13 @@
     "vedic-astrology",
     "mcp"
   ],
-  "mcp": {
-    "command": "npx",
-    "args": ["-y", "@openephemeris/mcp-server"],
-    "env": {
-      "OPENEPHEMERIS_API_KEY": "${OPENEPHEMERIS_API_KEY}"
+  "mcpServers": {
+    "openephemeris": {
+      "command": "npx",
+      "args": ["-y", "@openephemeris/mcp-server"],
+      "env": {
+        "OPENEPHEMERIS_API_KEY": "${OPENEPHEMERIS_API_KEY}"
+      }
     }
   }
 }

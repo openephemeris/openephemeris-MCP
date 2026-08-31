@@ -78,7 +78,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `ephemeris_transits` | Search transit events by planet, aspect, orb, and date range | 5 |
+| `ephemeris_transits` | Search transit events by planet, aspect, orb, and date range | 6 |
 | `ephemeris_solar_return` | Exact Solar Return date/time for a given year | 1 |
 | `ephemeris_lunar_return` | Exact Lunar Return date/time (~monthly) | 1 |
 | `ephemeris_planetary_return` | Generic planetary return (Jupiter, Saturn, etc.) | 1 |
@@ -128,7 +128,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `human_design_chart` | Full Human Design bodygraph — type, strategy, authority, profile, centers, gates, channels | 1 |
+| `human_design_chart` | Full Human Design bodygraph — type, strategy, authority, profile, centers, gates, channels | 2 |
 | `human_design_composite` | HD composite chart for two people | 4 |
 | `human_design_penta` | HD group chart for 3-5 people | 6 |
 | `vedic_chart` | Vedic/Jyotish chart with sidereal positions | 1 |
@@ -138,15 +138,15 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `ephemeris_chart_wheel` | PNG chart wheel image (800px) | 1 |
-| `ephemeris_bi_wheel` | PNG bi-wheel image (transit overlay) | 1 |
+| `ephemeris_chart_wheel` | PNG chart wheel image (800px) | 2 |
+| `ephemeris_bi_wheel` | PNG bi-wheel image (transit overlay) | 2 |
 
 ### Astrocartography (ACG)
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `acg_power_lines` | Planetary power lines on a world map | 2 |
-| `acg_hits` | Which lines are active at a specific location | 2 |
+| `acg_power_lines` | Planetary power lines on a world map | 10 |
+| `acg_hits` | Which lines are active at a specific location | 15 |
 
 
 ### Beyond the Basics
@@ -181,7 +181,7 @@ Not sure where to start? Try any of these:
 
 **Prompt:** "I was born April 15, 1990 at 2:30 PM in Chicago. What does my chart say?"
 
-Claude calls `ephemeris.natal_chart` → receives planetary positions, house cusps, aspects with orbs, and essential dignities → interprets the chart conversationally:
+Claude calls `ephemeris_natal_chart` → receives planetary positions, house cusps, aspects with orbs, and essential dignities → interprets the chart conversationally:
 
 ```json
 {
@@ -201,7 +201,7 @@ Claude calls `ephemeris.natal_chart` → receives planetary positions, house cus
 
 **Prompt:** "Should I start this project today or wait?"
 
-Claude calls `ephemeris.moon_phase` → gets phase, sign, and void-of-course status in one smart call:
+Claude calls `ephemeris_moon_phase` → gets phase, sign, and void-of-course status in one smart call:
 
 ```json
 {
@@ -219,7 +219,7 @@ Claude calls `ephemeris.moon_phase` → gets phase, sign, and void-of-course sta
 
 **Prompt:** "I need to sign a business contract next week. When's the best window?"
 
-Claude calls `ephemeris.electional` → scans the week for favorable timing, avoiding retrograde Mercury and void-of-course Moon:
+Claude calls `ephemeris_electional` → scans the week for favorable timing, avoiding retrograde Mercury and void-of-course Moon:
 
 ```json
 {
@@ -240,7 +240,7 @@ Claude calls `ephemeris.electional` → scans the week for favorable timing, avo
 
 **Prompt:** "My partner was born March 8, 1988 at 6 AM in London. I'm April 15, 1990 at 2:30 PM in Chicago. How do our charts interact?"
 
-Claude calls `ephemeris.synastry` → compares both charts, calculating inter-aspects, house overlays, and elemental balance:
+Claude calls `ephemeris_synastry` → compares both charts, calculating inter-aspects, house overlays, and elemental balance:
 
 *"Your Sun in Aries trines their Mars in Sagittarius — fire meeting fire. That's raw chemistry and mutual motivation. But your Moon in Scorpio squares their Venus in Aquarius, which means emotional needs versus love language can feel like different dialects. The good news: their Jupiter conjuncts your Ascendant, so they naturally expand your sense of self..."*
 
@@ -248,7 +248,7 @@ Claude calls `ephemeris.synastry` → compares both charts, calculating inter-as
 
 **Prompt:** "How would my chart change if I moved from Chicago to Tokyo?"
 
-Claude calls `ephemeris.relocation` → same planetary positions, new house cusps and angles for Tokyo:
+Claude calls `ephemeris_relocation` → same planetary positions, new house cusps and angles for Tokyo:
 
 *"Your planets don't change — you're still an Aries Sun. But in Tokyo, your Midheaven shifts to Capricorn, pulling your career focus toward discipline and institutional structures. Your Ascendant moves too, which changes how people perceive you on first meeting. If Chicago felt like 'build the startup,' Tokyo would feel like 'master the craft.'"*
 
@@ -256,7 +256,7 @@ Claude calls `ephemeris.relocation` → same planetary positions, new house cusp
 
 **Prompt:** "When's the next solar eclipse I can see from New York?"
 
-Claude calls `ephemeris.next_eclipse` with the location → returns the next eclipse with local visibility and contact times:
+Claude calls `ephemeris_next_eclipse` with the location → returns the next eclipse with local visibility and contact times:
 
 *"The next solar eclipse visible from New York is a partial on March 29, 2025. First contact at 10:12 AM local time, maximum eclipse at 12:37 PM with 29% obscuration. The next total eclipse visible from your area won't be until 2079 — so this one's worth stepping outside for."*
 
@@ -264,7 +264,7 @@ Claude calls `ephemeris.next_eclipse` with the location → returns the next ecl
 
 **Prompt:** "Generate my Human Design — June 21, 1985 at 8:15 AM in San Francisco"
 
-Claude calls `human_design.chart` → returns type, strategy, authority, profile, defined centers, gates, and channels:
+Claude calls `human_design_chart` → returns type, strategy, authority, profile, defined centers, gates, and channels:
 
 ```json
 {
@@ -304,7 +304,7 @@ This plugin sends computation requests to the OpenEphemeris API (`api.openepheme
 
 - **What's collected:** Birth dates, times, and coordinates submitted in computation requests
 - **How it's used:** To compute astronomical positions and return results. That's it.
-- **Third-party sharing:** None. Data is not sold, shared, or used for training.
+- **Third-party sharing:** No birth data, coordinates, names, or tool arguments are ever shared or sold. The `@openephemeris/mcp-server` package does send anonymous usage telemetry (tool name, duration, error status, client name) to `us.i.posthog.com` on each call — opt out with `OPENEPHEMERIS_TELEMETRY=false` or `DO_NOT_TRACK=1`.
 - **Retention:** Request data is not stored after computation. Usage counts are tracked for billing.
 
 Full privacy policy: [openephemeris.com/privacy](https://openephemeris.com/privacy)
@@ -315,4 +315,4 @@ Full privacy policy: [openephemeris.com/privacy](https://openephemeris.com/priva
 - **Dashboard:** [openephemeris.com/dashboard](https://openephemeris.com/dashboard)
 - **npm:** [@openephemeris/mcp-server](https://www.npmjs.com/package/@openephemeris/mcp-server)
 - **Email:** support@openephemeris.com
-- **GitHub Issues:** [github.com/openephemeris/openephemeris/issues](https://github.com/openephemeris/openephemeris/issues)
+- **GitHub Issues:** [github.com/openephemeris/openephemeris-MCP/issues](https://github.com/openephemeris/openephemeris-MCP/issues)
