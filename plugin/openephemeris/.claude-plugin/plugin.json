@@ -1,7 +1,7 @@
 {
   "name": "openephemeris",
   "version": "4.14.0",
-  "description": "High-precision astronomical and astrological computation tools. Calculate natal charts, transits, eclipses, moon phases, synastry, Human Design, Chinese/Vedic astrology, and more using NASA JPL DE440 data with sub-arcsecond accuracy.",
+  "description": "Sub-arcsecond planetary positions from NASA JPL DE440. Natal charts, transits, synastry, moon phases, eclipses, Human Design, and Chinese/Vedic astrology.",
   "author": {
     "name": "Spirit River Inc",
     "url": "https://openephemeris.com"
@@ -14,7 +14,6 @@
   ],
   "keywords": [
     "astrology",
-    "astronomy",
     "ephemeris",
     "natal-chart",
     "transits",
@@ -23,8 +22,7 @@
     "synastry",
     "human-design",
     "chinese-astrology",
-    "vedic-astrology",
-    "mcp"
+    "vedic-astrology"
   ],
   "mcpServers": {
     "openephemeris": {

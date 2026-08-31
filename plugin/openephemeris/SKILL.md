@@ -1,6 +1,6 @@
 ---
 name: openephemeris
-description: Your personal astrologer, powered by NASA JPL DE440 ephemeris data. Natal charts, transits, synastry, eclipses, moon phases, electional timing, Human Design, and chart wheel visualization — all interpreted conversationally.
+description: This skill should be used when a user asks for astrology or astronomical chart calculations — natal charts, transits, synastry/compatibility, progressions, solar/lunar returns, eclipses, moon phases, electional (auspicious-timing) astrology, Human Design, Vedic/Jyotish, Chinese BaZi, astrocartography, or chart wheel/bi-wheel visualizations. Uses NASA JPL DE440 ephemeris data for sub-arcsecond precision and interprets results conversationally.
 ---
 
 # OpenEphemeris — AI-Native Astrology
@@ -43,7 +43,7 @@ claude plugin add ./path/to/openephemeris
 
 That's it. Ask Claude anything about astrology and it will compute real answers.
 
-### ⚠️ CRITICAL: Timezone & Time Precision Handling
+### CRITICAL: Timezone & Time Precision Handling
 
 Astrology requires exact time calculation. You must be rigorous with user time input:
 1. **Never Assume AM/PM**: If a user says "8:00", explicitly ask if it is AM or PM before generating anything.
@@ -54,6 +54,8 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 **Never guess or hallucinate the time** if the user gave an ambiguous input. Instant trust is broken if a user sees a wrong chart based on a sloppy time assumption. Hold their hand and ask clarifying questions first.
 
 ## What You Can Do
+
+> These tables cover all 43 tools this skill can call. The MCP server advertises a curated **default surface of 36** to keep context lean; the rest — including `ephemeris_fixed_stars`, the Venus Star Points tools, `ephemeris_composite`, and a few others below — need `OPENEPHEMERIS_TOOLS=full` to be *listed* by default, but every tool stays callable by name regardless.
 
 ### Core Charts
 
@@ -154,11 +156,12 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 These aren't simplified consumer calculations. The engine includes features most astrology apps skip entirely:
 
 - **Hermetic Lots (Arabic Parts)** — Part of Fortune, Part of Spirit, and the classical lot collection. Ask Claude to include them or set `include_arabic_parts=true`.
-- **Fixed star conjunctions** — Regulus, Algol, Spica, Fomalhaut, and the full traditional catalog, plus which chart points sit conjunct them. Ask for `ephemeris_fixed_stars`. It sits outside the default surface but stays callable by name, or set `OPENEPHEMERIS_TOOLS=full` to list it. Give it a latitude and longitude too if you want the angles scanned — ASC/MC depend on place, not just time.
+- **Fixed star conjunctions** — Regulus, Algol, Spica, Fomalhaut, and the full traditional catalog, plus which chart points sit conjunct them. Ask for `ephemeris_fixed_stars`. Give it a latitude and longitude too if you want the angles scanned — ASC/MC depend on place, not just time.
 - **Essential dignities** — Domicile, exaltation, detriment, fall, triplicity, term, and face — calculated for every planet automatically.
 - **Retrograde & station tracking** — Every planet's retrograde status is included in natal and transit results.
 - **7 house systems** — Placidus, Whole Sign, Equal, Koch, Campanus, Regiomontanus, Porphyry. Just tell Claude which you prefer.
 - **Arc-second precision** — Planetary longitudes accurate to fractions of an arc-second, powered by the same JPL DE440 data NASA uses for spacecraft navigation.
+- **Everything else** — `dev_read_api` is a generic proxy over 31 allowlisted compute endpoints that don't have a dedicated tool above. If you ask for something not in these tables, Claude can still reach it.
 
 ## Try Asking
 
@@ -294,8 +297,7 @@ If the API key is missing or invalid, you'll get a clear error with a signup lin
 ## Format Options
 
 Add `format='llm'` to any tool for token-efficient output (available on all tiers):
-- Reduces natal chart from ~24,000 tokens to ~6,500 tokens
-- 73% cost reduction on inference costs
+- Reduces natal chart output from ~24,000 tokens to ~6,500 tokens — a 73% cut
 - Best practice when running multiple tools in sequence
 
 ## Privacy
