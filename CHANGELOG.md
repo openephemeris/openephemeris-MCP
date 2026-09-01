@@ -7,6 +7,26 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.14.2] — 2026-09-01
+
+### Fixed
+- **Two `CREDIT COST` figures baked into live tool descriptions were wrong** —
+  not just stale plugin docs, the actual strings Claude reads before deciding
+  to call a tool. `ephemeris_transits` claimed 6 credits (the real cost, per
+  the `/predictive/` billing tier, is 5); `acg_hits` claimed 15 (it falls to
+  the generic `/acg/` tier, which is 10 — the 15/20 figures belong to the
+  heatmap and relational-parans routes only). Verified directly against
+  `usage_meter.go` rather than the description strings themselves, since
+  those turned out to be the thing that was wrong.
+
+### Changed
+- Plugin marketing copy no longer leads with "sub-arcsecond" or "JPL DE440"
+  — reframed around the more concrete fact that this runs on NASA
+  mission-grade planetary data. The technical terms stay as backup detail
+  for readers who want them, not the opening line.
+
+---
+
 ## [4.14.1] — 2026-09-01
 
 ### Fixed
