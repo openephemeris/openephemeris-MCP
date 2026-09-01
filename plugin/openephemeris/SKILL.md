@@ -1,6 +1,6 @@
 ---
 name: openephemeris
-description: This skill should be used when a user asks for astrology or astronomical chart calculations — natal charts, transits, synastry/compatibility, progressions, solar/lunar returns, eclipses, moon phases, electional (auspicious-timing) astrology, Human Design, Vedic/Jyotish, Chinese BaZi, astrocartography, or chart wheel/bi-wheel visualizations. Uses NASA JPL DE440 ephemeris data for sub-arcsecond precision and interprets results conversationally.
+description: Your personal astrologer, powered by NASA JPL DE440 ephemeris data. Natal charts, transits, synastry, eclipses, moon phases, electional timing, Human Design, and chart wheel visualization — all interpreted conversationally.
 ---
 
 # OpenEphemeris — AI-Native Astrology
@@ -80,7 +80,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `ephemeris_transits` | Search transit events by planet, aspect, orb, and date range | 6 |
+| `ephemeris_transits` | Search transit events by planet, aspect, orb, and date range | 5 |
 | `ephemeris_solar_return` | Exact Solar Return date/time for a given year | 1 |
 | `ephemeris_lunar_return` | Exact Lunar Return date/time (~monthly) | 1 |
 | `ephemeris_planetary_return` | Generic planetary return (Jupiter, Saturn, etc.) | 1 |
@@ -148,7 +148,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 | Tool | What It Does | Credits |
 |------|-------------|---------|
 | `acg_power_lines` | Planetary power lines on a world map | 10 |
-| `acg_hits` | Which lines are active at a specific location | 15 |
+| `acg_hits` | Which lines are active at a specific location | 10 |
 
 
 ### Beyond the Basics
@@ -156,12 +156,12 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 These aren't simplified consumer calculations. The engine includes features most astrology apps skip entirely:
 
 - **Hermetic Lots (Arabic Parts)** — Part of Fortune, Part of Spirit, and the classical lot collection. Ask Claude to include them or set `include_arabic_parts=true`.
-- **Fixed star conjunctions** — Regulus, Algol, Spica, Fomalhaut, and the full traditional catalog, plus which chart points sit conjunct them. Ask for `ephemeris_fixed_stars`. Give it a latitude and longitude too if you want the angles scanned — ASC/MC depend on place, not just time.
+- **Fixed star conjunctions** — Regulus, Algol, Spica, Fomalhaut, and the full traditional catalog, plus which chart points sit conjunct them. Ask for `ephemeris_fixed_stars`. It sits outside the default surface but stays callable by name, or set `OPENEPHEMERIS_TOOLS=full` to list it. Give it a latitude and longitude too if you want the angles scanned — ASC/MC depend on place, not just time.
 - **Essential dignities** — Domicile, exaltation, detriment, fall, triplicity, term, and face — calculated for every planet automatically.
 - **Retrograde & station tracking** — Every planet's retrograde status is included in natal and transit results.
 - **7 house systems** — Placidus, Whole Sign, Equal, Koch, Campanus, Regiomontanus, Porphyry. Just tell Claude which you prefer.
 - **Arc-second precision** — Planetary longitudes accurate to fractions of an arc-second, powered by the same JPL DE440 data NASA uses for spacecraft navigation.
-- **Everything else** — `dev_read_api` is a generic proxy over 31 allowlisted compute endpoints that don't have a dedicated tool above. If you ask for something not in these tables, Claude can still reach it.
+- **Everything else** — `dev_read_api` is a generic proxy over 120 allowlisted compute endpoints that don't have a dedicated tool above. If you ask for something not in these tables, Claude can still reach it.
 
 ## Try Asking
 

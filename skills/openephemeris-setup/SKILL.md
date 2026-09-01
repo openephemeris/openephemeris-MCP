@@ -63,11 +63,9 @@ For everything else (120 endpoints), use the generic proxy tools with `method` +
 
 | Tool | Purpose |
 |------|---------|
-| `dev_read_api` | GET any allowlisted endpoint (28 currently on the public proxy) |
-| `dev_write_api` | POST/PUT/PATCH/DELETE any allowlisted endpoint |
+| `dev_read_api` | GET any allowlisted endpoint (44 currently on the public proxy) |
+| `dev_write_api` | POST/PUT/PATCH/DELETE any allowlisted endpoint (76 currently) |
 | `dev_list_allowed` | List every operation reachable via the two tools above |
-
-> Newer endpoints (astrocartography, predictive returns, Vedic, Chinese BaZi) may not be on the allowlist yet — call them via direct REST with header `X-Meridian-API-Key: oe_...` if `dev_list_allowed` doesn't show them.
 
 ## Tiers
 
