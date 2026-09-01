@@ -5,9 +5,9 @@ description: This skill should be used when a user asks for astrology or astrono
 
 # OpenEphemeris — AI-Native Astrology
 
-This skill turns Claude into a professional astrologer backed by the same class of planetary data NASA uses to navigate spacecraft to Mars. Ask about your birth chart, check today's transits, explore relationship compatibility, find auspicious timing for decisions, or generate a Human Design bodygraph — all in natural conversation, computed to real precision instead of guessed.
+This skill turns Claude into a professional astrologer backed by NASA mission-grade planetary data. Ask about your birth chart, check today's transits, explore relationship compatibility, find auspicious timing for decisions, or generate a Human Design bodygraph — all in natural conversation, computed to real precision instead of guessed.
 
-Every calculation uses the JPL DE440 planetary ephemeris — Mars-mission-grade data covering 1,100 years of astronomical history — and our high-precision mathematical engine. These are not horoscope generators — they are astronomically accurate planetary positions, house cusps, and aspect geometry that Claude interprets for you in plain language.
+Every calculation uses the JPL DE440 planetary ephemeris — NASA mission-grade data covering 1,100 years of astronomical history — and our high-precision mathematical engine. These are not horoscope generators — they are astronomically accurate planetary positions, house cusps, and aspect geometry that Claude interprets for you in plain language.
 
 **House systems:** Placidus by default — Whole Sign, Equal, Koch, Campanus, Regiomontanus, and Porphyry also available. Just ask.
 

@@ -1,6 +1,6 @@
 # OpenEphemeris — Claude Plugin
 
-Astronomical computation tools for natal charts, transits, eclipses, moon phases, synastry, Human Design, Chinese astrology, Vedic astrology, and more — computed at the same NASA Mars-mission-grade precision used to navigate spacecraft, not guessed from training data.
+Astronomical computation tools for natal charts, transits, eclipses, moon phases, synastry, Human Design, Chinese astrology, Vedic astrology, and more — computed at NASA mission-grade precision, not guessed from training data.
 
 ## Quick Start
 
@@ -14,7 +14,7 @@ Astronomical computation tools for natal charts, transits, eclipses, moon phases
 - **36 tools** spanning natal charts, transits, synastry, Human Design, BaZi, Vedic, astrocartography, electional timing, and eclipses — plus interactive chart wheels, bi-wheels, and bodygraphs that render inline
 - **A focused default surface.** Tool definitions are re-sent on every model pass, so the server advertises a curated set rather than the whole catalog — large tool lists cost context and make tool selection worse. The rest are one flag away (`OPENEPHEMERIS_TOOLS=full`) and every tool stays callable by name.
 - **`dev_read_api`** — a generic proxy over 120 allowlisted public compute endpoints, for anything without a typed tool
-- **Mars-mission-grade precision** — the NASA JPL DE440 ephemeris, the same data class used to navigate spacecraft, spanning 1,100 years of astronomical data
+- **NASA mission-grade precision** — the JPL DE440 ephemeris, the same data NASA missions run on, spanning 1,100 years of astronomical data
 - **`format=llm`** support — cuts chart response tokens by 50–73% depending on endpoint
 
 ## Structure
