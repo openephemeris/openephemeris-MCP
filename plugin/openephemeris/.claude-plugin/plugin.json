@@ -1,6 +1,6 @@
 {
   "name": "openephemeris",
-  "version": "4.14.0",
+  "version": "4.14.1",
   "description": "Sub-arcsecond planetary positions from NASA JPL DE440. Natal charts, transits, synastry, moon phases, eclipses, Human Design, and Chinese/Vedic astrology.",
   "author": {
     "name": "Spirit River Inc",
@@ -22,7 +22,6 @@
     "synastry",
     "human-design",
     "chinese-astrology",
-    "bazi",
     "vedic-astrology"
   ],
   "mcpServers": {

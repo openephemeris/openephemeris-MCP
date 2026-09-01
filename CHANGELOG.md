@@ -7,6 +7,31 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.14.1] — 2026-09-01
+
+### Fixed
+- **`dev_read_api`/`dev_write_api` rejected 90 endpoints that were supposed to
+  be reachable.** The dev allowlist generator recognized invented tier names
+  (`free`/`pro`/`production`) instead of the real product tiers
+  (`Explorer`/`Developer`/`Startup`/`Scale`/`Enterprise`), so every
+  Explorer-tier operation — `location/autocomplete`, `catalogs/bodies`,
+  `moon/phase`, the eclipse and agro families, `tidal/forcing`,
+  `calendar/astrology/moon-phases`, `chinese/zodiac`, and more — silently
+  dropped out of the generated allowlist. The allowlist is now 120 operations
+  (was 30).
+- **The Claude plugin's MCP server likely never registered.** `plugin.json`
+  declared the bundled server under `"mcp"`; the plugin manifest schema
+  requires `"mcpServers"` (nested by server name).
+- Corrected several stale credit-cost figures in the plugin `SKILL.md` and
+  `README.md` against the live backend (`human_design_chart`, `chart_wheel`,
+  `bi_wheel`: 2 credits, not 1; `acg_power_lines`, `acg_hits`: 10 credits, not
+  2), fixed dot-notation tool references in the worked examples that never
+  matched a real tool name (e.g. `ephemeris.natal_chart` →
+  `ephemeris_natal_chart`), and added the telemetry disclosure that was
+  missing from the plugin's privacy section.
+
+---
+
 ## [4.14.0] — 2026-08-27
 
 ### Added
