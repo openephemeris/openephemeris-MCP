@@ -13,7 +13,7 @@
       "name": "openephemeris",
       "source": "./plugin/openephemeris",
       "description": "Astrology and astronomy computed at NASA mission-grade precision: natal charts, transits, eclipses, moon phases, synastry, Human Design, and Chinese/Vedic astrology via the OpenEphemeris MCP server (JPL DE440).",
-      "version": "4.14.2",
+      "version": "4.14.3",
       "homepage": "https://openephemeris.com",
       "license": "MIT",
       "keywords": ["astrology", "astronomy", "ephemeris", "human-design", "mcp"]

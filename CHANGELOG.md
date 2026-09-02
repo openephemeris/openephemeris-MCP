@@ -7,6 +7,27 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.14.3] — 2026-09-02
+
+### Fixed
+- **`ephemeris_transits` silently dropped requested `asc`/`mc`/`dsc`/`ic` natal points.** The tool
+  matched `natal_points` against `/ephemeris/natal-chart`'s angle field names
+  (`ascendant`/`midheaven`/`descendant`/`imum_coeli`), which never matched the short forms the
+  tool itself documents — so a search for transits to the Ascendant silently returned zero hits,
+  with `success: true` and no indication anything was dropped. Added alias resolution both ways,
+  plus an `unresolved_points` field so a genuine mismatch surfaces instead of hiding.
+- **`ephemeris_progressed_chart` hardcoded `subject.name` to `"Progressed Subject"`** on both the
+  natal and progressed blocks of the response, so no consumer could tell them apart by name. Now
+  an optional `name` argument, defaulting to a neutral label.
+
+### Added
+- `/ephemeris/progressed` responses now include `metadata.angle_method`
+  (`chart_for_progressed_moment` or `solar_arc_directed`), naming which algorithm produced the
+  progressed angles — previously undeclared and silently implied by
+  `progression_options.method`, which only ever described planetary progression.
+
+---
+
 ## [4.14.2] — 2026-09-01
 
 ### Fixed
