@@ -7,6 +7,16 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.15.0] — 2026-09-03
+
+### Added
+- **`electional_angle_crossings` gains `natal_datetime`.** Pass a zoned natal instant and the search
+  finds when the **secondary-progressed** positions of Sun, Moon, Mercury, Venus, Mars and the lunar
+  nodes reach an angle at the place — the same body set and day-for-a-year formula the hybrid CCG
+  transit map draws with — while slower bodies stay transits. Progressed crossings carry
+  `progressed: true` and `search_summary.progression` names the mode, the natal instant and the
+  bodies progressed. Omit the parameter for the plain transit search, which is unchanged.
+
 ## [4.14.3] — 2026-09-02
 
 ### Fixed
