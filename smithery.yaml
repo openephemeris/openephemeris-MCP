@@ -11,7 +11,9 @@ description: >
   natal charts, transit forecasting, Human Design charts, eclipses, astrocartography power
   lines, Venus Star Points, electional timing windows, synastry, composite charts, Vedic
   charts, Chinese BaZi, and more — powered by JPL DE440 ephemerides for sub-arcsecond
-  zero-hallucination accuracy. Includes an LLM-optimized output format
+  zero-hallucination accuracy. Nine of the tools open interactive charts you can click
+  inside the conversation: one MCP Apps build renders in both Claude and ChatGPT.
+  Includes an LLM-optimized output format
   (format=llm) that compresses chart responses by 50–73%. Free Explorer tier available.
 iconUrl: https://mcp.openephemeris.com/icon.png
 homepage: https://openephemeris.com

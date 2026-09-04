@@ -83,9 +83,9 @@ cursor://anysphere.cursor-deeplink/mcp/install?name=openephemeris&config=eyJjb21
 
 ---
 
-### Remote / Hosted Endpoint (Claude Web & All Remote Clients)
+### Remote / Hosted Endpoint (Claude Web, ChatGPT & All Remote Clients)
 
-For any client that accepts a hosted MCP URL (Claude Web, Smithery, custom AI agents), use the **Streamable HTTP** endpoint directly — no download, no Node.js:
+For any client that accepts a hosted MCP URL (Claude Web, ChatGPT, Smithery, custom AI agents), use the **Streamable HTTP** endpoint directly — no download, no Node.js:
 
 **MCP URL:** `https://mcp.openephemeris.com/mcp`
 
@@ -97,30 +97,40 @@ X-API-Key: YOUR_API_KEY
 
 Get a key from [openephemeris.com/dashboard](https://openephemeris.com/dashboard) → API Keys tab.
 
-> 💡 This is the MCP 2025-11-25 Streamable HTTP spec — supported by Claude Web, Smithery, and modern agents.
+> 💡 This is the MCP 2025-11-25 Streamable HTTP spec — supported by Claude Web, ChatGPT, Smithery, and modern agents.
 > The legacy SSE endpoint was retired in 3.20.0 — all clients should use Streamable HTTP at `/mcp`.
 
 ---
 
 ### ChatGPT — MCP (Developer Mode)
 
-> **Requires:** ChatGPT Plus, Pro, Team, or Enterprise plan.
+ChatGPT supports remote MCP servers directly — no Custom GPT needed — and it renders the
+**interactive charts** inline, from the same build Claude uses. OpenEphemeris is not in the
+ChatGPT app directory, so you add it yourself:
 
-ChatGPT natively supports remote MCP servers via Developer Mode — no Custom GPT needed:
-
-1. Go to **Settings → Apps → Advanced** and toggle **Developer Mode** on
-2. Click **Create app**, name it `Open Ephemeris`
-3. Enter the MCP URL: `https://mcp.openephemeris.com/mcp`
-4. Set authentication: **API Key** → header name `X-API-Key` → paste your key
-5. Save — tools are registered automatically
-6. In any new chat, click **+** → **More** → select **Open Ephemeris** to enable
+1. Turn on **Settings → Plugins → Advanced → Developer mode**
+   *(this menu was called "Connectors" before July 2026)*
+2. Go to [chatgpt.com/plugins](https://chatgpt.com/plugins) and click **+ (Create app)**
+3. Name it `Open Ephemeris`
+4. Server URL: `https://mcp.openephemeris.com/mcp?profile=core`
+5. Leave **Authentication** on **OAuth** — the server does Dynamic Client Registration, so
+   there is no client ID or secret to enter
+6. Tick the risk acknowledgement, click **Create**, and approve the sign-in — that also
+   creates your free OpenEphemeris account
 
 ```
-MCP URL:  https://mcp.openephemeris.com/mcp
-Header:   X-API-Key: YOUR_API_KEY
+Server URL:  https://mcp.openephemeris.com/mcp?profile=core
+Auth:        OAuth (no client ID or secret)
 ```
 
-> 💡 Get a free API key at [openephemeris.com/dashboard](https://openephemeris.com/dashboard) → API Keys tab.
+`?profile=core` serves the curated 39-tool surface, which still includes every interactive
+chart. Drop it for all 92 tools.
+
+> 💡 Developer mode was available on a **Free** ChatGPT plan when this was last checked
+> (2026-09-04). Plan availability is OpenAI's to change.
+>
+> Prefer an API key to OAuth? The endpoint also accepts `X-API-Key: YOUR_API_KEY` — get one
+> at [openephemeris.com/dashboard](https://openephemeris.com/dashboard) → API Keys tab.
 
 ---
 

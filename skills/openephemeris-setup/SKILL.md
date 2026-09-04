@@ -9,7 +9,7 @@ updated: 2026-05-23
 
 This skill installs the OpenEphemeris MCP server, giving any compatible LLM access to 110+ astronomical and astrological computation endpoints — natal charts, transits, returns, eclipses, synastry, Human Design, Vedic, Chinese astrology, and astrocartography.
 
-> **Platform compatibility:** The MCP server works with Claude (Desktop, Code, API), Cursor, Windsurf, VS Code Copilot, Cline, Continue.dev, JetBrains AI, and Amazon Q. For ChatGPT Custom GPTs and other non-MCP platforms, use the REST API directly at `api.openephemeris.com` with the OpenAPI spec.
+> **Platform compatibility:** The MCP server works with Claude (Desktop, Code, API), ChatGPT (as a custom MCP app, via developer mode), Cursor, Windsurf, VS Code Copilot, Cline, Continue.dev, JetBrains AI, and Amazon Q. Claude and ChatGPT additionally render the interactive charts inline — the same build, no per-host variant. For ChatGPT *Custom GPTs* and other non-MCP platforms, use the REST API directly at `api.openephemeris.com` with the OpenAPI spec.
 
 ## Install
 

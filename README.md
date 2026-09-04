@@ -198,6 +198,14 @@ Cursor deeplink payload:
 The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable HTTP support (MCP 2025-11-25 spec). Remote-only clients can connect directly — no bridge/proxy required:
 
 - **Claude Web**: Add `https://mcp.openephemeris.com/mcp` as a custom connector URL — leave OAuth Client ID and Secret **blank**. The server uses OAuth 2.1 + PKCE (Dynamic Client Registration), so Claude handles authentication via a browser popup automatically.
+- **ChatGPT**: OpenEphemeris is not in the ChatGPT app directory — you add it yourself.
+  Turn on **Settings → Plugins → Advanced → Developer mode**, then use the **+ (Create app)**
+  button on [chatgpt.com/plugins](https://chatgpt.com/plugins). Server URL:
+  `https://mcp.openephemeris.com/mcp` (append `?profile=core` for the curated 39-tool
+  surface, which still includes every interactive chart). Leave Authentication on **OAuth**;
+  the same PKCE + Dynamic Client Registration flow applies, so there is no client ID or
+  secret to enter. Charts render inline, exactly as they do in Claude. *Developer mode was
+  available on a Free plan when this was last checked (2026-09-04); availability may vary.*
 - **Via Smithery**: Use the [Smithery listing](https://smithery.ai/servers/open-ephemeris/openephemeris) for managed connections with any client
 - **Legacy SSE**: retired in 3.20.0 — use Streamable HTTP at `/mcp`
 
@@ -235,7 +243,16 @@ Nine of the tools don't answer with JSON. They open a chart in the conversation 
 
 This matters more than it sounds. A natal chart returned as JSON is a list of numbers you have to already understand to read. The same chart rendered as a wheel is something you can point at. Click a planet and you get that placement explained; click a house and you get what's in it. The chart stays on screen while you keep talking, and it doesn't cost another credit to keep looking at it.
 
-These need a host that supports MCP Apps — Claude Desktop is the main one today. In a client without app support the same tools still work; you get the underlying data instead of the picture, so nothing breaks, you just don't get the wheel.
+These need a host that supports MCP Apps. **Claude and ChatGPT both do**, and they render
+the same widget — there is no separate ChatGPT build. MCP Apps ([SEP-1865][sep1865]) was
+co-authored by Anthropic and OpenAI and became the first official MCP extension in January
+2026, so one `ui://` resource serves both. In ChatGPT you add the server yourself as a
+custom app (see [Setup](#setup)); OpenEphemeris is not in the ChatGPT app directory.
+
+In a client without app support the same tools still work; you get the underlying data
+instead of the picture, so nothing breaks, you just don't get the wheel.
+
+[sep1865]: https://modelcontextprotocol.io/seps/1865-mcp-apps-interactive-user-interfaces-for-mcp
 
 | Tool | What opens | What you can click | Credits |
 |---|---|---|---|
