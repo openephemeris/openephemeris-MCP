@@ -7,6 +7,17 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.15.1] — 2026-09-10
+
+### Fixed
+- **`ephemeris_planet_position` now says what `planet_id=10` actually returns.** The body is named
+  "North Node (Mean)", but the API serves the osculating **true** node for it (DE440, true ecliptic of
+  date) — the node Human Design uses and the one `/human-design/chart` derives gates from. It wobbles
+  ±1.7° about the mean and can go direct, so a `longitude_speed` that varies or turns positive is
+  correct, not a defect. Id 11 is the analytical true node; neither id is a classical mean node. The
+  tool description states this so no caller selects id 10 believing it a mean node. Names and ids are
+  unchanged.
+
 ## [4.15.0] — 2026-09-03
 
 ### Added
