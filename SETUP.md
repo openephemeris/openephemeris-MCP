@@ -102,11 +102,18 @@ Get a key from [openephemeris.com/dashboard](https://openephemeris.com/dashboard
 
 ---
 
-### ChatGPT — MCP (Developer Mode)
+### ChatGPT
 
-ChatGPT supports remote MCP servers directly — no Custom GPT needed — and it renders the
-**interactive charts** inline, from the same build Claude uses. OpenEphemeris is not in the
-ChatGPT app directory, so you add it yourself:
+Open Ephemeris is an approved app in the ChatGPT app directory, and ChatGPT renders the
+**interactive charts** inline, from the same build Claude uses.
+
+1. Open [Open Ephemeris in the ChatGPT app directory](https://chatgpt.com/plugins/plugin_asdk_app_6a9c2787bc48819197698e71b29ef7c2)
+2. Click **Install plugin** and approve the sign-in — that also creates your free
+   OpenEphemeris account
+3. Type `@Open Ephemeris` in any chat
+
+<details>
+<summary>Add it by hand instead (Developer Mode)</summary>
 
 1. Turn on **Settings → Plugins → Advanced → Developer mode**
    *(this menu was called "Connectors" before July 2026)*
@@ -126,10 +133,9 @@ Auth:        OAuth (no client ID or secret)
 `?profile=core` serves the curated 39-tool surface, which still includes every interactive
 chart. Drop it for all 92 tools.
 
-> 💡 Developer mode was available on a **Free** ChatGPT plan when this was last checked
-> (2026-09-04). Plan availability is OpenAI's to change.
->
-> Prefer an API key to OAuth? The endpoint also accepts `X-API-Key: YOUR_API_KEY` — get one
+</details>
+
+> 💡 Prefer an API key to OAuth? The endpoint also accepts `X-API-Key: YOUR_API_KEY` — get one
 > at [openephemeris.com/dashboard](https://openephemeris.com/dashboard) → API Keys tab.
 
 ---

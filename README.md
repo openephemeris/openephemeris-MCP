@@ -177,7 +177,8 @@ Cursor deeplink payload:
 | Claude Desktop (macOS) | Manual | `~/Library/Application Support/Claude/claude_desktop_config.json` |
 | Claude Desktop (Windows) | Manual | `%APPDATA%\Claude\claude_desktop_config.json` |
 | Windsurf | Manual | `~/.codeium/windsurf/mcp_config.json` (or legacy `~/.codeium/mcp_config.json`) |
-| Claude Web / ChatGPT / remote clients | Hosted URL | `https://mcp.openephemeris.com/mcp` |
+| ChatGPT | One-click | [Open Ephemeris in the ChatGPT app directory](https://chatgpt.com/plugins/plugin_asdk_app_6a9c2787bc48819197698e71b29ef7c2) |
+| Claude Web / remote clients | Hosted URL | `https://mcp.openephemeris.com/mcp` |
 
 ### Client install walkthroughs
 
@@ -198,14 +199,12 @@ Cursor deeplink payload:
 The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable HTTP support (MCP 2025-11-25 spec). Remote-only clients can connect directly — no bridge/proxy required:
 
 - **Claude Web**: Add `https://mcp.openephemeris.com/mcp` as a custom connector URL — leave OAuth Client ID and Secret **blank**. The server uses OAuth 2.1 + PKCE (Dynamic Client Registration), so Claude handles authentication via a browser popup automatically.
-- **ChatGPT**: OpenEphemeris is not in the ChatGPT app directory — you add it yourself.
-  Turn on **Settings → Plugins → Advanced → Developer mode**, then use the **+ (Create app)**
-  button on [chatgpt.com/plugins](https://chatgpt.com/plugins). Server URL:
-  `https://mcp.openephemeris.com/mcp` (append `?profile=core` for the curated 39-tool
-  surface, which still includes every interactive chart). Leave Authentication on **OAuth**;
-  the same PKCE + Dynamic Client Registration flow applies, so there is no client ID or
-  secret to enter. Charts render inline, exactly as they do in Claude. *Developer mode was
-  available on a Free plan when this was last checked (2026-09-04); availability may vary.*
+- **ChatGPT**: Open Ephemeris is an approved app in the ChatGPT app directory. Open
+  [the listing](https://chatgpt.com/plugins/plugin_asdk_app_6a9c2787bc48819197698e71b29ef7c2), click **Install plugin**, approve the sign-in (that also creates your
+  free OpenEphemeris account), then type `@Open Ephemeris` in any chat. Charts render inline,
+  exactly as they do in Claude. Prefer to wire it yourself? **Settings → Plugins → Advanced →
+  Developer mode → + Create app** accepts `https://mcp.openephemeris.com/mcp` with
+  Authentication on **OAuth** — no client ID or secret to enter.
 - **Via Smithery**: Use the [Smithery listing](https://smithery.ai/servers/open-ephemeris/openephemeris) for managed connections with any client
 - **Legacy SSE**: retired in 3.20.0 — use Streamable HTTP at `/mcp`
 
@@ -246,8 +245,8 @@ This matters more than it sounds. A natal chart returned as JSON is a list of nu
 These need a host that supports MCP Apps. **Claude and ChatGPT both do**, and they render
 the same widget — there is no separate ChatGPT build. MCP Apps ([SEP-1865][sep1865]) was
 co-authored by Anthropic and OpenAI and became the first official MCP extension in January
-2026, so one `ui://` resource serves both. In ChatGPT you add the server yourself as a
-custom app (see [Setup](#setup)); OpenEphemeris is not in the ChatGPT app directory.
+2026, so one `ui://` resource serves both. In ChatGPT, install it from
+[the app directory](https://chatgpt.com/plugins/plugin_asdk_app_6a9c2787bc48819197698e71b29ef7c2); in Claude, add the connector (see [Setup](#setup)).
 
 In a client without app support the same tools still work; you get the underlying data
 instead of the picture, so nothing breaks, you just don't get the wheel.
