@@ -7,6 +7,13 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Unreleased]
+
+### Added
+- **Listed in the ChatGPT app directory** (approved 2026-09-14). ChatGPT users install Open Ephemeris
+  in one click from [the listing](https://chatgpt.com/plugins/plugin_asdk_app_6a9c2787bc48819197698e71b29ef7c2)
+  — no Developer Mode, no URL to paste. Same server, same interactive charts as Claude.
+
 ## [4.15.1] — 2026-09-10
 
 ### Fixed
