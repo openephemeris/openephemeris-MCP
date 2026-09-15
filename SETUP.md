@@ -140,21 +140,6 @@ chart. Drop it for all 92 tools.
 
 ---
 
-### ChatGPT — Custom GPT Action (Legacy)
-
-Alternatively, add OpenEphemeris to a custom GPT as an Action (works on all plan tiers, but requires an API key):
-
-1. Go to [chatgpt.com/gpts/editor](https://chatgpt.com/gpts/editor)
-2. Create new GPT → **Configure** → **Actions** → **Import from URL**
-3. Enter: `https://api.openephemeris.com/openapi.json`
-4. Set authentication: **API Key** → Header name: `X-OpenEphemeris-API-Key`
-5. Paste your API key as the value
-6. Save and publish
-
-> ⚠️ ChatGPT Custom GPTs don't support the device auth flow. You'll need an API key for this option.
-
----
-
 ### Gemini CLI
 
 Google's Gemini CLI supports remote MCP servers natively via `~/.gemini/settings.json`:
@@ -200,7 +185,7 @@ Ask your AI any of these:
 
 ## Advanced: API Key Method
 
-For CI/CD pipelines, server-to-server integrations, or ChatGPT Custom GPTs, you can set a traditional API key instead of using the interactive device auth flow:
+For CI/CD pipelines and server-to-server integrations, you can set a traditional API key instead of using the interactive device auth flow:
 
 1. Go to **[openephemeris.com/dashboard](https://openephemeris.com/dashboard)** → **Account** tab
 2. Click **"Create API Key"** and copy it (starts with `oe_...`)
