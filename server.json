@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.openephemeris/open-ephemeris",
+  "description": "Sub-arcsecond astrology on NASA JPL DE440: natal, transits, Human Design, Vedic, BaZi.",
+  "version": "4.15.1",
+  "websiteUrl": "https://openephemeris.com/astrology-mcp",
+  "repository": {
+    "url": "https://github.com/openephemeris/openephemeris-MCP",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.openephemeris.com/mcp"
+    }
+  ],
+  "title": "Open Ephemeris"
+}
