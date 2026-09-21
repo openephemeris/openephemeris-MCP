@@ -281,24 +281,24 @@ Screenshots of each are on the way.
 | Moon phase / VOC | `ephemeris_moon_phase` | Explorer |
 | Eclipse next visible | `ephemeris_next_eclipse` | Explorer |
 | Electional window | `ephemeris_electional` | Developer |
-| Moment analysis | `electional_moment_analysis` | Developer |
-| Station tracker | `electional_station_tracker` | Developer |
+| Moment analysis | `electional_moment_analysis` | Explorer |
+| Station tracker | `electional_station_tracker` | Explorer |
 | Aspect search | `electional_aspect_search` | Developer |
 | Human Design chart | `human_design_chart` | Explorer |
-| HD composite | `human_design_composite` | Developer |
-| HD transit overlay | `explore_human_design_transit` | Developer |
-| HD connection (synastry) | `explore_human_design_connection` | Developer |
+| HD composite | `human_design_composite` | Explorer |
+| HD transit overlay | `explore_human_design_transit` | Explorer |
+| HD connection (synastry) | `explore_human_design_connection` | Explorer |
 | HD penta | `human_design_penta` | Explorer |
 | HD return / opposition | `hd_planetary_return`, `hd_opposition` | Explorer |
 | Vedic chart | `vedic_chart` | Explorer |
 | BaZi (Chinese) | `chinese_bazi` | Explorer |
-| Synastry | `ephemeris_synastry` | Developer |
-| Composite chart | `ephemeris_composite` | Developer |
-| Relocation chart | `ephemeris_relocation` | Developer |
+| Synastry | `ephemeris_synastry` | Explorer |
+| Composite chart | `ephemeris_composite` | Explorer |
+| Relocation chart | `ephemeris_relocation` | Explorer |
 | Progressed chart | `ephemeris_progressed_chart` | Explorer |
-| Solar return | `ephemeris_solar_return` | Developer |
-| Lunar return | `ephemeris_lunar_return` | Developer |
-| Planetary return | `ephemeris_planetary_return` | Developer |
+| Solar return | `ephemeris_solar_return` | Explorer |
+| Lunar return | `ephemeris_lunar_return` | Explorer |
+| Planetary return | `ephemeris_planetary_return` | Explorer |
 | Astrocartography lines | `acg_power_lines` | Developer |
 | ACG hits at location | `acg_hits` | Scale |
 | Venus Star Points | `venus_star_points` + 4 more | Explorer |

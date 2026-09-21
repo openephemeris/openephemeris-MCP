@@ -252,8 +252,8 @@ Most endpoints cost 1–5 credits. Heavy compounds (full natal with all options,
 
 | Tier | Access |
 |------|--------|
-| **Explorer** (free) | Core ephemeris, moon, transits, geocoding |
-| **Pro** ($29) | Predictive, comparative, visualization, electional, charts |
+| **Explorer** (free, 150 credits) | Core ephemeris, moon, transits, geocoding, synastry, composite, bi-wheel, returns, progressions, relocation, Human Design (incl. transit and connection overlays), BaZi, electional moment analysis and station tracker — credits only |
+| **Pro** ($29, 75,000 credits/mo) | Astrocartography (power-lines, hits, parans), electional window/aspect search |
 | **Startup** ($79) | Batch computation |
 | **Scale** ($199) | ACG aspects/midpoints/crossings/declinations, relational ACG |
 | **Enterprise** | Custom |

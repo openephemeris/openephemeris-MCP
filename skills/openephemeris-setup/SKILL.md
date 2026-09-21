@@ -71,8 +71,8 @@ For everything else (120 endpoints), use the generic proxy tools with `method` +
 
 | Tier | Price | Access |
 |------|-------|--------|
-| Explorer | Free | Core ephemeris, moon, transits, geocoding |
-| Pro | $29/mo | Predictive, comparative, visualization, electional, chart rendering |
+| Explorer | Free (150 credits) | Core ephemeris, moon, transits, geocoding, synastry, composite, returns, progressions, relocation, Human Design overlays, BaZi — credits only |
+| Pro | $29/mo (75,000 credits) | Astrocartography, electional window search |
 | Startup | $79/mo | Batch computation |
 | Scale | $199/mo | Astrocartography (ACG aspects, midpoints, crossings, declinations) |
 | Enterprise | Custom | SLAs, dedicated support |

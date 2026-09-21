@@ -7,7 +7,15 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Unreleased]
+## [4.16.0] — 2026-09-21
+
+### Changed
+- **Synastry, composite, bi-wheel, returns, progressions, relocation, HD transit/connection overlays
+  and advanced BaZi are now available on the free tier (credits only).** Tool descriptions no longer
+  say "Pro tier" for any of them; astrocartography and electional window search stay Pro.
+- **Credit-exhausted responses now link directly to a one-tap $5 top-up.** A `402` from the API hands
+  the model a single link (`https://openephemeris.com/topup?pack=payg_5`) that signs the user in if
+  needed and goes straight to checkout, instead of a dashboard wallet tab.
 
 ### Added
 - **Listed in the ChatGPT app directory** (approved 2026-09-14). ChatGPT users install Open Ephemeris

@@ -2,7 +2,7 @@
   "identifier": "openephemeris",
   "name": "Open Ephemeris",
   "description": "Sub-arcsecond astrology and astronomy from the NASA JPL DE440 ephemeris: natal, synastry, progressions, transit search, moon phases, eclipses, Human Design, Vedic, BaZi and astrocartography. Interactive charts render inline in hosts that support MCP Apps. Also a one-click app in the ChatGPT app directory and a connector for Claude.",
-  "version": "4.15.1",
+  "version": "4.16.0",
   "author": "Open Ephemeris",
   "authorUrl": "https://openephemeris.com",
   "homepage": "https://openephemeris.com/astrology-mcp",
