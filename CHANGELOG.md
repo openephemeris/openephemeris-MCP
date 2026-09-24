@@ -7,6 +7,24 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.17.0] — 2026-09-24
+
+### Added
+- **Transit timelines show when each transit starts and ends.** `explore_transit_timeline` now asks
+  for orb windows (new `orb_deg` parameter, default 1°): every exact hit carries the in-orb window it
+  belongs to — the date the transit comes into orb and the date it leaves — and "pass 2 of 3" when a
+  retrograde brings the planet back over the same point without leaving the orb. Transits already in
+  orb at the start of the range are listed with whether they are applying or separating. The
+  interactive timeline shows the window on each card.
+- **Two new API capabilities reachable through `dev_read_api`:** orb windows on
+  `POST /predictive/transits/search` (`orb_deg`, `aspect_orbs`, `natal_points`, `aspects`) and the new
+  `POST /human-design/transit-timeline` — every gate (and line) a transiting planet enters and leaves
+  over a date range, and when a transit completes one of your channels. 121 public endpoints.
+
+### Fixed
+- **`dev_read_api` now reaches three endpoints it was missing:** `/ephemeris/draconic`,
+  `/ephemeris/prenatal-lunation` and `/predictive/primary-directions` (124 allowlisted operations).
+
 ## [4.16.0] — 2026-09-21
 
 ### Changed
