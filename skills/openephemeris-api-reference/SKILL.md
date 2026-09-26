@@ -7,10 +7,10 @@ updated: 2026-05-23
 
 # OpenEphemeris API Reference
 
-Quick reference for all 121 endpoints across 19 groups. Every endpoint works via:
+Quick reference for all 121 endpoints, grouped by family (plus the meta/health routes and two internal ones). Every endpoint works via:
 
 - **MCP `dev_read_api` / `dev_write_api`** with `method` + `path` (for allowlisted endpoints — see `dev_list_allowed`)
-- **Direct REST** to `https://api.openephemeris.com` with header `X-Meridian-API-Key: oe_...`
+- **Direct REST** to `https://api.openephemeris.com` with header `X-API-Key: opene-...` (or `Authorization: Bearer opene-...`)
 
 Always pass `format=llm` (query param or body field) unless raw JSON is requested — reduces tokens ~73%.
 
@@ -30,16 +30,16 @@ For ANY chart endpoint that takes birth data:
 | POST | `/acg/power-lines` | Dev | Planet AC/MC/DC/IC lines globally |
 | POST | `/acg/hits` | Dev | Lines near a target city |
 | POST | `/acg/crossings` | Scale | Where two lines intersect |
-| POST | `/acg/parans` | Dev | Latitude bands where two planets are simultaneously angular |
+| POST | `/acg/parans` | Scale | Latitude bands where two planets are simultaneously angular |
 | POST | `/acg/midpoints` | Scale | Planetary midpoint lines |
 | POST | `/acg/declination-lines` | Scale | Parallels of declination |
 | POST | `/acg/aspects` | Scale | Where natal planets aspect local angles |
 | POST | `/acg/local-space` | Dev | Azimuthal directions from a reference city |
-| POST | `/acg/hermetic-lines` | Dev | Hermetic Lots projected as lines |
+| POST | `/acg/hermetic-lines` | Scale | Hermetic Lots projected as lines |
 | POST | `/acg/relational-parans` | Scale | Parans for two-person synastry |
-| POST | `/acg/ccg` | Scale | Cyclocartography time-series |
+| POST | `/acg/ccg` | Dev | Cyclocartography time-series |
 | POST | `/acg/ccg/parans` | Scale | Transit parans |
-| POST | `/acg/heatmap/composite` | Service | Composite heatmap |
+| POST | `/acg/heatmap/composite` | Enterprise | Composite heatmap |
 | POST | `/acg/features` | Service | Combined ACG feature collection |
 | GET | `/acg/datasets` | Free | Available ACG datasets |
 | GET | `/acg/meta` | Free | ACG engine metadata |
@@ -60,7 +60,7 @@ For ANY chart endpoint that takes birth data:
 | GET | `/catalogs/fixed-stars` | Fixed-star catalog (paginated) |
 | GET | `/catalogs/fixed-stars/groups` | Fixed-star group identifiers |
 
-## Chinese Astrology (8)
+## Chinese Astrology (9)
 
 | Method | Path | Description |
 |--------|------|-------------|
@@ -72,6 +72,7 @@ For ANY chart endpoint that takes birth data:
 | POST | `/chinese/bazi/annual-pillar` | Current-year Liu Nian |
 | POST | `/chinese/bazi/solar-terms` | 24 solar terms for a year |
 | POST | `/chinese/bazi/compatibility` | BaZi compatibility between two |
+| POST | `/chinese/bazi/chart` | Rendered Four Pillars chart (SVG/PNG) |
 
 ## Comparative / Synastry (5)
 
@@ -83,23 +84,26 @@ For ANY chart endpoint that takes birth data:
 | POST | `/comparative/natal-transits` | Transits to a natal chart |
 | POST | `/comparative/overlay` | Bi-wheel overlay visualization |
 
-## Eclipse (5)
+## Eclipse (6)
 
 | Method | Path | Description |
 |--------|------|-------------|
+| GET | `/eclipse/next` | Next eclipse (global) |
 | GET | `/eclipse/next-visible` | Next eclipse visible from a location |
 | GET | `/eclipse/solar/global` | Global solar eclipse circumstances |
 | GET | `/eclipse/solar/local` | Local solar eclipse circumstances |
 | GET | `/eclipse/lunar/global` | Global lunar eclipse circumstances |
 | GET | `/eclipse/besselian-elements` | Raw Besselian elements |
 
-## Electional (4)
+## Electional (6)
 
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/electional/moment-analysis` | Full snapshot of the sky at a moment |
-| GET | `/electional/aspect-search` | Search for specific aspects in a window |
-| GET | `/electional/find-window` | Find an electional window matching criteria |
+| GET | `/electional/aspect-search` | Active aspects at a moment (Pro) |
+| GET | `/electional/find-window` | Best timing windows in a range (Pro; priced by span, ≤30/60/120 d = 5/8/12) |
+| GET | `/electional/angle-crossings` | When bodies cross AC/DC/MC/IC at a place (Pro; priced by span, ≤1 mo 5 … ≤1 y 12) |
+| POST | `/electional/natal-angle-crossings` | Relocated natal angle crossings (Pro; priced like angle-crossings) |
 | GET | `/electional/station-tracker` | Upcoming planetary stations |
 
 ## Ephemeris (38)
@@ -108,7 +112,7 @@ For ANY chart endpoint that takes birth data:
 | Method | Path | Description |
 |--------|------|-------------|
 | POST | `/ephemeris/natal-chart` | **Primary natal chart endpoint** |
-| POST | `/ephemeris/natal/batch` | Batch natal calculations |
+| POST | `/ephemeris/natal/batch` | Batch natal calculations, up to 100 (Startup) |
 | POST | `/ephemeris/relocation` | Relocate chart to another city |
 | POST | `/ephemeris/progressed` | Secondary, tertiary, solar arc progressions |
 | POST | `/ephemeris/draconic` | Draconic chart (nodal axis as Aries) |
@@ -166,20 +170,21 @@ For ANY chart endpoint that takes birth data:
 | GET | `/ephemeris/schemas/natal-request` | Natal request schema |
 | GET | `/ephemeris/schemas/natal-response` | Natal response schema |
 
-## Human Design (7)
+## Human Design (9)
 
 | Method | Path | Description |
 |--------|------|-------------|
 | POST | `/human-design/chart` | Bodygraph (type, strategy, authority, profile) |
 | POST | `/human-design/transit` | Today's design weather |
+| POST | `/human-design/transit-chart` | Transit overlay on a natal bodygraph |
 | POST | `/human-design/transit-timeline` | Gates entered/left and channels completed over a date range |
 | POST | `/human-design/composite` | Two-person HD |
-| POST | `/human-design/penta` | 2–5 person group |
+| POST | `/human-design/penta` | 3–5 person group |
 | POST | `/human-design/cycles/return` | Planetary return chart |
 | POST | `/human-design/cycles/solar-return` | Solar return chart |
 | POST | `/human-design/cycles/opposition` | Opposition chart |
 
-## Location & Timezone (4)
+## Location & Timezone (5)
 
 | Method | Path | Description |
 |--------|------|-------------|
@@ -187,6 +192,7 @@ For ANY chart endpoint that takes birth data:
 | GET | `/location/reverse` | lat/lon → city (NOTE: param is `lng`, not `lon`) |
 | POST | `/timezone/lookup` | lat/lon → IANA timezone |
 | POST | `/timezone/offset` | UTC offset at a datetime+coord |
+| GET | `/timezone/coverage` | Historical timezone overlay coverage |
 
 ## Predictive (11)
 
@@ -247,16 +253,16 @@ For ANY chart endpoint that takes birth data:
 
 ## Pricing Note
 
-Most endpoints cost 1–5 credits. Heavy compounds (full natal with all options, ACG hits across many cities, transit search across a 12-month window) can cost 10–30+. Tell the user before running anything expensive.
+Most endpoints cost 1–5 credits (`x-meridian-units` in the OpenAPI spec is the base price). ACG is 10. Range searches are priced by the span requested, before compute: transit search and HD transit timeline ≤1y 5, ≤3y 10, ≤5y 15, ≤10y 25, ≤20y 40, ≤40y 70 (plan caps: Explorer/PAYG 1y, Pro 5y, Startup 10y, Scale 40y); electional find-window ≤30d 5, ≤60d 8, ≤120d 12; angle crossings ≤1mo 5, ≤3mo 8, ≤6mo 10, ≤1y 12. A span over the cap is a 400 `search_span_limit`. Every 4xx/5xx is refunded. Tell the user before running anything expensive.
 
 ## Tier Gating Reminder
 
 | Tier | Access |
 |------|--------|
-| **Explorer** (free, 150 credits) | Core ephemeris, moon, transits, geocoding, synastry, composite, bi-wheel, returns, progressions, relocation, Human Design (incl. transit and connection overlays), BaZi, electional moment analysis and station tracker — credits only |
-| **Pro** ($29, 75,000 credits/mo) | Astrocartography (power-lines, hits, parans), electional window/aspect search |
-| **Startup** ($79) | Batch computation |
-| **Scale** ($199) | ACG aspects/midpoints/crossings/declinations, relational ACG |
+| **Explorer** (free, 150 one-time credits — no reset) | Core ephemeris, moon, transits, geocoding, synastry, composite, bi-wheel, returns, progressions, relocation, Human Design (incl. transit and connection overlays), BaZi, electional moment analysis and station tracker — credits only |
+| **Pro** ($29, 75,000 credits/mo) | Astrocartography (power-lines, CCG, hits, local-space), electional searches (find-window, aspect-search, angle-crossings) |
+| **Startup** ($79, 500,000 credits/mo) | Batch computation |
+| **Scale** ($199, 2,000,000 credits/mo) | ACG aspects/midpoints/crossings/declinations/parans/hermetic lines, relational ACG |
 | **Enterprise** | Custom |
 | **Service** (internal) | Heatmaps, combined `/acg/features` |
 

@@ -9,7 +9,7 @@ updated: 2026-05-23
 
 Use this skill when someone asks where on Earth they're "luckiest" for love, career, growth, or healing — or what changes if they move. ACG maps the four angular positions (rising, culminating, setting, anti-culminating) of every planet at the moment of birth across the globe, producing planetary lines. Living near a line activates that planet's energy in the corresponding angular theme.
 
-> **Tier requirement:** Several ACG endpoints (aspects, midpoints, crossings, declinations) require the **Scale** tier ($199/mo). Power-lines, hits, and parans are available on Pro tier. The combined `/acg/features` endpoint is service-tier (Ela Map only).
+> **Tier requirement:** Power lines, CCG, hits and local space need the **Pro** tier ($29/mo); ACG calls cost 10 credits. Aspects, midpoints, crossings, declinations, parans, hermetic lines and the relational endpoints need **Scale** ($199/mo). The combined `/acg/features` endpoint is service-tier (Ela Map only).
 
 ## Required Information
 
@@ -147,7 +147,7 @@ Body includes the subject + a list of locations. Returns which lines (and how cl
 
 > This is the most common ACG question: "I'm considering moving to Lisbon — what lines are there?" → `/acg/hits` with Lisbon as the target.
 
-### Crossings — where two lines intersect
+### Crossings — where two lines intersect (Scale tier)
 
 ```
 POST /acg/crossings
@@ -155,7 +155,7 @@ POST /acg/crossings
 
 Returns geographic points where two planetary lines cross. Crossings concentrate the energies of both planets — extremely potent spots (often profound or intense).
 
-### Parans
+### Parans (Scale tier)
 
 ```
 POST /acg/parans

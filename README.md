@@ -212,7 +212,7 @@ The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable
 
 - Missing/invalid credentials (`401`): tool call fails with a message that points users to sign up/sign in at `https://openephemeris.com/login?signup=true&redirect=%2Fdashboard%3Ftab%3Daccount`, then create/manage keys in `https://openephemeris.com/dashboard?tab=account`.
 - Tier-gated endpoint (`403`): tool call returns an upgrade-required message with `https://openephemeris.com/pay` and dashboard billing/key management link.
-- Monthly quota exhausted (`402`): tool call returns usage quota guidance with both dashboard (`/dashboard?tab=account`) and upgrade (`/pay`) links.
+- Out of credits (`402`): tool call returns a one-tap top-up link (Explorer's 150 free credits are one-time and do not reset; plan allowances renew each billing period) plus the dashboard usage link. Failed calls (any `4xx`/`5xx`) are refunded.
 - Burst/rate limit (`429`): tool call returns retry guidance and links to dashboard usage monitoring.
 
 ## What You Can Ask
@@ -256,13 +256,13 @@ instead of the picture, so nothing breaks, you just don't get the wheel.
 | Tool | What opens | What you can click | Credits |
 |---|---|---|---|
 | `explore_natal_chart` | Natal wheel — planets, houses, aspects, angles | Planets, houses, aspect lines; recalculate with new settings | 1 |
-| `explore_bi_wheel` | Two charts on one wheel: transits, synastry, progressions | Either wheel's planets, houses, and the aspects between them | 2 |
-| `explore_human_design` | Human Design bodygraph, with a mandala view toggle | Centers, gates, channels, planets, variables | 2 |
-| `explore_human_design_transit` | Today's planets laid over a natal bodygraph | Transit-activated channels | 3 |
-| `explore_human_design_connection` | Two bodygraphs combined, every shared channel classified | Connection channels by type | 3 |
+| `explore_bi_wheel` | Two charts on one wheel: transits, synastry, progressions | Either wheel's planets, houses, and the aspects between them | 2 (6 for solar/lunar return) |
+| `explore_human_design` | Human Design bodygraph, with a mandala view toggle | Centers, gates, channels, planets, variables | 4 |
+| `explore_human_design_transit` | Today's planets laid over a natal bodygraph | Transit-activated channels | 5 |
+| `explore_human_design_connection` | Two bodygraphs combined, every shared channel classified | Connection channels by type | 5 |
 | `explore_vedic_chart` | South Indian Rashi grid — sidereal placements and Lagna | Each rashi, for its placements and nakshatras | 3 |
 | `explore_bazi_chart` | Four Pillars (四柱命盘) — Year, Month, Day, Hour | Each pillar | 3 |
-| `explore_transit_timeline` | Upcoming transit hits in date order | Individual hits | 6 |
+| `explore_transit_timeline` | Upcoming transit hits in date order | Individual hits | 6 for up to 1 year (priced by span) |
 | `explore_moon_phase` | Moon dial — illumination, phase, sign, void-of-course | Recalculate for another moment | 3 |
 
 Ask for these the way you'd ask a person: *"show me my chart"*, *"put today's transits over my Human Design"*, *"what's the moon doing right now"*. The model picks the app.
@@ -300,10 +300,10 @@ Screenshots of each are on the way.
 | Lunar return | `ephemeris_lunar_return` | Explorer |
 | Planetary return | `ephemeris_planetary_return` | Explorer |
 | Astrocartography lines | `acg_power_lines` | Developer |
-| ACG hits at location | `acg_hits` | Scale |
+| ACG hits at location | `acg_hits` | Developer |
 | Venus Star Points | `venus_star_points` + 4 more | Explorer |
-| Chart wheel image | `ephemeris_chart_wheel` | Developer |
-| Bi-wheel image | `ephemeris_bi_wheel` | Developer |
+| Chart wheel image | `ephemeris_chart_wheel` | Explorer |
+| Bi-wheel image | `ephemeris_bi_wheel` | Explorer |
 | Dignities / Midpoints / Fixed stars | `ephemeris_dignities`, `ephemeris_midpoints`, `ephemeris_fixed_stars` | Explorer |
 
 ## Tooling Model
@@ -335,7 +335,7 @@ Screenshots of each are on the way.
 | `OPENEPHEMERIS_PROFILE` | No | `dev` by default |
 | `OPENEPHEMERIS_TOOLS` | No | `core` (default) advertises a focused everyday tool set; `full` advertises every tool. See [Tool surface](#tool-surface) |
 | `OPENEPHEMERIS_TELEMETRY` | No | Set to `0`/`false`/`off` to disable anonymous usage reporting. `DO_NOT_TRACK=1` also works. See [Telemetry](#telemetry) |
-| `OPENEPHEMERIS_SERVICE_KEY` | No | Internal service auth |
+| `OPENEPHEMERIS_SERVICE_KEY` | No | Internal service auth (stdio only; the hosted server refuses to start with one and always authenticates as the signed-in user) |
 | `OPENEPHEMERIS_JWT` | No | Bearer token auth |
 | `OPENEPHEMERIS_DEV_ALLOWLIST_PATH` | No | Override allowlist file path |
 | `MCP_USER_ID` | No | Per-instance user identifier |

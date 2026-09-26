@@ -138,7 +138,7 @@ Then call:
 POST /predictive/transits/search?format=llm
 ```
 
-with body containing the subject (per Standard Procedure), a `start` date (today), an `end` date (default 3 months out), and the planets/aspects of interest. Inner planets for day-to-day; outer planets (Saturn → Pluto) for life themes.
+with body `start_date` (today), `end_date` (default 3 months out), `planet_names`, and `natal_points` — `[{name, longitude}]`, the natal longitudes from `/ephemeris/natal-chart` (it takes no birth subject) — plus optional `aspects`. Priced by span before compute: ≤1 year 5 credits, up to 70 for ≤40 years; Explorer/PAYG may search at most 1 year per call. A `truncated: true` result is partial: continue from `truncation.resume_from`. Inner planets for day-to-day; outer planets (Saturn → Pluto) for life themes.
 
 ### Transit Depth by Planet
 
@@ -196,7 +196,7 @@ When the user wants the best moment for a specific event in a date window:
 GET /electional/moment-analysis?date=<candidate>&latitude=<lat>&longitude=<lon>&format=llm
 ```
 
-Or, for a search over a date range, use `POST /electional/aspect-search` with the desired aspect criteria and window.
+Or, to search a date range for the best windows, use `GET /electional/find-window` (Pro tier; priced by span: ≤30 days 5, ≤60 days 8, ≤120 days 12 credits). `GET /electional/aspect-search` lists the aspects active at one moment.
 
 ### Electional Heuristics
 

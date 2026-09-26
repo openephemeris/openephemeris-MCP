@@ -106,10 +106,10 @@ Body:
 }
 ```
 
-For composite (relationship), penta (group of 2–5), or transit ("today's design weather"):
+For composite (relationship), penta (group of 3–5), or transit ("today's design weather"):
 
 - `POST /human-design/composite` — two-person HD
-- `POST /human-design/penta` — 2–5 person group
+- `POST /human-design/penta` — 3–5 person group (2 credits per member)
 - `POST /human-design/transit` — current planetary positions as a bodygraph
 
 ## How to Read a Bodygraph

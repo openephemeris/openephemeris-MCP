@@ -27,20 +27,20 @@ claude mcp add openephemeris -- npx -y @openephemeris/mcp-server
 
 1. Sign up at https://openephemeris.com/login?signup=true (free, no credit card)
 2. Go to Dashboard → Account → Create API Key
-3. Copy the key (starts with `oe_…`)
+3. Copy the key (starts with `opene-`)
 4. Set the environment variable:
 
 ```bash
 # macOS / Linux
-export OPENEPHEMERIS_API_KEY="oe_..."
+export OPENEPHEMERIS_API_KEY="opene-..."
 
 # Windows PowerShell
-$env:OPENEPHEMERIS_API_KEY = "oe_..."
+$env:OPENEPHEMERIS_API_KEY = "opene-..."
 ```
 
 ## Verify
 
-Ask Claude to use the `ephemeris.moon_phase` tool with `datetime` set to right now. If it returns moon phase data, setup is complete.
+Ask Claude to use the `ephemeris_moon_phase` tool with `datetime` set to right now. If it returns moon phase data, setup is complete.
 
 ## What You Get
 
@@ -48,14 +48,14 @@ Ask Claude to use the `ephemeris.moon_phase` tool with `datetime` set to right n
 
 | Tool | Purpose |
 |------|---------|
-| `ephemeris.natal_chart` | Full natal chart |
-| `ephemeris.transits` | Search transit events over a date range |
-| `ephemeris.moon_phase` | Moon phase, sign, illumination |
-| `ephemeris.next_eclipse` | Next eclipse visible from a location |
-| `ephemeris.synastry` | Two-person compatibility |
-| `ephemeris.relocation` | Relocate a chart to another city |
-| `ephemeris.electional` | Find optimal timing windows |
-| `human_design.chart` | Bodygraph (type, strategy, authority, profile, gates, channels) |
+| `ephemeris_natal_chart` | Full natal chart |
+| `ephemeris_transits` | Search transit events over a date range |
+| `ephemeris_moon_phase` | Moon phase, sign, illumination |
+| `ephemeris_next_eclipse` | Next eclipse visible from a location |
+| `ephemeris_synastry` | Two-person compatibility |
+| `ephemeris_relocation` | Relocate a chart to another city |
+| `ephemeris_electional` | Find optimal timing windows |
+| `human_design_chart` | Bodygraph (type, strategy, authority, profile, gates, channels) |
 
 ### Generic Proxy
 
@@ -64,17 +64,17 @@ For everything else (121 endpoints), use the generic proxy tools with `method` +
 | Tool | Purpose |
 |------|---------|
 | `dev_read_api` | GET any allowlisted endpoint (44 currently on the public proxy) |
-| `dev_write_api` | POST/PUT/PATCH/DELETE any allowlisted endpoint (76 currently) |
+| `dev_write_api` | POST/PUT/PATCH/DELETE any allowlisted endpoint (80 currently) |
 | `dev_list_allowed` | List every operation reachable via the two tools above |
 
 ## Tiers
 
 | Tier | Price | Access |
 |------|-------|--------|
-| Explorer | Free (150 credits) | Core ephemeris, moon, transits, geocoding, synastry, composite, returns, progressions, relocation, Human Design overlays, BaZi — credits only |
-| Pro | $29/mo (75,000 credits) | Astrocartography, electional window search |
-| Startup | $79/mo | Batch computation |
-| Scale | $199/mo | Astrocartography (ACG aspects, midpoints, crossings, declinations) |
+| Explorer | Free (150 credits, one-time — they do not reset; top-ups from $5) | Core ephemeris, moon, transits, geocoding, synastry, composite, returns, progressions, relocation, Human Design overlays, BaZi — credits only |
+| Pro | $29/mo (75,000 credits) | Astrocartography (power lines, CCG, hits, local space), electional searches (window, aspect, angle crossings) |
+| Startup | $79/mo (500,000 credits) | Batch computation |
+| Scale | $199/mo (2,000,000 credits) | Advanced ACG (aspects, midpoints, crossings, declinations, parans, relational) |
 | Enterprise | Custom | SLAs, dedicated support |
 
 ## Tone & Framing
@@ -89,7 +89,7 @@ When delivering any reading, follow these defaults:
 
 ## Cost Awareness
 
-Most endpoints cost 1–5 credits per call. Heavier compounds (full natal with all options, ACG hits across many cities, transit search across a long window) can cost 10–30+. Always tell the user what you're about to run if it would exceed ~10 credits, and confirm before running batches.
+Most calls cost 1–5 credits; each tool's description states its price. ACG is 10. Range searches are priced by span before compute (transit search: ≤1 year 5 up to ≤40 years 70), and a span over the plan's cap is a 400 `search_span_limit` — split it. Failed calls (any 4xx/5xx) are refunded. Tell the user before running anything over ~10 credits, and confirm before batches.
 
 ## Troubleshooting
 
@@ -97,7 +97,7 @@ Most endpoints cost 1–5 credits per call. Heavier compounds (full natal with a
 |-------|---------|-----|
 | "OPENEPHEMERIS_API_KEY not configured" | No API key set | Set the environment variable |
 | `401 Unauthorized` | Invalid or expired key | Regenerate at Dashboard → Account |
-| `402 Payment Required` | Monthly credits exhausted | Wait for reset (1st of month) or upgrade |
+| `402 Payment Required` | Out of credits (Explorer's 150 are one-time; plan allowances renew each billing period) | Top up or upgrade — the error carries a top-up link |
 | `403 Forbidden` | Endpoint requires a higher tier | Upgrade at openephemeris.com/pay |
 | `429 Too Many Requests` | Rate limited | Back off; retry with exponential delay |
 

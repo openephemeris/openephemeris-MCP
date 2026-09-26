@@ -18,14 +18,14 @@ Every calculation uses the JPL DE440 planetary ephemeris — NASA mission-grade 
 1. Go to [openephemeris.com/login?signup=true](https://openephemeris.com/login?signup=true)
 2. Create a free account (Explorer tier: 150 free credits one-time, no credit card)
 3. Go to Dashboard → Account tab → Create API Key
-4. Copy the key (starts with `oe_...`)
+4. Copy the key (starts with `opene-`)
 
 > Don't hardcode your API key. Set it as an environment variable.
 
 ### 2. Set Your API Key
 
 ```bash
-export OPENEPHEMERIS_API_KEY="oe_your_key_here"
+export OPENEPHEMERIS_API_KEY="opene-your_key_here"
 ```
 
 Or add to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.) for persistence.
@@ -65,7 +65,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 | `ephemeris_synastry` | Synastry chart — inter-aspects and house overlays between two people | 3 |
 | `ephemeris_relocation` | Relocated chart — same planets, different city | 1 |
 | `ephemeris_progressed_chart` | Secondary progressions — evolving natal chart over time | 1 |
-| `ephemeris_natal_batch` | Batch natal charts — up to 100 subjects in one call | 1/subject |
+| `ephemeris_natal_batch` | Batch natal charts — up to 100 subjects in one call (Startup tier+) | 1/subject |
 
 ### Comparative Charts
 
@@ -80,26 +80,26 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `ephemeris_transits` | Search transit events by planet, aspect, orb, and date range | 5 |
-| `ephemeris_solar_return` | Exact Solar Return date/time for a given year | 1 |
-| `ephemeris_lunar_return` | Exact Lunar Return date/time (~monthly) | 1 |
-| `ephemeris_planetary_return` | Generic planetary return (Jupiter, Saturn, etc.) | 1 |
+| `ephemeris_transits` | Search transit events by planet, aspect, orb, and date range | 1 + span price (≤1y 5 … ≤40y 70) |
+| `ephemeris_solar_return` | Exact Solar Return date/time for a given year | 5 |
+| `ephemeris_lunar_return` | Exact Lunar Return date/time (~monthly) | 5 |
+| `ephemeris_planetary_return` | Generic planetary return (Jupiter, Saturn, etc.) | 5 |
 
 ### Moon & Eclipses
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `ephemeris_moon_phase` | Live moon phase + sign + void-of-course status | 1 |
+| `ephemeris_moon_phase` | Live moon phase + sign + void-of-course status | 2 |
 | `ephemeris_next_eclipse` | Next solar or lunar eclipse — global or local visibility | 1 |
 
 ### Electional Timing
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `ephemeris_electional` | Scan a date range for optimal timing windows | 5 |
+| `ephemeris_electional` | Scan a date range for optimal timing windows (Pro tier+) | 5 / 8 / 12 for ≤30 / 60 / 120 days |
 | `electional_moment_analysis` | Analyze quality of a specific moment (score 0-100) | 5 |
 | `electional_station_tracker` | Upcoming retrograde/direct stations | 5 |
-| `electional_aspect_search` | All active aspects at a given moment | 5 |
+| `electional_aspect_search` | All active aspects at a given moment (Pro tier+) | 5 |
 
 ### Venus Star Points
 
@@ -131,8 +131,8 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 | Tool | What It Does | Credits |
 |------|-------------|---------|
 | `human_design_chart` | Full Human Design bodygraph — type, strategy, authority, profile, centers, gates, channels | 2 |
-| `human_design_composite` | HD composite chart for two people | 4 |
-| `human_design_penta` | HD group chart for 3-5 people | 6 |
+| `human_design_composite` | HD composite chart for two people | 3 |
+| `human_design_penta` | HD group chart for 3-5 people | 2 per member (6–10) |
 | `vedic_chart` | Vedic/Jyotish chart with sidereal positions | 1 |
 | `chinese_bazi` | Four Pillars of Destiny (BaZi) chart | 1 |
 
@@ -140,15 +140,15 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `ephemeris_chart_wheel` | PNG chart wheel image (800px) | 2 |
-| `ephemeris_bi_wheel` | PNG bi-wheel image (transit overlay) | 2 |
+| `ephemeris_chart_wheel` | SVG chart wheel image (800px) | 2 |
+| `ephemeris_bi_wheel` | SVG bi-wheel image (transit overlay) | 2 |
 
 ### Astrocartography (ACG)
 
 | Tool | What It Does | Credits |
 |------|-------------|---------|
-| `acg_power_lines` | Planetary power lines on a world map | 10 |
-| `acg_hits` | Which lines are active at a specific location | 10 |
+| `acg_power_lines` | Planetary power lines on a world map (Pro tier+) | 10 |
+| `acg_hits` | Which lines are active at a specific location (Pro tier+) | 10 |
 
 
 ### Beyond the Basics
@@ -161,7 +161,7 @@ These aren't simplified consumer calculations. The engine includes features most
 - **Retrograde & station tracking** — Every planet's retrograde status is included in natal and transit results.
 - **7 house systems** — Placidus, Whole Sign, Equal, Koch, Campanus, Regiomontanus, Porphyry. Just tell Claude which you prefer.
 - **Arc-second precision** — Planetary longitudes accurate to fractions of an arc-second, powered by the same JPL DE440 data NASA uses for spacecraft navigation.
-- **Everything else** — `dev_read_api` is a generic proxy over 120 allowlisted compute endpoints that don't have a dedicated tool above. If you ask for something not in these tables, Claude can still reach it.
+- **Everything else** — `dev_read_api` is a generic proxy over 124 allowlisted compute endpoints that don't have a dedicated tool above. If you ask for something not in these tables, Claude can still reach it.
 
 ## Try Asking
 

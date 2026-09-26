@@ -210,7 +210,7 @@ Rarely discussed because few people live to experience it fully. Completion of t
 
 ## Accuracy Note
 
-Chiron calculations use Keplerian orbital propagation (not full INPOP/CALCEPH ephemeris data). Accuracy is ±0.5–1° over a 50-year span — about ±1–2 weeks for the exact return date. Plenty of precision for life-cycle work where the active window spans months.
+Chiron comes from a dedicated JPL SPK kernel (chiron.bsp), read through CALCEPH like the planets, so Chiron returns are as precise as the other cycles. (A static Keplerian fallback exists only for a kernel failure, which the server's boot self-test refuses to start with.)
 
 ## Cost
 

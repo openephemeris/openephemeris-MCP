@@ -188,7 +188,7 @@ Ask your AI any of these:
 For CI/CD pipelines and server-to-server integrations, you can set a traditional API key instead of using the interactive device auth flow:
 
 1. Go to **[openephemeris.com/dashboard](https://openephemeris.com/dashboard)** → **Account** tab
-2. Click **"Create API Key"** and copy it (starts with `oe_...`)
+2. Click **"Create API Key"** and copy it (starts with `opene-`)
 3. Add it to your config:
 
 ```json
