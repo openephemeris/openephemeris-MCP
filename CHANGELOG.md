@@ -23,6 +23,12 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
   toggle now applies to the South Node as well.
 - **Bi-wheel recalculation keeps the house system you choose** for the outer chart too (it was always
   Placidus).
+- **Black Moon Lilith appears on the chart wheel, named Mean, True or Interpolated.** Asking
+  `explore_natal_chart` for `lilith` or `lilith_true` returned the chart without it. The three Liliths
+  are now shown as "Lilith (Mean)", "Lilith (True)" and "Lilith (Interpolated)" (new slug
+  `lilith_interpolated`), never merged into one.
+- **`explore_natal_chart` with `bodies: ["all"]` works.** It was rejected because it asked for Vertex and
+  Part of Fortune as extra bodies; "all" now covers every body the chart can add.
 
 ### Removed
 - **`include_visual` on `ephemeris_progressed_chart`.** The API never draws a progressed chart
