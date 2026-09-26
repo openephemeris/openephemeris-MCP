@@ -7,6 +7,28 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.18.0] — 2026-09-26
+
+### Fixed
+- **`explore_bi_wheel` progressed, solar return and lunar return modes work again.** They sent
+  requests the API rejected ("Validation failed" / "birth_datetime is required"); all six modes now
+  return a chart.
+- **Solar arc directions are exact.** `explore_bi_wheel` mode `solar_arc` used a flat ~1°-per-year
+  estimate and left the houses at their birth positions. It now uses the Sun's real arc from the API:
+  every planet, angle and house cusp is directed by the same arc, with correct signs and houses.
+  `ephemeris_progressed_chart` with `method: "solar_arc"` directs the angles and house cusps too.
+- **Every lunar node is named Mean or True.** The charts show "North Node (Mean)", "North Node
+  (True)", "South Node (Mean)" and "South Node (True)" as four separate points. The two South Nodes
+  used to merge into one, and the mean North Node was shown as a bare "North Node". The Mean/True
+  toggle now applies to the South Node as well.
+- **Bi-wheel recalculation keeps the house system you choose** for the outer chart too (it was always
+  Placidus).
+
+### Removed
+- **`include_visual` on `ephemeris_progressed_chart`.** The API never draws a progressed chart
+  image, so the option returned no picture. It was never charged. To see progressions over the natal
+  chart, use `explore_bi_wheel` with mode `progressed`.
+
 ## [4.17.0] — 2026-09-24
 
 ### Added
