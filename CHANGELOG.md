@@ -7,6 +7,30 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.19.0] — 2026-09-27
+
+### Changed
+- **The Human Design bodygraph is easier to read.** Gate numbers use a clean sans-serif and are
+  noticeably larger at chat width; the Design and Personality planet columns sit close to the body
+  under their own headings; open centres use the theme's colour instead of glaring white; channels
+  defined from both sides are drawn as two parallel stripes (Design red beside Personality); the
+  mandala's body is about 1.3× larger inside its rings.
+- **Select a single activation.** Clicking a planet row (for example Personality Moon) highlights
+  only that activation's gate, stub and channel, never its Design twin. The rendered SVG tags every
+  element by side and activation, so your own CSS can do the same.
+- **Every chart widget fits the chat better.** Widgets size themselves from the host; scrolling the
+  conversation past a chart scrolls instead of zooming (zoom with Ctrl/Cmd + scroll or a pinch); the
+  fullscreen button only appears where the host supports fullscreen; moon phase and transit timeline
+  support picture-in-picture; fullscreen uses one shared layout that stacks into a single column on
+  phones; all seven widgets share one colour and font set, and the host draws the card border.
+
+### Fixed
+- Changing theme no longer drops a widget out of fullscreen.
+- On moon phase and transit timeline, the info button no longer covers the fullscreen button.
+- Bodygraph hover highlights work again.
+- Widget resources are versioned, so hosts that cache them (such as ChatGPT) pick up new widget
+  versions after an update without reinstalling the app.
+
 ## [4.18.0] — 2026-09-26
 
 ### Fixed
