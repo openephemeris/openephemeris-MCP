@@ -7,6 +7,19 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.20.0] — 2026-09-27
+
+### Added
+- **Six more tools can show their chart as an image.** Pass `include_visual: true` (+2 credits) to
+  `ephemeris_progressed_chart` (natal inside, progressed outside), `ephemeris_relocation` (the
+  relocated wheel), `ephemeris_composite` (the Davison relationship wheel), `ephemeris_overlay` (both
+  charts as a bi-wheel), `hd_planetary_return` and `hd_opposition` (the bodygraph for that moment).
+  The picture appears in the conversation next to the data.
+
+### Fixed
+- `ephemeris_composite` described itself as a planet-by-planet midpoint composite; it returns a
+  Davison relationship chart. For the midpoint method use `ephemeris_composite_midpoint`.
+
 ## [4.19.0] — 2026-09-27
 
 ### Changed
