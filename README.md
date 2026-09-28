@@ -1,12 +1,13 @@
 # OpenEphemeris MCP Server
 
-[![smithery badge](https://smithery.ai/badge/open-ephemeris/openephemeris)](https://smithery.ai/servers/open-ephemeris/openephemeris)
 [![npm version](https://img.shields.io/npm/v/@openephemeris/mcp-server)](https://www.npmjs.com/package/@openephemeris/mcp-server)
 [![System Status](https://img.shields.io/badge/Status-Operational-brightgreen)](https://status.openephemeris.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 [![Ephemeris: JPL DE440](https://img.shields.io/badge/Ephemeris-JPL%20DE440-6f42c1)](https://ssd.jpl.nasa.gov/planets/eph_export.html)
 
 ![OpenEphemeris in Claude — ask in plain language, get a real computed chart](https://raw.githubusercontent.com/openephemeris/openephemeris-MCP/main/assets/hero-demo.gif)
+
+**Use it in Claude:** add `https://mcp.openephemeris.com/mcp` as a custom connector (leave the OAuth Client ID and Secret blank) or install the Open Ephemeris plugin from the Claude directory. Sign-in happens in the browser and creates a free account with 150 credits.
 
 Model Context Protocol server for OpenEphemeris — typed astrology tools powered by the NASA JPL DE440 ephemeris. Zero hallucination on planetary positions, dates, and degrees. Covers 1,100 years of astronomical data.
 
@@ -246,7 +247,7 @@ These need a host that supports MCP Apps. **Claude and ChatGPT both do**, and th
 the same widget — there is no separate ChatGPT build. MCP Apps ([SEP-1865][sep1865]) was
 co-authored by Anthropic and OpenAI and became the first official MCP extension in January
 2026, so one `ui://` resource serves both. In ChatGPT, install it from
-[the app directory](https://chatgpt.com/plugins/plugin_asdk_app_6a9c2787bc48819197698e71b29ef7c2); in Claude, add the connector (see [Setup](#setup)).
+[the app directory](https://chatgpt.com/plugins/plugin_asdk_app_6a9c2787bc48819197698e71b29ef7c2); in Claude, add the connector (see [SETUP.md](SETUP.md)).
 
 In a client without app support the same tools still work; you get the underlying data
 instead of the picture, so nothing breaks, you just don't get the wheel.
@@ -269,8 +270,6 @@ Ask for these the way you'd ask a person: *"show me my chart"*, *"put today's tr
 
 Two things worth knowing. The chart wheel and bi-wheel accept a click on an aspect line, not just on the two planets it joins — so "why does this line matter" is one click rather than a paragraph of setup. And the bodygraph's mandala toggle rearranges the whole chart into concentric rings without another API call, so switching views is free.
 
-Screenshots of each are on the way.
-
 ## Tools at a Glance
 
 | Category | Tool | Tier |
@@ -280,10 +279,10 @@ Screenshots of each are on the way.
 | Transit chart snapshot | `ephemeris_natal_transits` | Explorer |
 | Moon phase / VOC | `ephemeris_moon_phase` | Explorer |
 | Eclipse next visible | `ephemeris_next_eclipse` | Explorer |
-| Electional window | `ephemeris_electional` | Developer |
+| Electional window | `ephemeris_electional` | Pro |
 | Moment analysis | `electional_moment_analysis` | Explorer |
 | Station tracker | `electional_station_tracker` | Explorer |
-| Aspect search | `electional_aspect_search` | Developer |
+| Aspect search | `electional_aspect_search` | Pro |
 | Human Design chart | `human_design_chart` | Explorer |
 | HD composite | `human_design_composite` | Explorer |
 | HD transit overlay | `explore_human_design_transit` | Explorer |
@@ -299,8 +298,8 @@ Screenshots of each are on the way.
 | Solar return | `ephemeris_solar_return` | Explorer |
 | Lunar return | `ephemeris_lunar_return` | Explorer |
 | Planetary return | `ephemeris_planetary_return` | Explorer |
-| Astrocartography lines | `acg_power_lines` | Developer |
-| ACG hits at location | `acg_hits` | Developer |
+| Astrocartography lines | `acg_power_lines` | Pro |
+| ACG hits at location | `acg_hits` | Pro |
 | Venus Star Points | `venus_star_points` + 4 more | Explorer |
 | Chart wheel image | `ephemeris_chart_wheel` | Explorer |
 | Bi-wheel image | `ephemeris_bi_wheel` | Explorer |
@@ -335,7 +334,6 @@ Screenshots of each are on the way.
 | `OPENEPHEMERIS_PROFILE` | No | `dev` by default |
 | `OPENEPHEMERIS_TOOLS` | No | `core` (default) advertises a focused everyday tool set; `full` advertises every tool. See [Tool surface](#tool-surface) |
 | `OPENEPHEMERIS_TELEMETRY` | No | Set to `0`/`false`/`off` to disable anonymous usage reporting. `DO_NOT_TRACK=1` also works. See [Telemetry](#telemetry) |
-| `OPENEPHEMERIS_SERVICE_KEY` | No | Internal service auth (stdio only; the hosted server refuses to start with one and always authenticates as the signed-in user) |
 | `OPENEPHEMERIS_JWT` | No | Bearer token auth |
 | `OPENEPHEMERIS_DEV_ALLOWLIST_PATH` | No | Override allowlist file path |
 | `MCP_USER_ID` | No | Per-instance user identifier |
@@ -346,7 +344,7 @@ Legacy aliases (`ASTROMCP_*`, `MERIDIAN_*`) remain supported.
 
 This server reports anonymous usage so we know which tools are worth maintaining and which are broken. Three events: session start, tool call, tool error.
 
-**What is sent:** the tool name, how long it took, error status, which MCP client connected (e.g. Claude Desktop, Cursor) and its version, the server version, and a one-way SHA-256 prefix of your API key used as a stable anonymous id.
+**What is sent:** the tool name, how long it took, error status, which MCP client connected (e.g. Claude Desktop, Cursor) and its version, the server version, and a stable id for the session: a one-way SHA-256 prefix of your API key, or your account ID when you sign in with OAuth.
 
 **What is never sent:** your API key or token, birth data, dates, names, coordinates, tool arguments, or tool results. No request or response bodies, ever.
 
@@ -425,33 +423,7 @@ This package is licensed under the [MIT License](./LICENSE). However, use of thi
 
 ## Development
 
-```bash
-npm install
-npm run dev
-npm run typecheck
-npm test
-npm run regen:dev-allowlist
-npm run check:dev-allowlist
-npm run sync:readme
-npm run check:readme
-npm run verify:release
-```
-
-### Deploying the SSE Server to Fly.io
-
-When you update the MCP server logic (handlers, bug fixes, hardening), you should deploy it so clients connecting via the remote `https://mcp.openephemeris.com/mcp` endpoint get the updates immediately.
-
-1. Navigate to `apps/api/mcp-server`
-2. Run `fly deploy --remote-only`
-
-*Note on NPM:* Deploying to Fly.io instantly updates the web-accessible SSE tool. However, users installing your tool locally in Cursor/Desktop via `npx @openephemeris/mcp-server` will *only* receive the updates once a new version is published to NPM. If your changes are critical, you should bump the version in `package.json` and run `npm publish` (or your CI release pipeline) *after* deploying to Fly.
-
-`npm run verify:release` is the release gate. It checks:
-- allowlist freshness against OpenAPI
-- schema pack freshness
-- README synchronization
-- type safety + tests
-- publish tarball contents (`npm pack --dry-run --json`)
+The server source is maintained in a private monorepo; this repository holds the public docs, plugin, skills and examples. Bug reports and contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Architecture
 

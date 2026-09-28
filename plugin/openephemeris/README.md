@@ -4,10 +4,9 @@ Astronomical computation tools for natal charts, transits, eclipses, moon phases
 
 ## Quick Start
 
-1. Get a free API key at [openephemeris.com](https://openephemeris.com/login?signup=true)
-2. Set `OPENEPHEMERIS_API_KEY` in your environment
-3. Install: `claude plugin add openephemeris`
-4. Ask Claude: *"Calculate a natal chart for April 15, 1990 at 2:30 PM in Chicago"*
+1. Install the plugin from the Claude directory (Customize > Plugins), or in Claude Code: `/plugin marketplace add openephemeris/openephemeris-MCP` then `/plugin install openephemeris@openephemeris`
+2. Sign in when Claude opens the Open Ephemeris login page. This creates a free account with 150 credits; no API key to paste.
+3. Ask Claude: *"Calculate a natal chart for April 15, 1990 at 2:30 PM in Chicago"*
 
 ## What's Included
 

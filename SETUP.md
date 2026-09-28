@@ -130,8 +130,9 @@ Server URL:  https://mcp.openephemeris.com/mcp?profile=core
 Auth:        OAuth (no client ID or secret)
 ```
 
-`?profile=core` serves the curated 39-tool surface, which still includes every interactive
-chart. Drop it for all 92 tools.
+The hosted server advertises a curated core surface by default (36 tools, every interactive
+chart included), so `?profile=core` is optional. Use `?profile=full` to advertise all 70 remotely
+listed tools.
 
 </details>
 
@@ -237,9 +238,9 @@ The MCP server includes three authentication tools that AI assistants can use:
 
 | Tool | Purpose |
 |------|---------|
-| `auth.login` | Start the device login flow — returns a URL and code |
-| `auth.status` | Check current auth state (method, user, expiry) |
-| `auth.logout` | Disconnect and clear cached credentials |
+| `auth_login` | Start the device login flow — returns a URL and code |
+| `auth_status` | Check current auth state (method, user, expiry) |
+| `auth_logout` | Disconnect and clear cached credentials |
 
 Credentials are cached in `~/.openephemeris/credentials.json` and auto-refresh when expired.
 
@@ -250,7 +251,7 @@ Credentials are cached in `~/.openephemeris/credentials.json` and auto-refresh w
 | Problem | Fix |
 |---------|-----|
 | "Visit openephemeris.com/link…" keeps appearing | Complete the login flow in your browser, or set an API key |
-| "Unauthorized (401)" | Your credentials may be invalid — run `auth.login` or regenerate your API key |
+| "Unauthorized (401)" | Your credentials may be invalid — run `auth_login` or regenerate your API key |
 | "Tier-gated (403)" | The endpoint requires a higher plan — upgrade at /pay |
 | "Rate limited (429)" | Wait a moment and retry, or check Dashboard for usage |
 | Tool not showing up | Restart the app after editing config |

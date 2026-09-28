@@ -13,33 +13,13 @@ Every calculation uses the JPL DE440 planetary ephemeris — NASA mission-grade 
 
 ## Setup
 
-### 1. Get an API Key
+### 1. Install the plugin
 
-1. Go to [openephemeris.com/login?signup=true](https://openephemeris.com/login?signup=true)
-2. Create a free account (Explorer tier: 150 free credits one-time, no credit card)
-3. Go to Dashboard → Account tab → Create API Key
-4. Copy the key (starts with `opene-`)
+Install it from the Claude directory (Customize > Plugins), or in Claude Code run `/plugin marketplace add openephemeris/openephemeris-MCP` and then `/plugin install openephemeris@openephemeris`.
 
-> Don't hardcode your API key. Set it as an environment variable.
+### 2. Sign in
 
-### 2. Set Your API Key
-
-```bash
-export OPENEPHEMERIS_API_KEY="opene-your_key_here"
-```
-
-Or add to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.) for persistence.
-
-### 3. Install the Plugin
-
-```bash
-claude plugin add openephemeris
-```
-
-Or if testing locally:
-```bash
-claude plugin add ./path/to/openephemeris
-```
+The first time Claude uses a tool it opens the Open Ephemeris sign-in page in your browser. Signing in creates a free account (Explorer tier: 150 credits, one time, no credit card). There is no API key to copy.
 
 That's it. Ask Claude anything about astrology and it will compute real answers.
 
