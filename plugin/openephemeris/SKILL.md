@@ -161,7 +161,7 @@ These aren't simplified consumer calculations. The engine includes features most
 - **Retrograde & station tracking** — Every planet's retrograde status is included in natal and transit results.
 - **7 house systems** — Placidus, Whole Sign, Equal, Koch, Campanus, Regiomontanus, Porphyry. Just tell Claude which you prefer.
 - **Arc-second precision** — Planetary longitudes accurate to fractions of an arc-second, powered by the same JPL DE440 data NASA uses for spacecraft navigation.
-- **Everything else** — `dev_read_api` is a generic proxy over 124 allowlisted compute endpoints that don't have a dedicated tool above. If you ask for something not in these tables, Claude can still reach it.
+- **Everything else** — `dev_read_api` is a generic proxy over 123 allowlisted compute endpoints that don't have a dedicated tool above. If you ask for something not in these tables, Claude can still reach it.
 
 ## Try Asking
 

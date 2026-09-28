@@ -7,6 +7,16 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Unreleased]
+
+### Changed
+- **Deep-time tidal forcing is no longer listed.** `GET /tidal/forcing/deep-time` needs the DE441
+  kernel, which is not deployed, so every call failed. It is now internal: `dev_read_api` no longer
+  offers it (123 allowlisted endpoints) and the skills count 120 public endpoints. Use
+  `/tidal/forcing` for dates within 1550–2650 CE.
+
+---
+
 ## [4.20.0] — 2026-09-27
 
 ### Added
