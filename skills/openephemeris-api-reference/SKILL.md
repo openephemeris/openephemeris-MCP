@@ -7,7 +7,7 @@ updated: 2026-05-23
 
 # OpenEphemeris API Reference
 
-Quick reference for all 120 endpoints, grouped by family (plus the meta/health routes and two internal ones). Every endpoint works via:
+Quick reference for all 120 endpoints, grouped by family (plus the meta/health routes and three internal ones). Every endpoint works via:
 
 - **MCP `dev_read_api` / `dev_write_api`** with `method` + `path` (for allowlisted endpoints — see `dev_list_allowed`)
 - **Direct REST** to `https://api.openephemeris.com` with header `X-API-Key: opene-...` (or `Authorization: Bearer opene-...`)

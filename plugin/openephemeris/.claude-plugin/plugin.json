@@ -27,11 +27,8 @@
   ],
   "mcpServers": {
     "openephemeris": {
-      "command": "npx",
-      "args": ["-y", "@openephemeris/mcp-server"],
-      "env": {
-        "OPENEPHEMERIS_API_KEY": "${OPENEPHEMERIS_API_KEY}"
-      }
+      "type": "http",
+      "url": "https://mcp.openephemeris.com/mcp"
     }
   }
 }
