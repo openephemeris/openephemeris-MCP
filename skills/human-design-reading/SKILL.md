@@ -111,6 +111,7 @@ For composite (relationship), penta (group of 3–5), or transit ("today's desig
 - `POST /human-design/composite` — two-person HD
 - `POST /human-design/penta` — 3–5 person group (2 credits per member)
 - `POST /human-design/transit` — current planetary positions as a bodygraph
+- `POST /human-design/extended` — gate and line for asteroids, Chiron, Lilith, Vertex, the angles, Hermetic Lots and fixed stars at both epochs; these never enter the bodygraph (from 1 credit; color, tone, base and longitude need a Pro plan)
 
 ## How to Read a Bodygraph
 
