@@ -137,6 +137,8 @@ POST /acg/power-lines
 
 Returns the geographic coordinates (lat/lon paths) of every planet's four lines for the subject. Use this as the map.
 
+Beyond the default roster, name any of about seventy more bodies in `bodies` — Eris, Sedna, Chaos, Gonggong, Salacia, Psyche, Hekate, Fortuna, Pandora, Asbolus, Hylonome, Sappho and the rest of the catalog (`GET /catalogs/bodies`). Each one named adds 1 credit (up to 20 more). The asteroid Eros is `Eros (asteroid)`; plain `Eros` is the Hermetic lot. These bodies are computed for 1600–2200 CE only: outside it they are left out and listed in `omitted_bodies` rather than estimated. Enterprise callers can also pass `custom_bodies` — their own fixed points by ecliptic or RA/Dec coordinate, with an `id` and `metadata` returned on every line.
+
 ### Find lines near a target city
 
 ```

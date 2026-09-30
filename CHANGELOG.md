@@ -9,7 +9,38 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+---
+
+## [4.21.0] — 2026-09-30
+
+### Added
+- **About seventy more bodies are reachable.** `acg_power_lines` and `acg_hits` accept the extended
+  catalog by name in `bodies`: the trans-Neptunian objects (Eris, Sedna, Makemake, Haumea, Quaoar,
+  Orcus, Chaos, Gonggong, Salacia), centaurs (Asbolus, Hylonome, Nessus, Chariklo), the big main-belt
+  asteroids (Hygiea, Psyche, Davida…) and about forty more (Sappho, Fortuna, Pandora, Diana, Hekate,
+  `Eros (asteroid)`…). Each extended body named adds 1 credit to the call, up to 20 more; plain `Eros`
+  is still the Hermetic lot.
+- **Nine new bodies:** Fortuna, Pandora, Diana, Hekate, Asbolus, Hylonome, Chaos, Gonggong, Salacia.
+- **`ephemeris_natal_chart` takes `additional_objects` and `asteroid_groups`.** Add any catalog body to
+  a chart by name, or a whole family (`major`, `centaur`, `tno`, `main_belt`). No extra credits.
+- **Enterprise: your own points on the map.** `acg_power_lines` and `acg_hits` take `custom_bodies` —
+  fixed points you define by ecliptic longitude/latitude or RA/Dec, with your own `id` and `metadata`
+  echoed back on every line. 1 credit each; refused below the Enterprise tier.
+
+- **Galactic reference points on `ephemeris_fixed_stars`.** New `star_groups` parameter; pass
+  `["galactic"]` for the Galactic Center and Anticenter, the galactic and supergalactic poles, the
+  Supergalactic Center, and the Great Attractor, Shapley and Virgo Supercluster centers. They are fixed
+  directions, not stars, and are scanned like any fixed star. (The API has served them since
+  2026-09-28; this is the first release that lets an MCP client ask for them by group.)
+
 ### Changed
+- **A body outside its kernel's dates is left out and reported, never approximated.** The centaurs,
+  trans-Neptunian objects and extended asteroids are computed from their own JPL kernels for
+  1600–2200 CE. Outside that window they used to return a rough orbital-element position that could
+  be many degrees off. Now the chart or map is served without them and `omitted_bodies` names each
+  one with its `valid_from` / `valid_to`; asking for a single body outside its window is a clear
+  error. The planets, nodes and main-belt asteroids still cover 1550–2650 CE.
+- `GET /catalogs/bodies` gives every body a `valid_from` and `valid_to`.
 - **Deep-time tidal forcing is no longer listed.** `GET /tidal/forcing/deep-time` needs the DE441
   kernel, which is not deployed, so every call failed. It is now internal: `dev_read_api` no longer
   offers it (123 allowlisted endpoints) and the skills count 120 public endpoints. Use

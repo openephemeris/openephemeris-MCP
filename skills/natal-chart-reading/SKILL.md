@@ -162,6 +162,8 @@ Interpret by sign AND house together.
 
 Sign + house reveal the core wound — the place of deep sensitivity, and through which the user develops wisdom to heal others.
 
+**Going beyond Chiron.** `ephemeris_natal_chart` takes `additional_objects` (any catalog body by name — Eris, Sedna, Psyche, Hekate, Fortuna, Pandora, Asbolus, Hylonome, Chaos, Gonggong, Salacia, Sappho…) and `asteroid_groups` (`major`, `centaur`, `tno`, `main_belt`). Read these as supporting colour after the core placements, not as headline claims. They are computed for 1600–2200 CE; for an older or later chart the body is omitted and named in `omitted_bodies` — say so rather than guessing a placement.
+
 ### 6. House Emphasis
 
 Concentrate on houses with 3+ planets (stelliums). Briefly explain the dominant life area.
