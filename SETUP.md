@@ -1,4 +1,4 @@
-# OpenEphemeris MCP — Setup Guide
+# Open Ephemeris MCP — Setup Guide
 
 **No API key needed. Just install and go.**
 
@@ -109,7 +109,7 @@ Open Ephemeris is an approved app in the ChatGPT app directory, and ChatGPT rend
 
 1. Open [Open Ephemeris in the ChatGPT app directory](https://chatgpt.com/plugins/plugin_asdk_app_6a9c2787bc48819197698e71b29ef7c2)
 2. Click **Install plugin** and approve the sign-in — that also creates your free
-   OpenEphemeris account
+   Open Ephemeris account
 3. Type `@Open Ephemeris` in any chat
 
 <details>
@@ -123,7 +123,7 @@ Open Ephemeris is an approved app in the ChatGPT app directory, and ChatGPT rend
 5. Leave **Authentication** on **OAuth** — the server does Dynamic Client Registration, so
    there is no client ID or secret to enter
 6. Tick the risk acknowledgement, click **Create**, and approve the sign-in — that also
-   creates your free OpenEphemeris account
+   creates your free Open Ephemeris account
 
 ```
 Server URL:  https://mcp.openephemeris.com/mcp?profile=core

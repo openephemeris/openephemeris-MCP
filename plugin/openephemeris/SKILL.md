@@ -3,7 +3,7 @@ name: openephemeris
 description: This skill should be used when a user asks for astrology or astronomical chart calculations — natal charts, transits, synastry/compatibility, progressions, solar/lunar returns, eclipses, moon phases, electional (auspicious-timing) astrology, Human Design, Vedic/Jyotish, Chinese BaZi, astrocartography, or chart wheel/bi-wheel visualizations. Uses NASA JPL DE440 ephemeris data for sub-arcsecond precision and interprets results conversationally.
 ---
 
-# OpenEphemeris — AI-Native Astrology
+# Open Ephemeris — AI-Native Astrology
 
 This skill turns Claude into a professional astrologer backed by NASA mission-grade planetary data. Ask about your birth chart, check today's transits, explore relationship compatibility, find auspicious timing for decisions, or generate a Human Design bodygraph — all in natural conversation, computed to real precision instead of guessed.
 
@@ -282,7 +282,7 @@ Add `format='llm'` to any tool for token-efficient output (available on all tier
 
 ## Privacy
 
-This plugin sends computation requests to the OpenEphemeris API (`api.openephemeris.com`).
+This plugin sends computation requests to the Open Ephemeris API (`api.openephemeris.com`).
 
 - **What's collected:** Birth dates, times, and coordinates submitted in computation requests
 - **How it's used:** To compute astronomical positions and return results. That's it.

@@ -1,13 +1,13 @@
 ---
 name: openephemeris-setup
-description: Install and configure the OpenEphemeris MCP server. Use when a user wants to set up OpenEphemeris, get an API key, troubleshoot installation, or connect Claude / Cursor / Windsurf / ChatGPT to the planetary calculation API.
+description: Install and configure the Open Ephemeris MCP server. Use when a user wants to set up Open Ephemeris, get an API key, troubleshoot installation, or connect Claude / Cursor / Windsurf / ChatGPT to the planetary calculation API.
 version: 1.0.0
 updated: 2026-05-23
 ---
 
-# OpenEphemeris Setup
+# Open Ephemeris Setup
 
-This skill installs the OpenEphemeris MCP server, giving any compatible LLM access to 110+ astronomical and astrological computation endpoints — natal charts, transits, returns, eclipses, synastry, Human Design, Vedic, Chinese astrology, and astrocartography.
+This skill installs the Open Ephemeris MCP server, giving any compatible LLM access to 110+ astronomical and astrological computation endpoints — natal charts, transits, returns, eclipses, synastry, Human Design, Vedic, Chinese astrology, and astrocartography.
 
 > **Platform compatibility:** The MCP server works with Claude (Desktop, Code, API), ChatGPT (one-click install from the ChatGPT app directory), Cursor, Windsurf, VS Code Copilot, Cline, Continue.dev, JetBrains AI, and Amazon Q. Claude and ChatGPT additionally render the interactive charts inline — the same build, no per-host variant. For ChatGPT *Custom GPTs* and other non-MCP platforms, use the REST API directly at `api.openephemeris.com` with the OpenAPI spec.
 

@@ -11,6 +11,29 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.22.0] — 2026-10-18
+
+### Added
+- **`explore_bi_wheel` draws composite and Davison charts.** Two new modes show a relationship chart as a
+  single wheel: the midpoint composite and the Davison chart. The existing synastry and transit modes are
+  unchanged.
+- **Hosted-server error reporting (optional).** The hosted server can report crashes to Sentry when the
+  operator sets `SENTRY_DSN`. Personal data is scrubbed first; nothing is sent unless it is set.
+
+### Changed
+- **The product name is now written "Open Ephemeris" in text people and models read:** tool descriptions,
+  sign-in and error messages, the README, SETUP guide, plugin and skills. Tool names, the
+  `X-OpenEphemeris-API-Key` header, the npm package, environment variables and URLs are unchanged.
+- **ChatGPT and Codex no longer see prices or checkout links.** When credits run out, those hosts get a
+  plain message with a link to the out-of-credits page; other hosts keep the direct top-up link.
+  Subscribers are pointed to half-price top-ups and auto top-up.
+- **The raw API proxy tool (`dev_read_api`) is hidden from ChatGPT.**
+
+### Fixed
+- **A brief billing-ledger outage no longer fails a call.** When the API reports the ledger is
+  unavailable before any credits are taken, the server retries once. Other metered calls are still never
+  retried.
+
 ## [4.21.0] — 2026-09-30
 
 ### Added

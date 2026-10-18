@@ -1,4 +1,4 @@
-# OpenEphemeris — Claude Plugin
+# Open Ephemeris — Claude Plugin
 
 Astronomical computation tools for natal charts, transits, eclipses, moon phases, synastry, Human Design, Chinese astrology, Vedic astrology, and more — computed at NASA mission-grade precision, not guessed from training data.
 

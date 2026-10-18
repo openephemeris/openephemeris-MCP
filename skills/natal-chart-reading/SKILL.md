@@ -1,6 +1,6 @@
 ---
 name: natal-chart-reading
-description: Interpret a natal (birth) chart using OpenEphemeris. Use when someone asks about their birth chart, planetary placements, personality traits, life themes, the Big Three (Sun/Moon/Rising), houses, aspects, dignities, nodes, Chiron, or any astrological analysis based on birth data.
+description: Interpret a natal (birth) chart using Open Ephemeris. Use when someone asks about their birth chart, planetary placements, personality traits, life themes, the Big Three (Sun/Moon/Rising), houses, aspects, dignities, nodes, Chiron, or any astrological analysis based on birth data.
 version: 1.0.0
 updated: 2026-05-23
 ---
