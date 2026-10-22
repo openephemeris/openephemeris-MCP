@@ -9,12 +9,16 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+---
+
+## [4.23.0] — 2026-10-22
+
 ### Added
 - **`explore_bi_wheel` takes a `house_system`.** Set `whole_sign` (or equal, koch, campanus, regiomontanus) and the wheel draws and labels houses in that system for both rings, in every mode. Before, the wheel always showed Placidus houses and the model had no way to change that.
 
 ### Fixed
 - The bi-wheel date-refresh control no longer drops a chosen house system back to Placidus.
-
+- **Applying and separating are now right for transits to a natal chart.** In transit, progressed, solar arc and return wheels, an aspect that had just passed exact (a transiting Mars a degree past its square to a natal Sun) could read as applying. The natal wheel is now treated as fixed, and only the moving planet's speed decides.
 
 ---
 
