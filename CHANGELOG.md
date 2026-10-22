@@ -9,6 +9,16 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **`ephemeris_time_lords`: zodiacal releasing, annual profections and firdaria in one call.** Give it a
+  birth date, time and place and it works out the rising sign, day or night chart and the Lots of Spirit
+  and Fortune for you, then returns the Hellenistic time lords for a date window on one timeline: zodiacal
+  releasing levels 1 and 2 (with peak periods and the Loosing of the Bond marked), the profection year with
+  its house and lord, and optionally firdaria major and sub-periods, plus the dates each one changes, so
+  they line up with solar returns and transits. It is on the default tool list. The default call costs
+  about 5 credits (1 for the chart, 2 for releasing, 2 for profections); each extra Lot or firdaria adds 2.
+  Releasing from the Lot of Fortune or Spirit is chosen with `lot` (`spirit`, `fortune` or `both`).
+
 ---
 
 ## [4.23.0] — 2026-10-22

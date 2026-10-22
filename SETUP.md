@@ -130,8 +130,8 @@ Server URL:  https://mcp.openephemeris.com/mcp?profile=core
 Auth:        OAuth (no client ID or secret)
 ```
 
-The hosted server advertises a curated core surface by default (36 tools, every interactive
-chart included), so `?profile=core` is optional. Use `?profile=full` to advertise all 70 remotely
+The hosted server advertises a curated core surface by default (37 tools, every interactive
+chart included), so `?profile=core` is optional. Use `?profile=full` to advertise all 71 remotely
 listed tools.
 
 </details>
