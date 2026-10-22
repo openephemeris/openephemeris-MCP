@@ -9,6 +9,9 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- **`ephemeris_time_lords` no longer guesses.** An unknown technique or Lot name is now an error that names it, instead of quietly running something else. When firdaria has nothing to report because the window starts after the 75-year cycle, or runs past its end, the result says so in `notes.firdaria`.
+
 ---
 
 ## [4.24.0] — 2026-10-22
