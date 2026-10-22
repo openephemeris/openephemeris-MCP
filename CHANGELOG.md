@@ -9,6 +9,10 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+---
+
+## [4.24.0] — 2026-10-22
+
 ### Added
 - **`ephemeris_time_lords`: zodiacal releasing, annual profections and firdaria in one call.** Give it a
   birth date, time and place and it works out the rising sign, day or night chart and the Lots of Spirit
