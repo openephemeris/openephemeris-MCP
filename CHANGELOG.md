@@ -9,6 +9,13 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **`explore_bi_wheel` takes a `house_system`.** Set `whole_sign` (or equal, koch, campanus, regiomontanus) and the wheel draws and labels houses in that system for both rings, in every mode. Before, the wheel always showed Placidus houses and the model had no way to change that.
+
+### Fixed
+- The bi-wheel date-refresh control no longer drops a chosen house system back to Placidus.
+
+
 ---
 
 ## [4.22.0] — 2026-10-18
