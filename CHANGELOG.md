@@ -11,6 +11,14 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.24.2] — 2026-10-23
+
+### Fixed
+- **Birthplaces typed in their own script now resolve.** "Москва", "Абинск, Краснодарский край, Россия" and "東京" used to find no place, so `explore_natal_chart`, `explore_human_design` and the other tools that take a `location` failed. They now resolve like their English names. This is a server-side fix, live for every client version.
+- **A local mean time offset gets a useful error.** A datetime with a seconds offset such as `1879-03-14T11:30:00+00:53:28` is still rejected, since it is not a valid zone, but the message now says to pass the local wall-clock time with the IANA `timezone` (the server resolves the historical offset itself), instead of suggesting `-05:00`, which would change the moment.
+- **`explore_transit_timeline` explains a failed natal lookup.** When no natal points can be read, the error lists the points requested and the bodies the chart returned.
+- **`ephemeris_time_lords`** says plainly that it offers only zodiacal releasing, profections and firdaria when asked for another technique (such as primary directions).
+
 ## [4.24.1] — 2026-10-22
 
 ### Fixed
