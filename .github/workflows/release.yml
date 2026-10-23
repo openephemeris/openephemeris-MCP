@@ -1,0 +1,50 @@
+name: release
+
+# Cuts a GitHub Release whenever server.json's version has no release yet.
+# Directories that track this repo's Releases (Glama, Wellknown, mcprush) only
+# see a new version when a Release exists. They sat at 4.12.0 while npm shipped
+# 4.24.2 because releases were cut by hand. Each npm release syncs server.json
+# here, so this keeps the Releases page in step without a manual step.
+# Notes come from the matching CHANGELOG.md section.
+
+on:
+  push:
+    branches: [main]
+    paths: [server.json]
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create the release if it is missing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(node -p "require('./server.json').version")
+          TAG="v${VERSION}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists."
+            exit 0
+          fi
+          # The CHANGELOG section for this version: from its "## [x.y.z]" heading
+          # up to the next "## [" heading.
+          awk -v v="$VERSION" '
+            index($0, "## [" v "]") == 1 { on = 1; next }
+            on && /^## \[/ { exit }
+            on { print }
+          ' CHANGELOG.md > notes.md
+          if [ ! -s notes.md ]; then
+            echo "Published to npm as @openephemeris/mcp-server ${VERSION}." > notes.md
+          fi
+          printf '\n\nInstall: `npx -y @openephemeris/mcp-server@%s` or the hosted endpoint `https://mcp.openephemeris.com/mcp`. Full history in [CHANGELOG.md](https://github.com/openephemeris/openephemeris-MCP/blob/main/CHANGELOG.md).\n' "$VERSION" >> notes.md
+          gh release create "$TAG" --target "$GITHUB_SHA" --title "$VERSION" --notes-file notes.md --latest
