@@ -11,6 +11,22 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.25.0] — 2026-10-24
+
+### Added
+- **Six new tools for the new API routes.** None is on the default tool list; each is in its tradition's toolset (`?profile=` / `OPENEPHEMERIS_TOOLS`).
+  - `ephemeris_time_sensitivity` (toolset `astrology`, 2 credits): when the birth time is uncertain, lists each sign or house boundary crossed in a window around it and marks every fact stable, fragile or unstable. It does not rectify.
+  - `mundane_chart` (`mundane`, 2 credits): a chart for the moment the Sun enters a sign, or for the next New or Full Moon, cast for a place.
+  - `geodetic_chart` (`mundane`, 1 credit): a place's geodetic Midheaven, Ascendant, cusps and sign zone from coordinates alone; add a datetime for planets in those houses.
+  - `ziwei_chart` (`bazi`, 2 credits): Zi Wei Dou Shu chart. Birth hour and gender are required and never defaulted.
+  - `vedic_matching` (`vedic`, 2 credits): Ashtakoota (Guna Milan) 36-point matching of two people, with doshas and cancellations listed as facts and no verdict.
+  - `hd_connection_matrix` (`hd`, 2 credits per person): every pair's Human Design connections for 3-12 people.
+- **`vedic_chart`** accepts `dasha_depth` and `dasha_as_of` (Vimshottari periods), `vargas` (divisional charts), `node_type` and `roster`.
+- **`ephemeris_progressed_chart`** accepts `method: "minor"` and `converse`.
+
+### Changed
+- The API now follows the Swiss Ephemeris definitions for sidereal longitudes. Lahiri was about 19.5 arcseconds too high in 2026; Krishnamurti, Raman and Yukteshwar were 28 to 54 arcseconds off. This is a server-side fix, live for every client version. See the API changelog for the other numbers that moved.
+
 ## [4.24.2] — 2026-10-23
 
 ### Fixed
