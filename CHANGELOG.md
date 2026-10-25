@@ -11,6 +11,25 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.26.0] — 2026-10-25
+
+### Added
+- **`ephemeris_ingresses`** (default tool list, 5 credits; 1 for the Moon): when a planet enters a sign ("when does Saturn enter Aries"), when the Moon is next in a sign, or every time a planet crosses an exact degree. With no planets named it follows Sun through Pluto.
+- **`human_design_transit_timeline`** (default tool list, 5 credits for up to a year): every gate each transiting body enters and leaves over a date range and, with birth data or a gate list, the windows in which a transit completes one of your channels. The Moon is left out unless named.
+- **`human_design_extended`** (toolset `hd`): gates and lines for asteroids, Chiron, Lilith, the Vertex, the angles, the Hermetic Lots and fixed stars at the Personality and Design instants.
+- **`ephemeris_natal_chart`**: `analytics` also takes `dignities`, `sect`, `angle_aspects` and `human_design_gates`.
+- **`explore_natal_chart`**: `zodiac_type` and `ayanamsa` for a sidereal wheel. Switching house systems in the wheel keeps the sidereal frame.
+
+### Changed
+- `ephemeris_electional` is no longer on the default tool list (it needs a Pro plan). It is still in the `electional` toolset and callable by name.
+- With `format: "llm"`, natal charts now keep the opt-in blocks you asked for (declinations, dignities, solar relationships, harmonics, Human Design gates, element and hemisphere balance) as compact rows. Before, they were dropped. Server-side, live for every client version once the API deploys.
+- The `ephemeris_natal_chart` description no longer lists dignities as default output: they never were, and now `analytics: ["dignities"]` asks for them.
+
+### Fixed
+- `human_design_chart` with `format: "llm"` returned the full JSON: the format was sent where the API does not read it.
+
+---
+
 ## [4.25.0] — 2026-10-24
 
 ### Added

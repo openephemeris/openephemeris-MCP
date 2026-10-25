@@ -50,12 +50,14 @@ Ask Claude to use the `ephemeris_moon_phase` tool with `datetime` set to right n
 |------|---------|
 | `ephemeris_natal_chart` | Full natal chart |
 | `ephemeris_transits` | Search transit events over a date range |
+| `ephemeris_ingresses` | When a planet changes sign or reaches a degree |
 | `ephemeris_moon_phase` | Moon phase, sign, illumination |
 | `ephemeris_next_eclipse` | Next eclipse visible from a location |
 | `ephemeris_synastry` | Two-person compatibility |
 | `ephemeris_relocation` | Relocate a chart to another city |
 | `ephemeris_electional` | Find optimal timing windows |
 | `human_design_chart` | Bodygraph (type, strategy, authority, profile, gates, channels) |
+| `human_design_transit_timeline` | Gates transits enter and leave over a date range |
 
 ### Generic Proxy
 
@@ -63,8 +65,8 @@ For everything else (127 endpoints), use the generic proxy tools with `method` +
 
 | Tool | Purpose |
 |------|---------|
-| `dev_read_api` | GET any allowlisted endpoint (44 currently on the public proxy) |
-| `dev_write_api` | POST/PUT/PATCH/DELETE any allowlisted endpoint (80 currently) |
+| `dev_read_api` | GET any allowlisted endpoint (43 currently on the public proxy) |
+| `dev_write_api` | POST/PUT/PATCH/DELETE any allowlisted endpoint (87 currently) |
 | `dev_list_allowed` | List every operation reachable via the two tools above |
 
 ## Tiers
