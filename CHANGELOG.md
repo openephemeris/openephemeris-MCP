@@ -11,6 +11,17 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.27.0] — 2026-10-25
+
+### Added
+- **`ephemeris_transits`**: `sort: "significance"` adds `ranked`, the transit hits to your natal points scored and sorted biggest first ("my biggest transits this year"), each score with its parts. Ranking uses the aspect in `aspect_angle` (conjunction by default). For aspects other than the conjunction and opposition both sides are searched, so up to six natal points are ranked; any left out are listed in `points_not_ranked`. `sort: "time"` (the default) is unchanged.
+- **`vedic_chart`**: `panchang: true` returns the panchang for the local date in `datetime` at the given place instead of a birth chart: tithi, karana, yoga, nakshatra and vara for the day (sunrise to sunrise), with Rahu Kaal, Yamaganda, Gulika and Abhijit. 1 credit.
+
+### Changed
+- Shorter descriptions on `explore_bi_wheel` (the house-system paragraph is one sentence; the `house_system` parameter carries the rest), `ephemeris_transits` and `vedic_chart` (the ayanamsa list repeated the `ayanamsa` parameter), so the default tool list is no larger with the two new options.
+
+---
+
 ## [4.26.0] — 2026-10-25
 
 ### Added
