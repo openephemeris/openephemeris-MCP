@@ -11,6 +11,15 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.29.0] — 2026-10-25
+
+### Added
+- **`find_calculation`**: search the 139 API operations behind the generic tools in plain words ("KP chart with sub lords", "which eclipses hit my chart", "convert a date to the Chinese lunar calendar"). Each match gives the path, which tool runs it, the required inputs, an example request and the credit cost. Runs locally: free, no API call.
+
+### Changed
+- **The default tool list now reaches every calculation.** `find_calculation` and `dev_write_api` join the default (core) list and `dev_list_allowed` leaves it (still in `full` and every toolset), so POST calculations such as KP, Varshaphal, the Chinese calendar, bounds distributions and eclipses on a chart no longer need `?profile=full`. Core goes from 38 to 39 tools for about 180 more tokens, and the full list gets about 950 smaller, because the call lists and credit table moved out of the `dev_read_api` and `dev_write_api` descriptions into `find_calculation`'s results.
+- ChatGPT's tool list is unchanged: it does not see the generic tools or `find_calculation`.
+
 ## [4.28.0] — 2026-10-25
 
 ### Added

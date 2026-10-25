@@ -9,7 +9,7 @@ updated: 2026-05-23
 
 Quick reference for all 136 endpoints, grouped by family (plus the meta/health routes and three internal ones). Every endpoint works via:
 
-- **MCP `dev_read_api` / `dev_write_api`** with `method` + `path` (for allowlisted endpoints — see `dev_list_allowed`)
+- **MCP `dev_read_api` / `dev_write_api`** with `method` + `path` (for allowlisted endpoints — `find_calculation` looks up the path, inputs and cost)
 - **Direct REST** to `https://api.openephemeris.com` with header `X-API-Key: opene-...` (or `Authorization: Bearer opene-...`)
 
 Always pass `format=llm` (query param or body field) unless raw JSON is requested — reduces tokens ~73%.

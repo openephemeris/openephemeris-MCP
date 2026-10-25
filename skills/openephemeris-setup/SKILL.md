@@ -67,7 +67,7 @@ For everything else (136 endpoints), use the generic proxy tools with `method` +
 |------|---------|
 | `dev_read_api` | GET any allowlisted endpoint (43 currently on the public proxy) |
 | `dev_write_api` | POST/PUT/PATCH/DELETE any allowlisted endpoint (87 currently) |
-| `dev_list_allowed` | List every operation reachable via the two tools above |
+| `find_calculation` | Search the operations reachable via the two tools above: path, inputs, example, credit cost |
 
 ## Tiers
 
