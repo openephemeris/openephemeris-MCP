@@ -11,6 +11,18 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [4.28.0] — 2026-10-25
+
+### Added
+- **`dev_read_api` reaches six more routes** (allowlist 133 → 139), all live on the API since 2026-10-25:
+  - `POST /vedic/kp`: the KP system (sub-lords, significators, ruling planets) and KP horary with `horary_number` 1-249.
+  - `POST /vedic/varshaphal`: Tajika annual chart with the Mudda dasha.
+  - `GET /ephemeris/moon/crescent-visibility`: when the new crescent can be seen (Yallop and Odeh criteria).
+  - `POST /predictive/time-lords/distributions`: directing through the bounds (distributor and partners by age).
+  - `POST /chinese/calendar/convert` and `POST /chinese/calendar/almanac`: the Chinese lunisolar calendar: convert a date between Gregorian and Chinese lunar with its stem-branch pillars, or list a month day by day.
+
+No typed tool was added and no tool description grew, so the tool-surface token budget is unchanged.
+
 ## [4.27.0] — 2026-10-25
 
 ### Added
