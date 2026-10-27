@@ -17,98 +17,19 @@ Model Context Protocol server for Open Ephemeris — typed astrology tools power
 
 ## Quick Start
 
-### Install via Smithery (recommended)
+### Quick install
 
-The fastest way to connect any MCP-compatible client:
+Claude Code, one command:
 
 ```bash
-npx -y @smithery/cli install @open-ephemeris/openephemeris --client claude
+claude mcp add openephemeris -- npx -y @openephemeris/mcp-server
 ```
 
-Or browse the listing and copy connection snippets: **[smithery.ai/servers/open-ephemeris/openephemeris](https://smithery.ai/servers/open-ephemeris/openephemeris)**
+Any client that takes a hosted URL (Claude Web, ChatGPT, custom agents): use `https://mcp.openephemeris.com/mcp` and send your API key in the `X-API-Key` header. Other clients are below.
 
 ---
 
-### Connect via AI SDK (Vercel AI SDK)
-
-```typescript
-import Smithery from "@smithery/api"
-import { createMCPClient } from "@ai-sdk/mcp"
-import { generateText } from "ai"
-import { anthropic } from "@ai-sdk/anthropic"
-import { createConnection } from "@smithery/api/mcp"
-
-const smithery = new Smithery()
-
-const conn = await smithery.connections.create("{your-namespace}", {
-  mcpUrl: "https://server.smithery.ai/open-ephemeris/openephemeris",
-  headers: {
-    apiKey: "your-openephemeris-api-key", // get one free at openephemeris.com/dashboard
-  },
-})
-
-const { transport } = await createConnection({
-  client: smithery,
-  namespace: "{your-namespace}",
-  connectionId: conn.connectionId,
-})
-
-const mcpClient = await createMCPClient({ transport })
-const tools = await mcpClient.tools()
-
-const { text } = await generateText({
-  model: anthropic("claude-sonnet-4-20250514"),
-  tools,
-  prompt: "Calculate a natal chart for someone born April 15, 1990 at 2:30 PM in Chicago.",
-})
-
-await mcpClient.close()
-```
-
-### Connect via MCP SDK (TypeScript)
-
-```typescript
-import Smithery from "@smithery/api"
-import { Client } from "@modelcontextprotocol/sdk/client/index.js"
-import { createConnection } from "@smithery/api/mcp"
-
-const smithery = new Smithery()
-
-const conn = await smithery.connections.create("{your-namespace}", {
-  mcpUrl: "https://server.smithery.ai/open-ephemeris/openephemeris",
-  headers: {
-    apiKey: "your-openephemeris-api-key",
-  },
-})
-
-const { transport } = await createConnection({
-  client: smithery,
-  namespace: "{your-namespace}",
-  connectionId: conn.connectionId,
-})
-
-const mcpClient = new Client(
-  { name: "my-app", version: "1.0.0" },
-  { capabilities: {} }
-)
-await mcpClient.connect(transport)
-
-const { tools } = await mcpClient.listTools()
-const result = await mcpClient.callTool({
-  name: "ephemeris_natal_chart",
-  // A datetime that states a clock time must state its zone: either pass
-  // `timezone` alongside the local time, or put a Z/±HH:MM offset on the value.
-  arguments: {
-    datetime: "1990-04-15T14:30:00",
-    timezone: "America/Chicago",
-    latitude: 41.8781,
-    longitude: -87.6298,
-    format: "llm",
-  },
-})
-```
-
-### Connect directly (Streamable HTTP, no Smithery)
+### Connect from code (Streamable HTTP)
 
 ```typescript
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js"
@@ -173,7 +94,7 @@ Cursor deeplink payload:
 
 | Client | Install mode | Config location |
 |---|---|---|
-| Smithery | One-click | [smithery.ai](https://smithery.ai/servers/open-ephemeris/openephemeris) |
+| Claude Code | CLI | `claude mcp add openephemeris -- npx -y @openephemeris/mcp-server` |
 | Cursor | One-click deeplink or manual | `~/.cursor/mcp.json` |
 | Claude Desktop (macOS) | Manual | `~/Library/Application Support/Claude/claude_desktop_config.json` |
 | Claude Desktop (Windows) | Manual | `%APPDATA%\Claude\claude_desktop_config.json` |
@@ -206,7 +127,6 @@ The server is hosted at `https://mcp.openephemeris.com/mcp` with full Streamable
   exactly as they do in Claude. Prefer to wire it yourself? **Settings → Plugins → Advanced →
   Developer mode → + Create app** accepts `https://mcp.openephemeris.com/mcp` with
   Authentication on **OAuth** — no client ID or secret to enter.
-- **Via Smithery**: Use the [Smithery listing](https://smithery.ai/servers/open-ephemeris/openephemeris) for managed connections with any client
 - **Legacy SSE**: retired in 3.20.0 — use Streamable HTTP at `/mcp`
 
 ### Auth and upgrade behavior in MCP clients
@@ -434,7 +354,7 @@ The server source is maintained in a private monorepo; this repository holds the
 ```text
 ┌─────────────────────────────────────────────────────────┐
 │                    MCP Clients                          │
-│  Smithery Gateway · Claude Web · ChatGPT · Remote apps  │
+│  Codex · Gemini   · Claude Web · ChatGPT · Remote apps  │
 └──────────────────┬──────────────────────────────────────┘
                    │ Streamable HTTP (MCP 2025-11-25)
                    │ https://mcp.openephemeris.com/mcp
@@ -466,8 +386,8 @@ The server source is maintained in a private monorepo; this repository holds the
 
 Generated by `npm run sync:readme` from `config/dev-allowlist.json` and the live tool registry.
 
-- Allowlisted operations: **139**
-- Methods: `GET=45`, `POST=94`, `PUT=0`, `PATCH=0`, `DELETE=0`
+- Allowlisted operations: **140**
+- Methods: `GET=45`, `POST=95`, `PUT=0`, `PATCH=0`, `DELETE=0`
 - Registered tools (`OPENEPHEMERIS_PROFILE=dev`): **103**
 - Typed tools: `account_usage`, `acg_hits`, `acg_power_lines`, `auth_login`, `auth_logout`, `auth_status`, `bazi_annual_pillar`, `bazi_chart`, `bazi_compatibility`, `bazi_element_balance`, `bazi_luck_pillars`, `bazi_recalculate`, `bazi_ten_gods`, `bi_wheel_on_cross_aspect_click`, `bi_wheel_on_house_click`, `bi_wheel_on_planet_click`, `bi_wheel_recalculate`, `bi_wheel_synopsis`, `bodygraph_recalculate`, `chart_wheel_on_aspect_click`, `chart_wheel_on_house_click`, `chart_wheel_on_planet_click`, `chart_wheel_recalculate`, `chinese_bazi`, `electional_angle_crossings`, `electional_aspect_search`, `electional_moment_analysis`, `electional_station_tracker`, `ephemeris_angles_points`, `ephemeris_aspect_check`, `ephemeris_bi_wheel`, `ephemeris_chart_wheel`, `ephemeris_composite`, `ephemeris_composite_midpoint`, `ephemeris_dignities`, `ephemeris_electional`, `ephemeris_fixed_stars`, `ephemeris_hermetic_lots`, `ephemeris_house_cusps`, `ephemeris_ingresses`, `ephemeris_lunar_return`, `ephemeris_midpoints`, `ephemeris_moon_phase`, `ephemeris_natal_batch`, `ephemeris_natal_chart`, `ephemeris_natal_transits`, `ephemeris_next_eclipse`, `ephemeris_next_lunar_phase`, `ephemeris_overlay`, `ephemeris_planet_position`, `ephemeris_planetary_return`, `ephemeris_progressed_chart`, `ephemeris_relocation`, `ephemeris_retrograde_status`, `ephemeris_solar_return`, `ephemeris_synastry`, `ephemeris_time_lords`, `ephemeris_time_sensitivity`, `ephemeris_transits`, `explore_bazi_chart`, `explore_bi_wheel`, `explore_human_design`, `explore_human_design_connection`, `explore_human_design_transit`, `explore_moon_phase`, `explore_natal_chart`, `explore_transit_timeline`, `explore_vedic_chart`, `geodetic_chart`, `hd_connection_matrix`, `hd_on_center_click`, `hd_on_channel_click`, `hd_on_connection_channel_click`, `hd_on_gate_click`, `hd_on_planet_click`, `hd_on_transit_channel_click`, `hd_on_variable_click`, `hd_opposition`, `hd_planetary_return`, `human_design_bodygraph`, `human_design_chart`, `human_design_composite`, `human_design_extended`, `human_design_penta`, `human_design_transit_timeline`, `location_search`, `moon_phase_recalculate`, `mundane_chart`, `timezone_resolve`, `vedic_chart`, `vedic_chart_recalculate`, `vedic_matching`, `venus_eight_year_star`, `venus_elongations`, `venus_phase`, `venus_star_points`, `venus_star_points_conjunctions`, `venus_stations`, `ziwei_chart`
 - Generic tools: `dev_list_allowed`, `dev_read_api`, `dev_write_api`, `find_calculation`
@@ -488,7 +408,7 @@ Generated by `npm run sync:readme` from `config/dev-allowlist.json` and the live
 | `human-design` | 11 | `POST /human-design/chart`, `POST /human-design/composite` |
 | `location` | 2 | `GET /location/autocomplete`, `GET /location/reverse` |
 | `mundane` | 1 | `POST /mundane/chart` |
-| `predictive` | 13 | `POST /predictive/eclipses/natal-hits`, `POST /predictive/primary-directions` |
+| `predictive` | 14 | `POST /predictive/eclipses/natal-hits`, `POST /predictive/primary-directions` |
 | `root` | 1 | `GET /` |
 | `tidal` | 1 | `GET /tidal/forcing` |
 | `time` | 6 | `GET /time/delta-t`, `GET /time/equation-of-time` |

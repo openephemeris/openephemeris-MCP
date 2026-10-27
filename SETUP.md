@@ -85,7 +85,7 @@ cursor://anysphere.cursor-deeplink/mcp/install?name=openephemeris&config=eyJjb21
 
 ### Remote / Hosted Endpoint (Claude Web, ChatGPT & All Remote Clients)
 
-For any client that accepts a hosted MCP URL (Claude Web, ChatGPT, Smithery, custom AI agents), use the **Streamable HTTP** endpoint directly — no download, no Node.js:
+For any client that accepts a hosted MCP URL (Claude Web, ChatGPT, custom AI agents), use the **Streamable HTTP** endpoint directly — no download, no Node.js:
 
 **MCP URL:** `https://mcp.openephemeris.com/mcp`
 
@@ -97,7 +97,7 @@ X-API-Key: YOUR_API_KEY
 
 Get a key from [openephemeris.com/dashboard](https://openephemeris.com/dashboard) → API Keys tab.
 
-> 💡 This is the MCP 2025-11-25 Streamable HTTP spec — supported by Claude Web, ChatGPT, Smithery, and modern agents.
+> 💡 This is the MCP 2025-11-25 Streamable HTTP spec — supported by Claude Web, ChatGPT, and modern agents.
 > The legacy SSE endpoint was retired in 3.20.0 — all clients should use Streamable HTTP at `/mcp`.
 
 ---

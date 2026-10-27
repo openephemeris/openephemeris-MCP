@@ -1,13 +1,13 @@
 ---
 name: openephemeris-api-reference
-description: Complete endpoint reference for the 136 Open Ephemeris API endpoints. Use when you need to find the exact endpoint, parameter, or path for an astronomical or astrological computation, or when other skills haven't covered the calculation a user is asking for.
+description: Complete endpoint reference for the 137 Open Ephemeris API endpoints. Use when you need to find the exact endpoint, parameter, or path for an astronomical or astrological computation, or when other skills haven't covered the calculation a user is asking for.
 version: 1.0.0
 updated: 2026-05-23
 ---
 
 # Open Ephemeris API Reference
 
-Quick reference for all 136 endpoints, grouped by family (plus the meta/health routes and three internal ones). Every endpoint works via:
+Quick reference for all 137 endpoints, grouped by family (plus the meta/health routes and three internal ones). Every endpoint works via:
 
 - **MCP `dev_read_api` / `dev_write_api`** with `method` + `path` (for allowlisted endpoints — `find_calculation` looks up the path, inputs and cost)
 - **Direct REST** to `https://api.openephemeris.com` with header `X-API-Key: opene-...` (or `Authorization: Bearer opene-...`)
