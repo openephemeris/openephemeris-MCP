@@ -2,7 +2,7 @@
 name: timing-electional
 description: Find optimal timing for activities, analyze current transits, identify the best moment for an event, or describe the current astrological weather. Use when someone asks "when should I…?", "what transits are happening?", "what's the moon doing?", or anything about election, electional astrology, eclipses, retrogrades, or moon phases.
 version: 1.0.0
-updated: 2026-05-23
+updated: 2026-10-30
 ---
 
 # Timing & Electional Astrology
@@ -198,11 +198,33 @@ GET /electional/moment-analysis?date=<candidate>&latitude=<lat>&longitude=<lon>&
 
 Or, to search a date range for the best windows, use `GET /electional/find-window` (Pro tier; priced by span: ≤30 days 5, ≤60 days 8, ≤120 days 12 credits). `GET /electional/aspect-search` lists the aspects active at one moment.
 
+### Group timing — "a date that works for all of us"
+
+For a wedding good for both partners, or a launch good for three founders, use `POST /electional/group-window` (Pro; `ephemeris_electional` with `people` calls it and opens the group-timing widget). One call scans the sky once and checks every hour against each person's birth chart:
+
+```
+POST /electional/group-window?format=llm
+{ "start_date": "2027-05-01", "end_date": "2027-05-31", "latitude": 40.71, "longitude": -74.01,
+  "people": [
+    { "label": "Alex", "birth_datetime": { "iso": "1990-06-15T14:30:00-04:00" },
+      "birth_location": { "latitude": { "decimal": 40.71 }, "longitude": { "decimal": -74.01 } } },
+    { "label": "Sam",  "birth_datetime": { "iso": "1988-08-23T12:00:00+01:00" },
+      "birth_location": { "latitude": { "decimal": 51.51 }, "longitude": { "decimal": -0.13 } }, "time_known": false } ] }
+```
+
+- 1 to 8 people (one person is priced as two). `latitude`/`longitude` are the **event** place (required). `time_known: false` compares planets only — send noon; that person's Moon counts little and never vetoes.
+- Dates are whole local days at the event place. Only hours from `earliest_local_hour` to `latest_local_hour` (default 8 to 21) are searched: ask which hours are possible (a ceremony, a signing in office hours) before calling.
+- An hour is **vetoed** when Saturn or Mars is within 2° of a conjunction, square or opposition to anyone's Sun, Moon, Ascendant or Ascendant ruler (`veto.malefic_hard_to`, `veto.orb_deg`; an empty list turns it off), or when the election Ascendant rises within 3° of anyone's natal Mars or Saturn.
+- The sky score reads the election chart itself: the Moon and what it meets next, the Ascendant's ruler and the planets on the angles. Hours with the Moon within 15° of the Sun are out, and hours with a weak sky (under 50) never rank. Each window's `sky_notes` says why.
+- The group score is the weakest person's for 2-3 people, `balanced` (half the weakest, half the mean) for 4 or more; `combine` overrides. It is blended 50/50 with the sky score.
+- At most one window per day comes back. Lead with each window's `peak_local_time` (the best hour), then each person's `key_contacts` and `cautions`. If `search_summary.no_strong_window` is true, say plainly that nothing suits everyone well and suggest a wider range or other hours. If no window comes back, read `people[].top_veto_reasons`: they say who is blocked and by what.
+- **Credits:** 9 for 2 people over up to 30 days, +1 per extra person; up to 60 days +3, up to 120 days +7. Span limit Pro 30 days, Startup 60, Scale 120.
+
 ### Electional Heuristics
 
 Look for moments that have:
 
-1. **Strong Moon** — Moon waxing (after New, before Full), in a sign aligned with the activity, NOT void-of-course, not within ~3° of the Sun (combust), not afflicted by hard aspects from Mars/Saturn.
+1. **Strong Moon** — Moon waxing (after New, before Full), in a sign aligned with the activity, NOT void-of-course, not within 15° of the Sun (under the beams), not afflicted by hard aspects from Mars/Saturn.
 2. **Benefic angularity** — Jupiter or Venus on an angle (1st, 4th, 7th, 10th house cusp) at the chosen location.
 3. **Avoid:**
    - Mercury retrograde for contracts, communication, tech, signing, travel
@@ -262,6 +284,11 @@ Returns upcoming stations (planet pivot points). The station itself is often mor
 → Run full Standard Procedure (geocode → tz → subject)
 → `POST /predictive/transits/search?format=llm` with 3-month window
 → Lead with the tightest outer-planet transits, then inner-planet color.
+
+**"Find a wedding date next May that works for both of us"**
+→ Collect both birth datetimes and places, plus the wedding venue
+→ `ephemeris_electional` with `people` (or `POST /electional/group-window`) for the month
+→ Recommend the top window's best hour; name what helps each partner and anything to watch
 
 **"When should I sign this contract this week?"**
 → Ask for the date window + their location

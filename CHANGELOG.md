@@ -9,6 +9,22 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.30.0] — 2026-10-31
+
+### Added
+- **`ephemeris_electional` is now the one electional search tool, back on the default list.** With no people it searches the sky alone, as before. Add 1 to 8 people's births and it also finds a date that works for all of them, such as a wedding good for both partners or a launch good for three founders. Give the birth dates and places, the event place and a date range, and it opens a timeline in Claude and ChatGPT: the candidate windows with the best three starred, one row per person showing their good hours and the hours ruled out for them and why, and the ranked windows with what the sky itself has going for and against it at the best hour, each person's helpful and difficult contacts, and an "Ask about this window" button. Hours with the Moon close to the Sun are left out, as traditional electional astrology does. It suggests at most one window per day, between 8:00 and 21:59 local time unless you set other hours, and says plainly when nothing in the range suits everyone well. Pro plan; 9 credits for one or two people over a month, +1 per extra person, more for 60- or 120-day ranges (+1 to look up each place name); 5 credits for a month with no people. The `avoid_retrograde` and `format` options are gone.
+- **`explore_time_lords`**: an interactive time-lords view in Claude and ChatGPT. It shows zodiacal releasing from the Lot of Spirit and the Lot of Fortune across the whole life, with level 2 inside whichever level 1 period you pick, plus peak periods and the Loosing of the Bond. It also shows the profection wheel and years, the current firdaria and a dated list of the changes to come. It takes a birth place name or coordinates. 9 credits per call (+1 to look up a place name, +1 for a local birth time before 1970). In the default tool list.
+
+### Changed
+- **Time lords keep what you paid for when credits run out part-way.** Each part is billed on its own. If, say, firdaria hits the credit limit after releasing and profections have already run, `ephemeris_time_lords` and `explore_time_lords` now return those parts with a note naming what is missing and how to top up, instead of an error that wasted them. The most a failed call can now cost is the 1-credit chart lookup.
+- **`dev_read_api` reaches `POST /predictive/sky-recurrence`** (allowlist 139 → 140): the previous and next times Jupiter through Pluto (or a subset) all return near their birth positions. 5/10/15 credits for spans up to 100/300/1101 years.
+- The README no longer sends users through Smithery's proxy, which shuts down 2026-10-31.
+- `ephemeris_time_lords` has a shorter description (same inputs and output); "show my zodiacal releasing"-style asks now go to `explore_time_lords`.
+
+### Fixed
+- `ephemeris_planet_position` accepts body names (`"sun"`, `"Mars"`, `"true node"`) for `planet_id`. Before, a name got an opaque JSON decode error.
+- `find_calculation` no longer offers the API root (`/`) or the health checks as matches. They are not calculations; `dev_read_api` still reaches them.
+
 ---
 
 ## [4.29.0] — 2026-10-25
