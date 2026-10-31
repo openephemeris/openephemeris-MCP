@@ -1,5 +1,7 @@
 # Open Ephemeris MCP Server
 
+**Astrology that works inside ChatGPT and Claude: real computed charts from NASA JPL DE440, not AI guesses.**
+
 [![npm version](https://img.shields.io/npm/v/@openephemeris/mcp-server)](https://www.npmjs.com/package/@openephemeris/mcp-server)
 [![System Status](https://img.shields.io/badge/Status-Operational-brightgreen)](https://status.openephemeris.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
