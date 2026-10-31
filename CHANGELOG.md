@@ -9,6 +9,11 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.30.1] — 2026-10-31
+
+### Fixed
+- "Show my zodiacal releasing and profection year" now opens the `explore_time_lords` timeline in Claude and ChatGPT. Both hosts were picking `ephemeris_time_lords` and answering in text, because that tool claimed the everyday time-lord asks (zodiacal releasing, profections, firdaria, loosing of the bond, "who is my time lord this year"). Those asks now belong to `explore_time_lords`; `ephemeris_time_lords` keeps the data asks (periods as data, a custom date range, lords to compare with transits). Inputs and output of both tools are unchanged.
+
 ## [4.30.0] — 2026-10-31
 
 ### Added
