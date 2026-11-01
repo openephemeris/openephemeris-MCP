@@ -9,6 +9,10 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- `ephemeris_time_lords`: `current` now shows the periods in effect right now, not the ones running when the window starts. A window that opened a few hours before a birthday reported the previous profection year. When now falls outside the window, the nearest window edge is used. The response names the moment in a new `current_as_of` field.
+
 ## [4.30.1] — 2026-10-31
 
 ### Fixed
