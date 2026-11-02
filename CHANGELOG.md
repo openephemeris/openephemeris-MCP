@@ -9,6 +9,17 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.31.0] — 2026-11-02
+
+### Added
+
+- **`account_usage` opens a card in Claude and ChatGPT.** It shows credits left, credits used per day over the last 14 days, the tools that used the most, and what common calculations cost in credits. When credits run low or out, it shows one link to your credit options.
+
+### Changed
+
+- **No more retry loops when credits run out in ChatGPT and Codex.** After the first "out of credits" answer, the server stops repeat calls for two minutes and tells the assistant to stop trying and point you to your credit options. Calling `account_usage` after you add credits clears it straight away.
+- Smithery: removed the `format` setting, which the server never read.
+
 ## [4.30.2] — 2026-11-01
 
 ### Fixed

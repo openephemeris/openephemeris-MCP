@@ -32,17 +32,6 @@ configSchema:
         Your Open Ephemeris API key. Get a free Explorer key at
         https://openephemeris.com/dashboard — no credit card required.
       default: ""
-    format:
-      type: string
-      title: Output Format
-      enum:
-        - json
-        - llm
-      description: >
-        Default output format for all tools. 'llm' returns compact,
-        token-optimized output (50–73% smaller). 'json' returns full verbose JSON.
-        Individual tool calls can override this setting.
-      default: json
     baseUrl:
       type: string
       title: API Base URL
@@ -71,7 +60,6 @@ startCommand:
       args: ["-y", "@openephemeris/mcp-server@latest"],
       env: {
         OPENEPHEMERIS_API_KEY: config.apiKey,
-        ...(config.format && config.format !== "json" ? { OPENEPHEMERIS_FORMAT: config.format } : {}),
         ...(config.baseUrl ? { OPENEPHEMERIS_BACKEND_URL: config.baseUrl } : {}),
         ...(config.toolSurface ? { OPENEPHEMERIS_TOOLS: config.toolSurface } : {}),
       }
