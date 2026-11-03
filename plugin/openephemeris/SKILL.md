@@ -35,7 +35,7 @@ Astrology requires exact time calculation. You must be rigorous with user time i
 
 ## What You Can Do
 
-> These tables cover all 43 tools this skill can call. The MCP server advertises a curated **default surface of 36** to keep context lean; the rest — including `ephemeris_fixed_stars`, the Venus Star Points tools, `ephemeris_composite`, and a few others below — need `OPENEPHEMERIS_TOOLS=full` to be *listed* by default, but every tool stays callable by name regardless.
+> These tables cover the tools this skill can call. The MCP server advertises a curated **default surface of 41** to keep context lean; the rest — including `ephemeris_fixed_stars`, the Venus Star Points tools, `ephemeris_composite`, and a few others below — need `OPENEPHEMERIS_TOOLS=full` to be *listed* by default, but every tool stays callable by name regardless.
 
 ### Core Charts
 
