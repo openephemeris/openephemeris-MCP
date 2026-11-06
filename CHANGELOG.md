@@ -9,6 +9,9 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- **Hosted server telemetry now matches the README and privacy policy.** It no longer records the endpoint path passed to `dev_read_api` or `dev_write_api`, or the match count and matched paths from `find_calculation`.
+
 ## [4.31.0] — 2026-11-02
 
 ### Added
