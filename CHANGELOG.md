@@ -9,7 +9,12 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- **The credit link in ChatGPT and Codex no longer needs a sign-in.** It carries a token that names the connected account and shows nothing about it, so a payment lands on that account even when the browser is signed in to another one.
+- **`account_usage` describes prepaid credits as prepaid.** They don't reset or expire, and an empty prepaid wallet now reads as out of credits.
+
 ### Fixed
+- **The repeat block on the credit wall now holds across ChatGPT's sessions.** It was kept per session, and ChatGPT opens more sessions than it makes calls, so it never fired.
 - **Hosted server telemetry now matches the README and privacy policy.** It no longer records the endpoint path passed to `dev_read_api` or `dev_write_api`, or the match count and matched paths from `find_calculation`.
 
 ## [4.31.0] — 2026-11-02
