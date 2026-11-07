@@ -15,6 +15,7 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 - **The repeat block on the credit wall now holds across ChatGPT's sessions.** It was kept per session, and ChatGPT opens more sessions than it makes calls, so it never fired.
+- **Someone who just paid is no longer told they're out of credits.** The repeat block now lasts 30 seconds, not 2 minutes.
 - **Hosted server telemetry now matches the README and privacy policy.** It no longer records the endpoint path passed to `dev_read_api` or `dev_write_api`, or the match count and matched paths from `find_calculation`.
 
 ## [4.31.0] — 2026-11-02
