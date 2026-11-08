@@ -9,7 +9,13 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.32.0] — 2026-11-08
+
+### Added
+- **Kimi plugin manifest.** The plugin now installs in Kimi as well.
+
 ### Changed
+- **Out-of-credit messages say auto top-up needs a US card.** Outside the US, add credits from the wallet link instead.
 - **The credit link in ChatGPT and Codex no longer needs a sign-in.** It carries a short code that names the connected account and shows nothing about it, so a payment lands on that account even when the browser is signed in to another one.
 - **Claude and other hosts get the same short credit link.** The long signed link could be damaged when a model retyped it.
 - **`account_usage` describes prepaid credits as prepaid.** They don't reset or expire, and an empty prepaid wallet now reads as out of credits.
