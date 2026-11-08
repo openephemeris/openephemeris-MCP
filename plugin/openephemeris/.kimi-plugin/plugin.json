@@ -1,0 +1,9 @@
+{
+  "name": "openephemeris",
+  "description": "Astrology and astronomy computed at NASA mission-grade precision (JPL DE440). Natal charts, transits, synastry, Human Design, and Chinese/Vedic astrology.",
+  "mcpServers": {
+    "openephemeris": {
+      "url": "https://mcp.openephemeris.com/mcp"
+    }
+  }
+}
