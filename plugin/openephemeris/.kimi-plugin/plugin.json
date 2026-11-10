@@ -10,7 +10,7 @@
   "version": "0.1.0",
   "interface": {
     "displayName": "Open Ephemeris: Astrology",
-    "category": "EDUCATION_RESEARCH",
+    "category": "LIFESTYLE_HEALTH",
     "tryPrompts": [
       "What's the moon phase right now? Is it void-of-course?",
       "I was born April 15, 1990 at 2:30 PM in Chicago. What does my natal chart say?",
