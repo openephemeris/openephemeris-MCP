@@ -1,32 +1,9 @@
 {
   "name": "openephemeris",
-  "description": "Astrology and astronomy computed from NASA JPL's DE440 ephemeris. Natal charts, transits, synastry, moon phases, eclipses, Human Design, and Chinese/Vedic astrology.",
+  "description": "Astrology and astronomy computed at NASA mission-grade precision (JPL DE440). Natal charts, transits, synastry, Human Design, and Chinese/Vedic astrology.",
   "mcpServers": {
     "openephemeris": {
       "url": "https://mcp.openephemeris.com/mcp"
-    }
-  },
-  "license": "MIT",
-  "version": "0.1.0",
-  "interface": {
-    "displayName": "Open Ephemeris: Astrology",
-    "category": "LIFESTYLE_HEALTH",
-    "tryPrompts": [
-      "What's the moon phase right now? Is it void-of-course?",
-      "I was born April 15, 1990 at 2:30 PM in Chicago. What does my natal chart say?",
-      "When's the next solar eclipse visible from where I live?"
-    ],
-    "mcpOverrides": {
-      "openephemeris": {
-        "displayName": "Open Ephemeris: Astrology",
-        "description": "Astrology and astronomy computed from NASA JPL's DE440 ephemeris: natal charts, transits, synastry, Human Design, Vedic and Chinese astrology."
-      }
-    },
-    "skillOverrides": {
-      "openephemeris": {
-        "displayName": "Open Ephemeris: Astrology",
-        "description": "Use when the user asks for astrology or astronomical chart calculations: natal charts, transits, synastry, moon phases, eclipses, Human Design, Vedic/Jyotish, or Chinese BaZi."
-      }
     }
   }
 }
