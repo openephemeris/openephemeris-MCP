@@ -211,7 +211,7 @@ For ANY chart endpoint that takes birth data:
 | POST | `/predictive/time-lords/firdaria` | Firdaria periods |
 | POST | `/predictive/time-lords/zodiacal-releasing` | Zodiacal releasing |
 
-## Sky (4)
+## Sky (5)
 
 Any body, catalog star or galactic point over one place. Topocentric, with a `method` block on every response.
 
@@ -221,6 +221,7 @@ Any body, catalog star or galactic point over one place. Topocentric, with a `me
 | GET | `/sky/track` | Altitude/azimuth at regular steps (geometric and refracted), disc size, lit fraction, phase, bright-limb angle, planet magnitude; flat price per call |
 | GET | `/sky/light` | Twilights, golden/blue hour, day length, Moon, and the Moon-free dark window, per day |
 | GET | `/sky/light-at` | The light at one instant: day/twilight/night, Sun and Moon, nearest boundaries |
+| GET | `/sky/circles` | Ecliptic, equator and galactic plane as alt/az paths; house cusps and division curves on the sky |
 
 ## Time (6)
 
