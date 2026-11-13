@@ -1,13 +1,13 @@
 ---
 name: openephemeris-api-reference
-description: Complete endpoint reference for the 130+ Open Ephemeris API endpoints. Use when you need to find the exact endpoint, parameter, or path for an astronomical or astrological computation, or when other skills haven't covered the calculation a user is asking for.
+description: Complete endpoint reference for the 140+ Open Ephemeris API endpoints. Use when you need to find the exact endpoint, parameter, or path for an astronomical or astrological computation, or when other skills haven't covered the calculation a user is asking for.
 version: 1.0.0
 updated: 2026-05-23
 ---
 
 # Open Ephemeris API Reference
 
-Quick reference for all 130+ endpoints, grouped by family (plus the meta/health routes and three internal ones). Every endpoint works via:
+Quick reference for all 140+ endpoints, grouped by family (plus the meta/health routes and three internal ones). Every endpoint works via:
 
 - **MCP `dev_read_api` / `dev_write_api`** with `method` + `path` (for allowlisted endpoints — `find_calculation` looks up the path, inputs and cost)
 - **Direct REST** to `https://api.openephemeris.com` with header `X-API-Key: opene-...` (or `Authorization: Bearer opene-...`)
@@ -210,6 +210,17 @@ For ANY chart endpoint that takes birth data:
 | POST | `/predictive/time-lords/profections` | Annual profections |
 | POST | `/predictive/time-lords/firdaria` | Firdaria periods |
 | POST | `/predictive/time-lords/zodiacal-releasing` | Zodiacal releasing |
+
+## Sky (4)
+
+Any body, catalog star or galactic point over one place. Topocentric, with a `method` block on every response.
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/sky/rise-set` | Rise, set (with azimuth) and culmination per civil day; optional stretches above `min_altitude` |
+| GET | `/sky/track` | Altitude/azimuth at regular steps (geometric and refracted), disc size, lit fraction, phase, bright-limb angle, planet magnitude; flat price per call |
+| GET | `/sky/light` | Twilights, golden/blue hour, day length, Moon, and the Moon-free dark window, per day |
+| GET | `/sky/light-at` | The light at one instant: day/twilight/night, Sun and Moon, nearest boundaries |
 
 ## Time (6)
 
