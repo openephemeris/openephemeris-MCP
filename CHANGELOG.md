@@ -9,6 +9,23 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.33.0] — 2026-11-16
+
+### Added
+- **`vedic_chart` can include Manglik, Sade Sati, choghadiya and hora.** Pass `include` with any of `manglik`, `sade_sati` (birth chart) or `choghadiya`, `hora` (the day's panchang). Birth-chart and day tables go in separate calls. The dasha lookup now runs from maha down to prana.
+- **More endpoints reachable through `dev_read_api` and `dev_write_api`.** The sky routes (rise and set, tracks, daily light, circles) and planet positions over a date range in one call.
+- **`AGENTS.md` in the public repo.** Instructions for coding agents that call the API.
+
+### Changed
+- **Widget design pass across all ten widgets**, checked on phone and desktop, light and dark. On phones only the full-screen button shows inline. The transit timeline reads natal chips as "22° Leo". Action buttons no longer carry emoji.
+- **`ephemeris_natal_transits` is documented at 1 credit.**
+
+### Fixed
+- **The moon-phase widget drew gibbous Moons as crescents, and crescents as gibbous.**
+- **Bi-wheel:** Person B's planets are gold, not the violet the legend gives Person A. The Rising sign now fills in under the chart.
+- **BaZi:** pillar tap targets missed their pillars. The chart is also narrower and easier to read on a phone.
+- **Vedic chart:** the ayanamsa badge is no longer hidden under the (i) button.
+
 ## [4.32.0] — 2026-11-08
 
 ### Added
