@@ -9,6 +9,9 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- **Widget addresses change only when the widget does.** Each `ui://` resource URI now carries a hash of its widget's HTML instead of the package version, so a release that leaves a widget alone keeps its URI and hosts keep their cached copy. Older URIs still resolve.
+
 ## [4.33.0] — 2026-11-16
 
 ### Added
