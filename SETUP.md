@@ -131,7 +131,7 @@ Auth:        OAuth (no client ID or secret)
 ```
 
 The hosted server advertises a curated core surface by default (41 tools, every interactive
-chart included), so `?profile=core` is optional. Use `?profile=full` to advertise all 82 remotely
+chart included), so `?profile=core` is optional. Use `?profile=full` to advertise all 89 remotely
 listed tools.
 
 </details>
