@@ -286,7 +286,7 @@ This plugin sends computation requests to the Open Ephemeris API (`api.openephem
 
 - **What's collected:** Birth dates, times, and coordinates submitted in computation requests
 - **How it's used:** To compute astronomical positions and return results. That's it.
-- **Third-party sharing:** No birth data, coordinates, names, or tool arguments are ever shared or sold. The `@openephemeris/mcp-server` package does send anonymous usage telemetry (tool name, duration, error status, client name) to `us.i.posthog.com` on each call — opt out with `OPENEPHEMERIS_TELEMETRY=false` or `DO_NOT_TRACK=1`.
+- **Third-party sharing:** No birth data, coordinates, names, or tool argument values are ever shared or sold. The `@openephemeris/mcp-server` package does send anonymous usage telemetry (tool name, duration, error status, client name, and the names, never the values, of the options set) to `us.i.posthog.com` on each call — opt out with `OPENEPHEMERIS_TELEMETRY=false` or `DO_NOT_TRACK=1`.
 - **Retention:** Request data is not stored after computation. Usage counts are tracked for billing.
 
 Full privacy policy: [openephemeris.com/privacy](https://openephemeris.com/privacy)

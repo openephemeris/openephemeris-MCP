@@ -9,7 +9,17 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.34.0] — 2026-11-20
+
+### Added
+- **`find_calculation` shows what each match returns.** Every match lists its response fields, says whether it takes `format=llm`, and names a cheaper route where one exists. Asking for positions "every day" or "an ephemeris table" now leads to one positions-over-a-range call instead of one call per day.
+- **Compact output for planet positions over a date range.** `/ephemeris/positions-range` takes `precision` (0–6 decimals), `retrograde_format: intervals`, and `format=llm` (2 decimals, retrograde periods as start/end dates, speed only when you ask for it). Defaults and price are unchanged.
+- **Clearer errors from `dev_read_api` and `dev_write_api`.** A rejected request now lists the required fields, the expected shape and an example body.
+
 ### Changed
+- **Usage telemetry records the shape of a call, never its contents.** Tool events now include the argument names used (not their values) and, for the two API gateway tools, which documented endpoint and output format were called. See the privacy policy.
+- **Updated the MCP SDK and MCP Apps libraries** to their latest 1.x releases.
+- **Shorter date and time instructions** for models, with every rule kept.
 - **Widget addresses change only when the widget does.** Each `ui://` resource URI now carries a hash of its widget's HTML instead of the package version, so a release that leaves a widget alone keeps its URI and hosts keep their cached copy. Older URIs still resolve.
 
 ## [4.33.0] — 2026-11-16

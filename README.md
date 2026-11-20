@@ -271,9 +271,9 @@ Legacy aliases (`ASTROMCP_*`, `MERIDIAN_*`) remain supported.
 
 This server reports anonymous usage so we know which tools are worth maintaining and which are broken. Three events: session start, tool call, tool error.
 
-**What is sent:** the tool name, how long it took, error status, which MCP client connected (e.g. Claude Desktop, Cursor) and its version, the server version, and a stable id for the session: a one-way SHA-256 prefix of your API key, or your account ID when you sign in with OAuth.
+**What is sent:** the tool name, how long it took, error status, the names of the tool's own options you set (e.g. `datetime,timezone`, never their values), for the two general API tools which listed endpoint and output format were used, which MCP client connected (e.g. Claude Desktop, Cursor) and its version, the server version, and a stable id for the session: a one-way SHA-256 prefix of your API key, or your account ID when you sign in with OAuth.
 
-**What is never sent:** your API key or token, birth data, dates, names, coordinates, tool arguments, or tool results. No request or response bodies, ever.
+**What is never sent:** your API key or token, birth data, dates, names, coordinates, the values of any tool argument, or tool results. No request or response bodies, ever.
 
 **To turn it off** — either works, checked before anything is sent:
 
