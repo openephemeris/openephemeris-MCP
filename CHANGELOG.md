@@ -9,6 +9,17 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.35.0] — 2026-11-21
+
+### Added
+- **Planet positions as a table in one call.** `ephemeris_planet_position` takes `end_datetime` (with optional `step` and `planet_ids`) and returns every position from `datetime` to `end_datetime`, up to 31 days and 25 bodies, as one compact table. A month of daily positions for 10 bodies costs 1 credit instead of one credit per date. Works in every host, ChatGPT included.
+
+### Fixed
+- **`ephemeris_transits` no longer charges for a search your plan can't run.** A date range longer than the plan allows used to cost 1 credit for the natal chart before the search was refused. It is now checked first and refused with nothing charged, with how to split it into shorter windows.
+- **`ephemeris_transits` refuses an unsupported aspect angle with `sort=significance` before charging**, for the same reason.
+- **Error messages in ChatGPT and Codex no longer mention plan prices.**
+- **Timeouts and a few local errors now carry an error code**, so they can be told apart.
+
 ## [4.34.0] — 2026-11-20
 
 ### Added
