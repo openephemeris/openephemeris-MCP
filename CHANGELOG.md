@@ -9,6 +9,12 @@ Version numbering follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **`sky_eclipse` shows the path of totality on a map.** For a total or annular solar eclipse the result carries the path across the Earth (its centre line with times, and its northern and southern edges) and how far the place is from it, and the eclipse widget draws it on a world map with the place marked. The path agrees with NASA's published paths to about 1 km.
+
+### Fixed
+- **Eclipse coverage was about half the true figure.** "Sun covered" for a partial solar eclipse used a formula that counted half the overlap: Denver on 2024-04-08 read 32% where it was 65%. It now uses the Moon's and Sun's real apparent sizes.
+
 ## [4.35.0] — 2026-11-21
 
 ### Added
